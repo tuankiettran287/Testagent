@@ -15,4 +15,5 @@ playwright/.auth/
 test-results/
 playwright-report/
 output/aoce/
+output/playwright/
 

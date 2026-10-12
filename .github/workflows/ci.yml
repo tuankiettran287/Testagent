@@ -81,7 +81,7 @@ jobs:
           retention-days: 7
 
   agent_cases:
-    name: Execute generated agent test cases
+    name: Playwright agent cases and HTML report
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     env:
@@ -104,37 +104,24 @@ jobs:
           python -m pip install -r requirements-ci.lock
           npm ci --prefix browser_runner
           npm run build --prefix browser_runner
+          npm run typecheck:agent --prefix browser_runner
       - name: Install Chromium and system dependencies
         working-directory: browser_runner
         run: npx playwright install --with-deps chromium
-      - name: Execute reviewed agent functional cases with generated data
+      - name: Execute agent cases with Playwright Test
+        working-directory: browser_runner
+        run: npm run test:agent
+      - name: Verify Playwright results and publish case summary
+        if: ${{ always() }}
         env:
           DATA_DIR: ${{ runner.temp }}/agent-functional-data
           IMPORT_ROOT: ${{ runner.temp }}/agent-functional-imports
-        run: python -m scripts.ci_agent_cases
-      - name: Record blocked case execution if setup failed
-        if: ${{ always() }}
-        run: |
-          python - <<'PY'
-          import json, os
-          from pathlib import Path
-          path = Path('output/aoce/agent-cases/manifest.json')
-          if not path.exists():
-              path.parent.mkdir(parents=True, exist_ok=True)
-              path.write_text(json.dumps({
-                  'outcome': 'BLOCKED', 'selected': 30, 'executed': 0,
-                  'code_revision': os.getenv('GITHUB_SHA'),
-                  'run_id': os.getenv('GITHUB_RUN_ID'),
-                  'attempt_id': os.getenv('GITHUB_RUN_ATTEMPT'),
-                  'workspace_data_imported': False,
-                  'reason': 'Setup/build failed before the agent case runner started.'
-              }, indent=2))
-          PY
-      - name: Upload individual agent case results and browser evidence
+        run: python -m scripts.verify_playwright_report
+      - name: Upload Playwright HTML report and per-case evidence
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: agent-functional-cases-${{ github.run_id }}-${{ github.run_attempt }}
-          path: output/aoce/agent-cases/
+          name: playwright-report-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/playwright/agent-cases/
           if-no-files-found: error
           retention-days: 7

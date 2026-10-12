@@ -338,7 +338,7 @@ python -m scripts.ci_verify
 python -m scripts.benchmark_context
 ```
 
-CI còn có job riêng **Execute generated agent test cases**, thực thi [30 case chức năng được tạo mới](./tests/agent_function_cases.json): 19 chức năng agent, 8 tình huống lỗi/điều kiện chặn và 3 luồng nhập dữ liệu. Job tự tạo database/HTTP target/dữ liệu mẫu, không lấy dữ liệu có sẵn trong workspace. Kết quả từng ID xuất lên GitHub Actions summary và artifact `agent-functional-cases-<run>-<attempt>` kèm JUnit, API evidence và browser traces. Xem [hướng dẫn và giới hạn](./docs/agent-functional-ci.md).
+CI còn có job riêng **Playwright agent cases and HTML report**, dùng Playwright Test thực thi [30 case chức năng được tạo mới](./tests/agent_function_cases.json): 19 chức năng agent, 8 tình huống lỗi/điều kiện chặn và 3 luồng nhập dữ liệu. Job tự tạo database/HTTP target/dữ liệu mẫu, không lấy dữ liệu có sẵn trong workspace. Artifact `playwright-report-<run>-<attempt>` có HTML report gốc với từng case PASS/FAIL, JUnit/JSON, API evidence và browser traces; vẫn upload khi test fail. Tải artifact, giải nén và chạy `npx playwright show-report <thu-muc>/html`. Xem [hướng dẫn và giới hạn](./docs/agent-functional-ci.md).
 
 Kết quả nằm trong `output/aoce/` (không commit). Benchmark đo bytes trên ba snapshot synthetic mỗi cấu hình; không suy billed tokens/chi phí hoặc chất lượng model thật. Chưa bật scheduled/live-model CI; phiên đăng nhập AI local không tự có trên GitHub runner.
 

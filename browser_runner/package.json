@@ -6,7 +6,10 @@
   "engines": { "node": ">=20" },
   "scripts": {
     "build": "tsc -p tsconfig.json",
-    "browser:install": "playwright install chromium"
+    "browser:install": "playwright install chromium",
+    "test:agent": "playwright test --config playwright.agent.config.ts",
+    "typecheck:agent": "tsc -p tsconfig.agent.json",
+    "report:agent": "playwright show-report ../output/playwright/agent-cases/html"
   },
   "dependencies": {
     "@playwright/test": "1.58.0"
