@@ -1,6 +1,6 @@
 # Chạy test case chức năng agent trên CI
 
-Bộ [37 test case](../tests/agent_function_cases.json) gồm 30 case chức năng TestAgent và 7 case minh họa trạng thái report, được chia thành hai job Playwright độc lập, mỗi job có HTML report riêng. Mỗi case có ID ổn định, bước thực hiện và kỳ vọng. Không xuất hoặc nhập SQLite, project, test case, live-result hay phiên đăng nhập có sẵn trong workspace.
+Bộ [37 test case](../tests/agent_function_cases.json) gồm 30 case chức năng TestAgent và 7 case minh họa trạng thái report, được chia thành hai workflow GitHub Actions riêng biệt, mỗi workflow có run ID, trạng thái và HTML report riêng. Mỗi case có ID ổn định, bước thực hiện và kỳ vọng. Không xuất hoặc nhập SQLite, project, test case, live-result hay phiên đăng nhập có sẵn trong workspace.
 
 ## Phạm vi
 
@@ -19,23 +19,24 @@ Case repair bắt đầu từ một browser run **thất bại thật** trên lo
 
 ## GitHub Actions
 
-Workflow [ci.yml](../.github/workflows/ci.yml) có hai job Playwright và job build/regression:
+Hai file workflow tạo hai luồng CI độc lập trong GitHub Actions:
 
-1. `Build and regression checks`: build và chạy bộ regression hiện có.
-2. `Playwright - 30 functional cases`: `AGENT_TEST_SUITE=functional`, chỉ chạy 30 case AGENT-F/N/I, yêu cầu đủ 30 PASS.
-3. `Playwright - 7 status demo cases`: `AGENT_TEST_SUITE=status-demo`, chỉ chạy 7 case DEMO; dự kiến 1 PASS, 2 FAIL, 2 FLAKY, 2 SKIP.
+| Workflow | File | Phạm vi | Kết quả dự kiến |
+|---|---|---|---|
+| TestAgent CI - 30 functional cases | [ci.yml](../.github/workflows/ci.yml) | Job build/regression và job Playwright với `AGENT_TEST_SUITE=functional`, chỉ chạy 30 case AGENT-F/N/I | 30 PASS, workflow xanh |
+| TestAgent CI - 7 status demo cases | [ci-status-demo.yml](../.github/workflows/ci-status-demo.yml) | Job Playwright với `AGENT_TEST_SUITE=status-demo`, chỉ chạy 7 case DEMO | 1 PASS, 2 FAIL, 2 FLAKY, 2 SKIP, workflow đỏ |
 
-Các job độc lập và chạy trên cùng commit. Push nhánh `aoce/**` trigger workflow. Hai job Playwright đều cài runner/Chromium, typecheck và thực thi `npm run test:agent --prefix browser_runner`; cấu hình chọn file test theo `AGENT_TEST_SUITE` và từ chối giá trị suite không hợp lệ. Mỗi job dùng runner riêng, database/HTTP target mới và thư mục report riêng.
+Push nhánh `master`/`aoce/**` hoặc pull request trigger cả hai workflow trên cùng commit. Mỗi workflow cũng khai báo `workflow_dispatch`. Hai workflow có tên lượt chạy và concurrency group riêng, chạy độc lập, không chờ kết quả của nhau. Hai job Playwright đều cài runner/Chromium, typecheck và thực thi `npm run test:agent --prefix browser_runner`; cấu hình chọn file test theo `AGENT_TEST_SUITE` và từ chối giá trị suite không hợp lệ. Mỗi job dùng runner riêng, database/HTTP target mới và thư mục report riêng.
 
 Gate yêu cầu catalog có đủ mọi function trong registry, ID duy nhất, mọi scenario có implementation, bước và oracle không rỗng. Verifier nhận `--suite functional` hoặc `--suite status-demo`, chỉ yêu cầu các ID thuộc suite đó và từ chối ID của job còn lại. 30 case chức năng phải PASS đủ, không retry, skip hoặc expected-failure. Bảy case có `report_demo=true` được đối chiếu với trạng thái và lịch sử attempts đã khai báo, không đổi FAIL/FLAKY/SKIP thành PASS. Không có browser, thiếu case đã chọn, setup lỗi hoặc artifact thiếu đều không được coi là PASS.
 
-**Job 30 case dự kiến xanh; job 7 demo dự kiến đỏ do 2 case FAIL cố ý.** Workflow tổng vẫn đỏ khi job demo thất bại. Không dùng `continue-on-error`, `test.fail()` hoặc sửa exit code. Report chức năng có **30 PASS**; report demo có **1 PASS, 2 FAIL, 2 FLAKY, 2 SKIP** (5 case thực thi assertion và 2 case bị skip). Step đối chiếu report demo có thể thành công trong khi step chạy Playwright và job demo vẫn thất bại.
+**Workflow 30 case dự kiến xanh; workflow 7 demo dự kiến đỏ do 2 case FAIL cố ý.** Kết quả demo không thay đổi trạng thái lượt chạy của workflow 30 case. Không dùng `continue-on-error`, `test.fail()` hoặc sửa exit code. Report chức năng có **30 PASS**; report demo có **1 PASS, 2 FAIL, 2 FLAKY, 2 SKIP** (5 case thực thi assertion và 2 case bị skip). Step đối chiếu report demo có thể thành công trong khi step chạy Playwright và workflow demo vẫn thất bại.
 
 DEMO-FAIL01 cố ý mong HTTP 200 cho task không tồn tại, thực tế trả 404. DEMO-FAIL02 cố ý mong Offline sau refresh, thực tế là Healthy. Hai case flaky được phép đúng một retry: fixture lần đầu trả 503/Starting, lần retry trả 200/Healthy; assertion giữ nguyên ở cả hai attempts. Đây là mô phỏng có kiểm soát để xem report, không phải bằng chứng agent có lỗi flaky ngoài thực tế. Hai case skip ghi rõ thiếu credential live-provider và production mutation nằm ngoài phạm vi; không gọi provider hoặc ghi production.
 
-Mỗi job upload artifact riêng bằng `always()` cả khi test FAIL, giữ 7 ngày:
+Mỗi workflow upload artifact riêng bằng `always()` cả khi test FAIL, giữ 7 ngày:
 
-| Job | Artifact | Thư mục report |
+| Workflow | Artifact | Thư mục report |
 |---|---|---|
 | 30 case chức năng | `playwright-functional-report-<run-id>-<attempt>` | `output/playwright/agent-cases/` |
 | 7 case demo | `playwright-status-demo-report-<run-id>-<attempt>` | `output/playwright/status-demo/` |
@@ -58,6 +59,8 @@ npx playwright show-report <thu-muc-giai-nen>/html
 ```
 
 Mở URL mà lệnh in ra để lọc Passed/Failed hoặc xem chi tiết case. GitHub artifact không trực tiếp host HTML; tải và chạy `show-report` giúp xem cả attachments/trace. Nếu dependency/setup lỗi trước khi Playwright bắt đầu thì artifact ghi BLOCKED, không thể có HTML report của những case chưa chạy.
+
+Với luồng demo, tải artifact ngay trong lượt chạy đỏ của **TestAgent CI - 7 status demo cases**. Lọc **Failed** trong HTML report để xem DEMO-FAIL01 (kỳ vọng HTTP 200, thực tế 404) và DEMO-FAIL02 (kỳ vọng Offline, thực tế Healthy), kèm lỗi assertion và evidence. `summary.md` liệt kê trạng thái theo ID; `manifest.json` và `results.json` giữ chi tiết lỗi, lịch sử retry và lý do skip.
 
 ## Chạy local
 
