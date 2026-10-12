@@ -3,7 +3,7 @@ import { readFileSync } from 'node:fs';
 import path from 'node:path';
 import { performAction } from '../../src/runtime.js';
 
-type CaseDefinition = { id: string; title: string; function?: string; scenario?: string; steps: string[]; expected: string[] };
+type CaseDefinition = { id: string; title: string; function?: string; scenario?: string; steps: string[]; expected: string[]; report_demo?: boolean };
 const catalog: { cases: CaseDefinition[] } = JSON.parse(readFileSync(
   path.resolve(import.meta.dirname, '../../../tests/agent_function_cases.json'), 'utf8'));
 
@@ -225,7 +225,7 @@ const scenarios: Record<string, (api: AgentAPI, state: any, info: TestInfo) => P
   },
 };
 
-for (const definition of catalog.cases) {
+for (const definition of catalog.cases.filter(item => !item.report_demo)) {
   test(`${definition.id} ${definition.title}`, async ({ request, page }, info) => {
     const api = new AgentAPI(request);
     info.annotations.push({ type: 'case-id', description: definition.id });

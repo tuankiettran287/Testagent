@@ -14,7 +14,7 @@ from unittest.mock import patch
 
 import uvicorn
 from fastapi import HTTPException
-from fastapi.responses import Response
+from fastapi.responses import JSONResponse, Response
 
 from scripts.agent_function_cases import FunctionalChecks
 from scripts.ci_agent_cases import load_catalog
@@ -56,6 +56,13 @@ def main():
             data = {key: payload[key] for key in ('automation', 'api_request') if key in payload}
             case_id = checks.insert_case(payload['title'], payload['level'], **data)
             return {'id': case_id}
+
+        @api.app.get('/__fixture/demo-transient-health')
+        def demo_transient_health(attempt: int = 0):
+            return JSONResponse(status_code=503 if attempt == 0 else 200, content={
+                'status': 'starting' if attempt == 0 else 'healthy',
+                'attempt': attempt, 'controlled_status_demo': True,
+            })
 
         @api.app.post('/__fixture/parse-python')
         def parse_python(payload: dict):

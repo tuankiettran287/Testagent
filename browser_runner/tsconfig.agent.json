@@ -4,5 +4,5 @@
     "rootDir": ".",
     "noEmit": true
   },
-  "include": ["playwright.agent.config.ts", "tests/agent/**/*.ts"]
+  "include": ["playwright.agent.config.ts", "tests/agent/**/*.ts", "tests/status-demo/**/*.ts"]
 }

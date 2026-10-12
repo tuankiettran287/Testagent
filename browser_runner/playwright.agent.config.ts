@@ -9,7 +9,8 @@ const baseURL = `http://127.0.0.1:${process.env.AGENT_CI_PORT || '8766'}`;
 const data = path.join(tmpdir(), `testagent-playwright-${randomUUID()}`);
 
 export default defineConfig({
-  testDir: './tests/agent',
+  testDir: './tests',
+  testMatch: ['**/agent/*.spec.ts', '**/status-demo/*.spec.ts'],
   fullyParallel: false,
   workers: 1,
   retries: 0,
@@ -25,7 +26,8 @@ export default defineConfig({
     ['json', { outputFile: path.join(output, 'results.json') }],
     ['junit', { outputFile: path.join(output, 'junit.xml') }],
   ],
-  metadata: { dataOrigin: 'generated-fixtures-only', modelMode: 'fixture', workspaceDataImported: false },
+  metadata: { dataOrigin: 'generated-fixtures-only', modelMode: 'fixture', workspaceDataImported: false,
+    statusDemo: 'Includes deliberate FAIL, controlled FLAKY and declared SKIP cases' },
   use: {
     baseURL, browserName: 'chromium', headless: true,
     trace: 'retain-on-failure', screenshot: 'only-on-failure', video: 'retain-on-failure',

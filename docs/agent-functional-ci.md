@@ -1,6 +1,6 @@
 # Chạy test case chức năng agent trên CI
 
-Bộ [30 test case](../tests/agent_function_cases.json) được tạo riêng để kiểm tra TestAgent. Mỗi case có ID ổn định, bước thực hiện và kỳ vọng. Không xuất hoặc nhập SQLite, project, test case, live-result hay phiên đăng nhập có sẵn trong workspace.
+Bộ [37 test case](../tests/agent_function_cases.json) gồm 30 case chức năng TestAgent và 7 case minh họa trạng thái report, chạy chung một job CI và một HTML report. Mỗi case có ID ổn định, bước thực hiện và kỳ vọng. Không xuất hoặc nhập SQLite, project, test case, live-result hay phiên đăng nhập có sẵn trong workspace.
 
 ## Phạm vi
 
@@ -9,6 +9,7 @@ Bộ [30 test case](../tests/agent_function_cases.json) được tạo riêng đ
 | Chức năng | AGENT-F01–F19 | Toàn bộ 19 chức năng trong registry: điều phối, sinh case, UI automation, builder, review, execution, repair, đọc repo, report, requirements, plan, unit, API, defect, regression, performance, security, exploratory, test data |
 | Điều kiện chặn/lỗi | AGENT-N01–N08 | Case thủ công, cross-origin, case sai project, assertion thất bại, giao lại run ID, model output sai schema, generate-only, thiếu source |
 | Nhập dữ liệu | AGENT-I01–I03 | Sinh document, repository ZIP và OpenAPI trong bộ nhớ, upload và xác minh indexing/retrieval |
+| Trạng thái report | DEMO-PASS01, DEMO-FAIL01–02, DEMO-FLAKY01–02, DEMO-SKIP01–02 | 1 PASS đối chiếu, 2 FAIL có chủ đích, 2 FLAKY được kiểm soát và 2 SKIP có lý do |
 
 Playwright Test tạo và chạy riêng từng ID trong catalog. `webServer` khởi động API FastAPI thật trên loopback, với database tạm mới, code và yêu cầu tự sinh. Các case dùng Playwright APIRequestContext để gọi HTTP thật tới API agent; task controller, SQLite, validator và HTTP request tới target dùng code thật. Ba case UI/builder/repair còn chạy lại DSL được tạo bằng Playwright Chromium, có assertion trên kết quả Healthy. Bộ case dùng chung môi trường do chính lượt chạy tạo và xóa môi trường đó khi kết thúc. Không đọc dữ liệu ứng dụng của người dùng.
 
@@ -21,11 +22,15 @@ Case repair bắt đầu từ một browser run **thất bại thật** trên lo
 Workflow [ci.yml](../.github/workflows/ci.yml) có hai job:
 
 1. `Build and regression checks`: build và chạy bộ regression hiện có.
-2. `Playwright agent cases and HTML report`: cài runner/Chromium, typecheck và **thực thi** 30 case qua `npm run test:agent --prefix browser_runner`.
+2. `Playwright agent cases and HTML report`: cài runner/Chromium, typecheck và **chạy chung 37 case** qua `npm run test:agent --prefix browser_runner`.
 
 Job case không phụ thuộc kết quả job regression, nên cả hai có thể chạy trên cùng commit. Push nhánh `aoce/**` trigger workflow. Mỗi job dùng runner riêng và thư mục dữ liệu mới ở `runner.temp`.
 
-Gate yêu cầu catalog có đủ mọi function trong registry, ID duy nhất, mọi scenario có implementation, bước và oracle không rỗng. Phải thực thi đủ 30 case, không FAIL/ERROR/SKIP/expected-failure và có đủ file evidence. Không retry tự động hoặc sinh lại case bằng AI trong CI. Không có browser, thiếu case, setup lỗi hoặc artifact thiếu đều không được coi là PASS.
+Gate yêu cầu catalog có đủ mọi function trong registry, ID duy nhất, mọi scenario có implementation, bước và oracle không rỗng. 30 case chức năng vẫn phải PASS đủ, không retry, skip hoặc expected-failure. Bảy case có `report_demo=true` được đối chiếu riêng với trạng thái và lịch sử attempts đã khai báo, không đổi FAIL/FLAKY/SKIP thành PASS. Không có browser, thiếu case, setup lỗi hoặc artifact thiếu đều không được coi là PASS.
+
+**Workflow hiện tại dự kiến đỏ do 2 case FAIL cố ý.** Không dùng `continue-on-error`, `test.fail()` hoặc sửa exit code. Nếu đúng các trạng thái demo, Playwright report có **31 PASS, 2 FAIL, 2 FLAKY, 2 SKIP**; 35 case có thực thi assertion và 2 case bị skip. Step đối chiếu report có thể thành công trong khi step chạy Playwright và job vẫn thất bại.
+
+DEMO-FAIL01 cố ý mong HTTP 200 cho task không tồn tại, thực tế trả 404. DEMO-FAIL02 cố ý mong Offline sau refresh, thực tế là Healthy. Hai case flaky được phép đúng một retry: fixture lần đầu trả 503/Starting, lần retry trả 200/Healthy; assertion giữ nguyên ở cả hai attempts. Đây là mô phỏng có kiểm soát để xem report, không phải bằng chứng agent có lỗi flaky ngoài thực tế. Hai case skip ghi rõ thiếu credential live-provider và production mutation nằm ngoài phạm vi; không gọi provider hoặc ghi production.
 
 Artifact `playwright-report-<run-id>-<attempt>` giữ 7 ngày và được upload bằng `always()` cả khi test FAIL:
 
@@ -36,7 +41,7 @@ Artifact `playwright-report-<run-id>-<attempt>` giữ 7 ngày và được uploa
 - `test-results/`: trace, screenshot và video của Playwright khi case thất bại; response và case definition được đính kèm trong HTML report.
 - `browser/`: run/results của target synthetic, generated specs, screenshot, trace và video do runner xuất.
 
-Manifest ghi rõ `workspace_data_imported=false`, `model_mode=fixture`, `actual_provider_calls=0`. Lỗi setup trước khi runner bắt đầu được ghi BLOCKED với executed=0. Cleanup/evidence validation lỗi làm run thất bại kể cả khi assertion đã pass.
+Manifest ghi rõ `workspace_data_imported=false`, `model_mode=fixture`, `actual_provider_calls=0`, số flaky, trạng thái từng attempt, `functional_outcome` của 30 case gốc và `demo_outcomes_match`. Lỗi setup trước khi runner bắt đầu được ghi BLOCKED với executed=0. Cleanup/evidence validation lỗi làm run thất bại kể cả khi assertion đã pass.
 
 Trong GitHub Actions, mở run → **Artifacts** → tải `playwright-report-...` → giải nén. Chạy:
 
@@ -58,4 +63,4 @@ npm run report:agent --prefix browser_runner
 
 Kết quả nằm trong `output/playwright/agent-cases/`, không commit. Playwright tự cấp thư mục DATA_DIR/IMPORT_ROOT trong hệ thống tạm cho fixture, không tái sử dụng server đã có. Runner Python cũ `scripts.ci_agent_cases` vẫn có thể chạy riêng để chẩn đoán, CI job chức năng dùng Playwright Test.
 
-Các test gate chạy bằng `python -m unittest discover -s tests -p test_playwright_report.py -v` và `python -m unittest discover -s tests -p test_ci_agent_cases.py -v`. Gate đọc kết quả execution gốc của Playwright và từ chối thiếu case, skip, expected-failure, retry hoặc ID trùng. Không chuyển kết quả unittest cũ thành Playwright report.
+Các test gate chạy bằng `python -m unittest discover -s tests -p test_playwright_report.py -v` và `python -m unittest discover -s tests -p test_ci_agent_cases.py -v`. Gate đọc execution gốc của Playwright, từ chối thiếu case/ID trùng; chỉ cho phép retry/skip ở các demo đã khai báo. Không chuyển kết quả unittest cũ thành Playwright report. Runner Python chẩn đoán chỉ chạy 30 case chức năng, không chạy các case demo.

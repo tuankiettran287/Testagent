@@ -64,6 +64,12 @@ def load_catalog():
     for case in cases:
         if not case.get('steps') or not case.get('expected') or not case.get('title'):
             raise ValueError(f"Incomplete reviewed case: {case['id']}")
+        if case.get('report_demo'):
+            if ('function' in case or 'scenario' in case
+                or case.get('expected_report_status') not in {'PASS', 'FAIL', 'FLAKY', 'SKIPPED'}
+                or not case.get('expected_attempts')):
+                raise ValueError(f"Invalid report demo case: {case['id']}")
+            continue
         if ('function' in case) == ('scenario' in case):
             raise ValueError('Select exactly one function or contract scenario per case')
     return catalog
@@ -73,7 +79,7 @@ def write_summary(path, report):
     lines = ['## Agent functional test cases', '',
              f"**{report['outcome']}**: {report['executed']}/{report['selected']} executed; "
              f"{report.get('passed', 0)} passed; {report.get('failures', 0)} failures; "
-             f"{report.get('errors', 0)} errors; {report.get('skipped', 0)} skipped.", '',
+             f"{report.get('flaky', 0)} flaky; {report.get('errors', 0)} errors; {report.get('skipped', 0)} skipped.", '',
              'Data is generated in a new temporary database. AI responses are fixtures; '
              'Chromium and HTTP execution are real. No workspace database, stored cases, '
              'live results or AI session is imported.', '',
@@ -115,7 +121,7 @@ def main():
         report['working_tree_dirty'] = bool(git_output('status', '--porcelain'))
         report['catalog_sha256'] = hashlib.sha256(CATALOG.read_bytes()).hexdigest()
         catalog = load_catalog()
-        definitions = catalog['cases']
+        definitions = [case for case in catalog['cases'] if not case.get('report_demo')]
         report['selected'] = len(definitions)
         report['function_coverage'] = sorted(case['function'] for case in definitions if 'function' in case)
         (args.output / 'catalog.json').write_text(json.dumps(catalog, ensure_ascii=False, indent=2), encoding='utf-8')

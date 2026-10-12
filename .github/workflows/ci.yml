@@ -108,7 +108,7 @@ jobs:
       - name: Install Chromium and system dependencies
         working-directory: browser_runner
         run: npx playwright install --with-deps chromium
-      - name: Execute agent cases with Playwright Test
+      - name: Execute 37 Playwright cases (includes intentional FAIL, FLAKY and SKIP demos)
         working-directory: browser_runner
         run: npm run test:agent
       - name: Verify Playwright results and publish case summary
