@@ -77,23 +77,38 @@ export async function inspectUi(baseUrl: string, path: string) {
   }
 }
 
-export async function performAction(page: Page, baseUrl: string, action: BrowserAction) {
-  if (action.action === 'navigate') {
-    await page.goto(checkedUrl(baseUrl, action.url!), { waitUntil: 'domcontentloaded', timeout: 30_000 });
-  } else if (action.action === 'assert_url') {
-    await expect(page).toHaveURL(checkedUrl(baseUrl, action.url!));
-  } else {
-    const locator = resolveLocator(page, action.target!);
-    // Never silently select the first match or force a click on the wrong control.
-    await expect(locator, `Locator must identify exactly one element: ${locatorExpression(action.target!)}`).toHaveCount(1, { timeout: 10_000 });
-    if (action.action === 'fill') await locator.fill(action.value!);
-    else if (action.action === 'click') await locator.click();
-    else if (action.action === 'check') await locator.check();
-    else if (action.action === 'select') await locator.selectOption(action.value!);
-    else if (action.action === 'assert_visible') await expect(locator).toBeVisible();
-    else if (action.action === 'assert_text') await expect(locator).toContainText(action.value!);
+export class ActionExecutionError extends Error {
+  constructor(message: string, readonly mutationOutcome: 'unknown' | 'not_started' | 'not_applicable', name = 'Error') {
+    super(message);
+    this.name = name;
   }
-  checkedUrl(baseUrl, page.url());
+}
+
+export async function performAction(page: Page, baseUrl: string, action: BrowserAction) {
+  const mutates = ['fill', 'click', 'check', 'select'].includes(action.action);
+  let dispatched = false;
+  try {
+    if (action.action === 'navigate') {
+      await page.goto(checkedUrl(baseUrl, action.url!), { waitUntil: 'domcontentloaded', timeout: 30_000 });
+    } else if (action.action === 'assert_url') {
+      await expect(page).toHaveURL(checkedUrl(baseUrl, action.url!));
+    } else {
+      const locator = resolveLocator(page, action.target!);
+      // Never silently select the first match or force a click on the wrong control.
+      await expect(locator, `Locator must identify exactly one element: ${locatorExpression(action.target!)}`).toHaveCount(1, { timeout: 10_000 });
+      if (mutates) dispatched = true;
+      if (action.action === 'fill') await locator.fill(action.value!);
+      else if (action.action === 'click') await locator.click();
+      else if (action.action === 'check') await locator.check();
+      else if (action.action === 'select') await locator.selectOption(action.value!);
+      else if (action.action === 'assert_visible') await expect(locator).toBeVisible();
+      else if (action.action === 'assert_text') await expect(locator).toContainText(action.value!);
+    }
+    checkedUrl(baseUrl, page.url());
+  } catch (error) {
+    throw new ActionExecutionError(errorMessage(error), mutates ? (dispatched ? 'unknown' : 'not_started') : 'not_applicable',
+                                   error instanceof Error ? error.name : 'Error');
+  }
 }
 
 export async function executeBrowserCase(

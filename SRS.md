@@ -145,7 +145,7 @@ Triển khai: [skills.py](./testagent/skills.py), [planner.py](./testagent/plann
 
 Nhận snapshot, để LLM quyết định actions, xác thực DSL, thực thi rồi nhận observation mới. Reset browser giữa independent scenarios. Thiếu input thiết yếu có blocked_reason.
 
-Nghiệm thu: decision không trộn actions với done/block/reset; tối đa 8 decisions, 6 actions/decision; tổng 3 failed groups dừng; last_error chưa giải quyết không được done thành công.
+Nghiệm thu: decision không trộn actions với done/block/reset; tối đa 8 decisions, 6 actions/decision; chỉ một recovery cho lỗi read/pre-action đã xác nhận chưa ghi. Write outcome unknown hoặc mất transport sau mutation chuyển NEEDS_INPUT để reconcile owned records, không retry/reset để ghi lại. Controller ngừng phát lệnh mới khi hết UI_TIMEOUT_SECONDS (tối đa 1200 giây); lời gọi đang chạy còn chịu timeout riêng của provider/runner. last_error chưa giải quyết không được done thành công.
 
 Triển khai: [ui_agent.py](./testagent/ui_agent.py), [browser_bridge.py](./testagent/browser_bridge.py), [session.ts](./browser_runner/src/session.ts).
 
@@ -218,7 +218,7 @@ Triển khai: [subagents.py](./testagent/subagents.py), [orchestrator.py](./test
 | Case generation | Hướng dẫn 1–12 new cases; schema 1–20 cases |
 | Selected builder / suite | Tối đa 20 / 1–30 IDs |
 | Action count | DSL 1–50/case; BrowserDecision tối đa 6 |
-| Browser exploration | Tối đa 8 decisions; 3 failed action groups tổng cộng |
+| Browser exploration | Tối đa 8 decisions; 1 read/pre-action recovery; unknown write dừng; admission budget tối đa 1200 giây |
 | Parallel workers | 1–4; default request 3 |
 | Analysis | summary tối thiểu 10 ký tự; tối đa 20 findings và 20 recommendations |
 | Upload document/OpenAPI | 8 MiB |

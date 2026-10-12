@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import re
 from dataclasses import dataclass, field
 
@@ -12,6 +13,7 @@ from .automation import checked_url
 from .browser_bridge import BrowserRunnerError, invoke_browser
 from .knowledge import coverage, retrieve
 from .llm import complete_json
+from .context import content_hash
 from .orchestrator import AgentOrchestrator, RoutedTask, RoutedSubTask
 from .schemas import AgentAnalysis, GeneratedPlan
 from .skills import AgentSkill, compose_skill, compose_sub_agent, get_skill, skill_files
@@ -94,7 +96,7 @@ def _source_context(project_id: str, prompt: str, skill: AgentSkill) -> tuple[di
     source_ids = {row["source_id"] for row in rows}
     return {
         "sources": [
-            {"source_id": row["source_id"], "name": row["name"], "kind": row["kind"], "content": row["content"][:2000]}
+            {"source_id": row["source_id"], "name": row["name"], "kind": row["kind"], "content": row["content"]}
             for row in rows
         ]
     }, source_ids
@@ -266,7 +268,8 @@ def _run_ui_task(task_id: str, project_id: str, project: dict, prompt: str, skil
     evidence['website'] = {'url': _website_target(project, prompt)}
     try:
         exploration = explore_website(project, prompt, evidence, complete=complete_json,
-                                      provider=provider, model=model, effort=effort, progress=progress, skill_id=skill.id)
+                                      provider=provider, model=model, effort=effort, progress=progress, skill_id=skill.id,
+                                      task_id=task_id)
         progress('GENERATING', 'Đang hoàn thiện kịch bản và assertion từ các trang đã quan sát.', exploration['scenarios'], exploration['activity'])
         request = {'request': prompt, 'function': skill.id, 'project': project,
                    'evidence': {**evidence, 'browser_journey': exploration}}
@@ -287,6 +290,9 @@ the original purpose and expected results. Never weaken/delete assertions to mak
         originals = evidence.get('test_cases')
         summary = _store_test_cases(task_id, project_id, skill, payload, valid_ids, finish=False, originals=originals)
         summary.update(workflow='ui_automation', scenarios=exploration['scenarios'], activity=exploration['activity'], skills=exploration['skills'])
+        summary['context_manifest'] = {**exploration['context_manifest'], 'final_generation': {
+            'prompt_sha256': hashlib.sha256(instructions.encode('utf-8')).hexdigest(),
+            'request_sha256': content_hash(request), 'instruction_files': skill_files(skill.id)}}
         summary['skills'] = list(dict.fromkeys([*skill_files(skill.id), *summary['skills']]))
         summary['manual_count'] = summary['case_count'] - len(summary['executable_ids'])
         if execution_mode == 'generate':

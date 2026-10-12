@@ -2,12 +2,15 @@
 from __future__ import annotations
 
 import json
+from datetime import datetime, timezone
+from time import monotonic
 from typing import Callable
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 from .automation import checked_url, validate_automation
 from .browser_bridge import BrowserRunnerError, BrowserSession
+from .context import compact_observation, content_hash, context_manifest
 from .schemas import Automation, BrowserAction, GeneratedPlan
 from .skills import compose_skill, skill_files
 
@@ -51,6 +54,8 @@ return done:true, actions:[], and a factual summary. A login request requires su
 the result, not just checking that inputs exist. If the next page is unknown, submit the form, then read the next snapshot.
 Choose locators from suggested_target when possible. Do not guess routes or future screen text.
 If an action fails, repair from the returned observation. Do not bypass assertions or declare success after a failure.
+Unknown mutation outcomes require stopping for owned-record reconciliation; never repeat the write.
+Only one recovery of a confirmed pre-action/read failure is allowed, within the total time budget.
 Never buy, delete, send messages, or perform unrelated operations. Remain on the project origin.
 An exploration is evidence for building the final tests; it is not itself a passing test result.
 For multiple independent scenarios, reset_browser:true with actions:[] opens a clean browser state
@@ -65,18 +70,29 @@ fresh session again. Use the activity history to track which scenarios have alre
 
 
 def compact_snapshot(snapshot: dict) -> dict:
-    return {key: snapshot.get(key) for key in ('url', 'title', 'text', 'aria_snapshot', 'elements', 'http_status')}
+    return compact_observation(snapshot)
 
 
 def explore_website(project: dict, prompt: str, evidence: dict, *, complete: Callable,
-                    provider: str | None, model: str | None, effort: str | None, progress: Callable, skill_id: str = 'ui_automation') -> dict:
+                    provider: str | None, model: str | None, effort: str | None, progress: Callable,
+                    skill_id: str = 'ui_automation', task_id: str | None = None) -> dict:
+    from .config import settings
     if project['environment'] == 'production':
-        from .config import settings
         if not settings.allow_production_execution:
             raise ValueError('Execution in production is disabled')
     target = evidence.get('website', {}).get('url') or project['base_url']
     checked_url(project['base_url'], target)
     instructions = compose_skill(skill_id, phase='exploration') + '\n' + DECISION_SYSTEM
+    manifest = context_manifest(instructions, evidence, task_id=task_id, role=skill_id,
+                                environment=project['environment'])
+    deadline = monotonic() + settings.ui_timeout
+
+    def remaining_timeout(limit: int) -> float:
+        remaining = deadline - monotonic()
+        if remaining <= 0:
+            raise BrowserRunnerError('Agent total wall-time budget exhausted; no further actions allowed')
+        return min(limit, remaining)
+
     observations, performed, scenarios, activity = [], [{'action': 'navigate', 'url': target}], [], []
     last_error = None
     session_actions = list(performed)
@@ -86,6 +102,7 @@ def explore_website(project: dict, prompt: str, evidence: dict, *, complete: Cal
     with BrowserSession(project['base_url'], target) as session:
         snapshot = session.initial['snapshot']
         for turn in range(8):
+            remaining_timeout(100)
             observations.append(compact_snapshot(snapshot))
             progress('PLANNING' if turn == 0 else 'EXPLORING', 'Đang lên kịch bản từ trang thực tế.' if turn == 0 else 'Đang quan sát kết quả thao tác.', scenarios, activity)
             request = {
@@ -96,9 +113,13 @@ def explore_website(project: dict, prompt: str, evidence: dict, *, complete: Cal
                 'current_session_actions': session_actions, 'activity': activity,
                 'browser_state': {'resets': resets, 'last_command_result': last_result, 'fresh': len(session_actions) == 1},
                 'last_error': last_error, 'remaining_turns': 8 - turn,
+                'context_manifest': {**manifest, 'turn': turn + 1,
+                                     'observed_at': datetime.now(timezone.utc).isoformat(),
+                                     'observation_sha256': content_hash(compact_snapshot(snapshot))},
             }
             decision = BrowserDecision.model_validate(complete(instructions,
                                                        json.dumps(request, ensure_ascii=False), provider, model, effort))
+            remaining_timeout(100)
             scenarios = scenarios or decision.scenarios
             activity.append({'message': decision.summary, 'url': snapshot['url']})
             progress('EXPLORING', decision.summary, scenarios, activity)
@@ -106,7 +127,7 @@ def explore_website(project: dict, prompt: str, evidence: dict, *, complete: Cal
                 if last_result.get('command') == 'reset' and len(session_actions) == 1:
                     last_error = 'Reset already completed. The current browser session is clean. Perform the remaining scenario on this page instead of resetting again.'
                     continue
-                result = session.request({'command': 'reset'}, timeout=50)
+                result = session.request({'command': 'reset'}, timeout=remaining_timeout(50))
                 if not result.get('snapshot'):
                     raise BrowserRunnerError(result.get('error') or 'Browser did not reset')
                 snapshot = result['snapshot']
@@ -124,20 +145,32 @@ def explore_website(project: dict, prompt: str, evidence: dict, *, complete: Cal
                 if last_error:
                     raise BrowserRunnerError('The browser journey ended with an unresolved action failure: ' + last_error)
                 return {'observations': observations, 'performed_actions': performed, 'scenarios': scenarios,
-                        'activity': activity, 'summary': decision.summary, 'skills': skill_files(skill_id, phase='exploration')}
+                        'activity': activity, 'summary': decision.summary, 'skills': skill_files(skill_id, phase='exploration'),
+                        'context_manifest': manifest}
             automation = Automation(actions=decision.actions)
             validate_automation(automation, project['base_url'])
-            result = session.request({'command': 'act', 'automation': automation.model_dump(exclude_none=True)}, timeout=100)
+            action_timeout = remaining_timeout(100)
+            try:
+                result = session.request({'command': 'act', 'automation': automation.model_dump(exclude_none=True)}, timeout=action_timeout)
+            except (TimeoutError, BrowserRunnerError, OSError) as exc:
+                if any(action.action in {'click', 'fill', 'check', 'select'} for action in decision.actions):
+                    raise UiNeedsInput('UNKNOWN write outcome: browser transport lost; reconcile owned records before a new run. ' + str(exc)) from exc
+                raise
             performed.extend(result.get('performed', []))
             session_actions.extend(result.get('performed', []))
             last_result = {'command': 'act', 'status': 'failed' if result.get('error') else 'completed', 'performed': result.get('performed', [])}
             last_error = result.get('error')
             snapshot = result.get('snapshot') or snapshot
             if last_error:
+                # Missing runner metadata is uncertain, never proof that a write did not occur.
+                if (result.get('mutation_outcome') == 'unknown' or
+                    (result.get('mutation_outcome') is None and
+                     any(action.action in {'click', 'fill', 'check', 'select'} for action in decision.actions))):
+                    raise UiNeedsInput('UNKNOWN write outcome: stop mutating actions and reconcile owned records before a new run. ' + last_error)
                 failures += 1
                 activity.append({'message': 'Thao tác chưa thành công: ' + last_error[:250], 'url': snapshot['url']})
-                if failures >= 3:
-                    raise BrowserRunnerError('Không thể hoàn tất thao tác sau ba lần thử: ' + last_error)
+                if failures > 1:
+                    raise BrowserRunnerError('Read/pre-action recovery budget exhausted: ' + last_error)
     raise BrowserRunnerError('Agent đã hết lượt quan sát trước khi hoàn tất mục tiêu. Hãy thu hẹp kịch bản test.')
 
 

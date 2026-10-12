@@ -1,4 +1,6 @@
 .env
+.env.*
+!.env.example
 __pycache__/
 *.py[cod]
 .pytest_cache/
@@ -9,4 +11,9 @@ web/dist/
 browser_runner/node_modules/
 browser_runner/dist/
 *.tsbuildinfo
+playwright/.auth/
+test-results/
+playwright-report/
+output/aoce/
+output/playwright/
 

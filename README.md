@@ -325,6 +325,23 @@ Run và task cha được nhận bằng cập nhật SQLite có điều kiện t
 
 Khi sửa browser_runner/src cần build lại runner. Build frontend không build runner và không khởi động server.
 
+## Agent Optimization và GitHub Actions
+
+Thay đổi theo hai tài liệu AOCE được mô tả trong [docs/agent-optimization.md](./docs/agent-optimization.md). Context browser bỏ thuộc tính rỗng và locator expression có thể dựng lại, giữ nguyên text/ARIA, scope và oracle. Prompt/context có version/hash; unknown write dừng để reconcile, chỉ một recovery cho lỗi read/pre-action.
+
+GitHub Actions chạy khi push `master`/`aoce/**`, pull request hoặc workflow dispatch. CI cài dependency đã khóa, build runner/frontend và chạy toàn bộ unittest với Chromium/HTTP thật trên app fixture cục bộ. Model responses là fixture; CI không cần phiên đăng nhập AI. Không có test, thiếu browser, test fail hoặc skip đều làm CI thất bại. Evidence artifact giữ 7 ngày, gồm manifest/revision, JUnit, log, benchmark và trace/video của status portal synthetic.
+
+Chạy cùng verification ở máy local sau khi build runner/cài Chromium:
+
+```powershell
+python -m scripts.ci_verify
+python -m scripts.benchmark_context
+```
+
+CI chia [37 case](./tests/agent_function_cases.json) thành **hai workflow GitHub Actions riêng biệt**: [TestAgent CI - 30 functional cases](./.github/workflows/ci.yml) chạy 30 case chức năng cùng build/regression; [TestAgent CI - 7 status demo cases](./.github/workflows/ci-status-demo.yml) chạy 7 demo, dự kiến có 1 PASS, 2 FAIL, 2 FLAKY, 2 SKIP. Mỗi workflow có run ID và trạng thái riêng; hai FAIL cố ý chỉ làm workflow demo đỏ. Chỉ hai demo flaky được retry một lần. Mỗi luồng tự tạo database/HTTP target/dữ liệu mẫu, không lấy data workspace, và xuất HTML report riêng: `playwright-functional-report-<run>-<attempt>` hoặc `playwright-status-demo-report-<run>-<attempt>`. Artifact vẫn upload khi fail, có ID từng case lỗi, chi tiết assertion, JUnit/JSON, API evidence và browser traces. Tải, giải nén rồi chạy `npx playwright show-report <thu-muc>/html`. Xem [chi tiết](./docs/agent-functional-ci.md).
+
+Kết quả nằm trong `output/aoce/` (không commit). Benchmark đo bytes trên ba snapshot synthetic mỗi cấu hình; không suy billed tokens/chi phí hoặc chất lượng model thật. Chưa bật scheduled/live-model CI; phiên đăng nhập AI local không tự có trên GitHub runner.
+
 ## Docker
 
 Docker/Compose là lựa chọn thêm, không bắt buộc. docker compose up --build mở API 8000 và web dev server 5173 theo cấu hình hiện có. Playwright image/runner và SQLite volume đã được cấu hình.
