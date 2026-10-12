@@ -1,0 +1,31 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e9]:
+      - strong [ref=e10]: TestAgent
+      - generic [ref=e11]: QA WORKSPACE
+    - generic [ref=e12]: KHÔNG GIAN LÀM VIỆC
+    - navigation "Điều hướng chính" [ref=e13]:
+      - button "Tổng quan" [ref=e14] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=e21] [cursor=pointer]
+      - button "Test cases" [ref=e26] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=e30] [cursor=pointer]
+    - generic [ref=e34]:
+      - generic [ref=e35]: Chưa cấu hình mô hình
+      - generic [ref=e37]: TestAgent · MVP
+  - generic [ref=e38]:
+    - banner [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]: Workspace
+        - generic [ref=e42]: /
+        - strong [ref=e43]: Tổng quan
+      - generic [ref=e44]:
+        - generic [ref=e45]: Chọn dự án
+        - combobox "Chọn dự án" [ref=e46]:
+          - option "Chọn dự án" [disabled] [selected]
+        - button "Dự án mới" [ref=e47] [cursor=pointer]
+    - main [ref=e50]:
+      - generic [ref=e51]:
+        - generic [ref=e55]: BẮT ĐẦU VỚI TESTAGENT
+        - heading "Một nơi để hiểu, tạo và chạy test." [level=1] [ref=e56]
+        - paragraph [ref=e57]: Tạo dự án, nạp tài liệu hoặc mã nguồn, rồi giao việc kiểm thử bằng ngôn ngữ tự nhiên.
+        - button "Tạo dự án đầu tiên" [ref=e58] [cursor=pointer]

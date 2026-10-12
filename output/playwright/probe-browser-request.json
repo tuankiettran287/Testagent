@@ -1,0 +1,1 @@
+{"command":"execute","baseUrl":"http://127.0.0.1:15173","caseId":"recording-probe","artifactDir":"F:/TestAgent/output/playwright/recording-probe","automation":{"actions":[{"action":"navigate","url":"/"},{"action":"assert_visible","target":{"css":"body"}}]}}

@@ -1,0 +1,508 @@
+{
+  "selection": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "synthetic_context": true,
+  "target_actions_executed": false,
+  "note": "One sample per mode, real model calls. Timing is observational; token/cost totals are unavailable.",
+  "checks": [
+    {
+      "check": "simple_route",
+      "requested_function": "orchestrator",
+      "source": "ai",
+      "function": "performance",
+      "reason": "Chuyên gia hiệu năng phù hợp để đề xuất workload cho API login với 2.000 concurrent users, gồm các giai đoạn tăng tải, duy trì tải, metric và ngưỡng đánh giá. Do chưa có SLA hoặc thông tin API, các giả định và ngưỡng đề xuất cần được nêu rõ.",
+      "run_id": null,
+      "case_ids": [],
+      "sub_tasks": []
+    },
+    {
+      "check": "single_route",
+      "requested_function": "orchestrator",
+      "source": "ai",
+      "function": "test_plan",
+      "reason": "Lập kế hoạch đăng nhập, phân tích riêng ba phần: bảo mật xác thực/phân quyền, workload 2.000 người dùng đồng thời và dữ liệu biên/không hợp lệ; tổng hợp thành phạm vi, ưu tiên và tiêu chí nghiệm thu dựa trên hai quy tắc đã xác nhận. Chỉ đề xuất, chưa chạy test; phân biệt ngưỡng đề xuất với yêu cầu đã xác nhận. Chế độ single và max_sub_tasks=0 yêu cầu một chuyên gia xử lý cả ba phần, không giao tác vụ phụ. Thiếu repository, kết quả chạy và tài khoản test không cản trở lập kế hoạch.",
+      "run_id": null,
+      "case_ids": [],
+      "sub_tasks": []
+    },
+    {
+      "check": "compound_route",
+      "requested_function": "orchestrator",
+      "source": "ai",
+      "function": "test_plan",
+      "reason": "test_plan phù hợp để tổng hợp ba phân tích độc lập thành phạm vi, ưu tiên và tiêu chí nghiệm thu cho luồng đăng nhập. Chỉ đề xuất kế hoạch, không chạy test; phân biệt quy tắc đã xác nhận với ngưỡng và hành vi còn cần xác nhận. Chưa có repository, kết quả chạy hoặc tài khoản test không cản trở việc lập kế hoạch.",
+      "run_id": null,
+      "case_ids": [],
+      "sub_tasks": [
+        {
+          "function": "security",
+          "prompt": "Phân tích độc lập rủi ro xác thực/phân quyền của luồng đăng nhập. Quy tắc đã xác nhận: tài khoản hợp lệ vào dashboard; mật khẩu sai không tạo phiên. Đề xuất phạm vi kiểm thử, mức ưu tiên và tiêu chí nghiệm thu về phiên đăng nhập, truy cập dashboard và vượt quyền. Nêu rõ giả định và quy tắc còn thiếu; không coi đề xuất là yêu cầu đã xác nhận. Chưa có repository, kết quả chạy hoặc tài khoản test; chỉ phân tích, không thực thi.",
+          "run_id": null,
+          "case_ids": []
+        },
+        {
+          "function": "performance",
+          "prompt": "Phân tích độc lập workload đăng nhập với mục tiêu 2.000 người dùng đồng thời. Đề xuất mô hình tải, ramp-up, thời gian duy trì, tỷ lệ đăng nhập hợp lệ/sai mật khẩu, metric và ngưỡng nghiệm thu để test_plan tổng hợp. Phân biệt người dùng đồng thời với số request đăng nhập đồng thời; ghi rõ giả định và ngưỡng cần xác nhận. Giữ hai quy tắc: tài khoản hợp lệ vào dashboard; mật khẩu sai không tạo phiên. Chỉ lập kế hoạch, không thực thi.",
+          "run_id": null,
+          "case_ids": []
+        },
+        {
+          "function": "test_data",
+          "prompt": "Phân tích độc lập dữ liệu biên và không hợp lệ cho luồng đăng nhập: đề xuất các nhóm dữ liệu tổng hợp, phân vùng tương đương, giá trị biên, mức ưu tiên và kết quả kỳ vọng có căn cứ. Quy tắc đã xác nhận: tài khoản hợp lệ vào dashboard; mật khẩu sai không tạo phiên. Chưa biết định dạng tài khoản, giới hạn độ dài hay chính sách chuẩn hóa; đánh dấu các giá trị và kỳ vọng phụ thuộc những quy tắc này là đề xuất cần xác nhận. Không tạo hoặc sửa case, không thực thi.",
+          "run_id": null,
+          "case_ids": []
+        }
+      ]
+    },
+    {
+      "check": "parallel",
+      "overlap": true,
+      "metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 65086,
+        "worker_ms": 167855
+      },
+      "model_calls_excluding_frozen_route": 4,
+      "children": [
+        {
+          "kind": "analysis",
+          "skill_id": "security",
+          "skill_file": "security.md",
+          "skills": [
+            "automation-core.md",
+            "security.md",
+            "subagent-handoff.md"
+          ],
+          "summary": "Đây là phân tích độc lập về xác thực/phân quyền của luồng đăng nhập. Chỉ hai quy tắc đã được xác nhận: tài khoản hợp lệ vào dashboard và mật khẩu sai không tạo phiên. Các kiểm soát bổ sung dưới đây là đề xuất cần thống nhất, chưa phải yêu cầu nghiệm thu. Không có bằng chứng triển khai hoặc kết quả chạy; chưa thực thi kiểm thử hay xác nhận lỗ hổng.",
+          "findings": [
+            {
+              "title": "P0 — Hai quy tắc xác thực đã xác nhận",
+              "detail": "Cơ sở đã xác nhận: tài khoản hợp lệ phải vào dashboard; mật khẩu sai không tạo phiên. Đề xuất kiểm tra từ trạng thái chưa đăng nhập, với tài khoản test được cấp và mật khẩu sai tổng hợp. Tiêu chí nghiệm thu: đăng nhập hợp lệ dẫn đến dashboard; đăng nhập sai không cấp phiên xác thực có thể sử dụng. Thông báo lỗi trên giao diện hoặc mã HTTP đơn lẻ chưa đủ chứng minh không tạo phiên.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "P0 — Rủi ro truy cập dashboard khi chưa xác thực",
+              "detail": "Giả định cần xác nhận: dashboard và các API dữ liệu của dashboard là tài nguyên được bảo vệ. Nếu giả định đúng, truy cập trực tiếp khi không có phiên hoặc với phiên không hợp lệ phải bị từ chối và không tiết lộ dữ liệu được bảo vệ. Đây là rủi ro giả thuyết có tác động cao, không phải lỗi đã quan sát; hiện chưa có URL, API hoặc quy tắc phản hồi từ chối.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Vòng đời phiên chưa có đặc tả",
+              "detail": "Chưa biết cơ chế phiên, thời hạn, hành vi đăng xuất, đăng nhập đồng thời hoặc cách xử lý lần đăng nhập sai khi đã có phiên. Đề xuất kiểm tra chống cố định phiên, vô hiệu hóa sau đăng xuất/hết hạn và bảo vệ thông tin phiên theo cơ chế thực tế. Các tiêu chí này cần được phê duyệt trước khi dùng để kết luận đạt hoặc không đạt.",
+              "severity": "medium",
+              "evidence_ids": []
+            },
+            {
+              "title": "P0 nếu có nhiều vai trò hoặc chủ sở hữu — Rủi ro vượt quyền",
+              "detail": "Chưa có bằng chứng hệ thống có nhiều vai trò, tenant hoặc tài nguyên theo chủ sở hữu. Nếu có, đề xuất kiểm tra quyền tại máy chủ khi gọi trực tiếp chức năng và khi thay định danh tài nguyên bằng dữ liệu tổng hợp đã được cấp phép. Tiêu chí đề xuất: người dùng không được đọc hoặc thay đổi tài nguyên ngoài quyền của mình; ẩn nút trên giao diện không đủ chứng minh kiểm soát này.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Chính sách chống đoán mật khẩu và tiết lộ thông tin còn thiếu",
+              "detail": "Chưa biết chính sách giới hạn lần thử, khóa tài khoản hoặc thông báo lỗi. Đề xuất đánh giá khả năng đoán mật khẩu và suy ra tài khoản tồn tại qua phản hồi đăng nhập. Chưa thể đặt ngưỡng hay kết luận vi phạm khi chưa có chính sách; mọi thử nghiệm cần giới hạn số lần và dùng tài khoản test riêng.",
+              "severity": "medium",
+              "evidence_ids": []
+            }
+          ],
+          "recommendations": [
+            "Ưu tiên P0 cho hai quy tắc đã xác nhận: cấp một tài khoản hợp lệ và đường dẫn đăng nhập/dashboard; mỗi trường hợp bắt đầu với trình duyệt chưa xác thực. Kiểm tra điều hướng cùng khả năng truy cập tài nguyên được bảo vệ bằng phiên nhận được để phân biệt đăng nhập thành công và thất bại.",
+            "Xác nhận dashboard/API nào cần xác thực và cách từ chối dự kiến. Sau đó kiểm tra bằng tác nhân chưa đăng nhập, phiên giả tổng hợp và phiên hết hạn nếu có hỗ trợ; tín hiệu quyết định gồm phản hồi không chứa dữ liệu bảo vệ và không thực hiện thao tác. Runner chỉ kiểm tra expected_status không đủ chứng minh các điều kiện này.",
+            "Thống nhất tiêu chí P1 cho vòng đời phiên: chống cố định phiên, thời hạn, đăng xuất, đăng nhập đồng thời và lần đăng nhập sai khi đang có phiên. Dùng tài khoản test để quan sát định danh phiên, thử lại phiên cũ sau các chuyển trạng thái và kiểm tra thuộc tính bảo vệ phù hợp với cơ chế phiên; kết thúc bằng đăng xuất và dọn phiên test.",
+            "Nếu có phân quyền, cấp hai tài khoản thuộc hai vai trò hoặc hai chủ sở hữu/tenant cùng tài nguyên tổng hợp và ma trận quyền rõ ràng. Ưu tiên P0 cho truy cập chéo và chức năng đặc quyền; nghiệm thu đề xuất là từ chối thao tác trái quyền, không lộ dữ liệu và không đổi trạng thái tài nguyên. Khôi phục mọi dữ liệu đã thay đổi trong các kiểm tra được phép.",
+            "Trước khi lập kiểm tra P1 chống đoán mật khẩu, xác nhận ngưỡng thử, thời gian khóa và quy tắc thông báo lỗi. Dùng tài khoản test cùng định danh tổng hợp không tồn tại, giới hạn lượt thử theo phạm vi được phép; đối chiếu phản hồi và trạng thái khóa với chính sách, rồi mở khóa hoặc khôi phục tài khoản test."
+          ],
+          "run_id": null,
+          "duration_ms": 46784
+        },
+        {
+          "kind": "analysis",
+          "skill_id": "performance",
+          "skill_file": "performance.md",
+          "skills": [
+            "automation-core.md",
+            "performance.md",
+            "subagent-handoff.md"
+          ],
+          "summary": "Đề xuất thử nghiệm tải đăng nhập với 2.000 người dùng ảo đồng thời, ramp-up 20 phút và duy trì 30 phút. Đây là kế hoạch độc lập để tổng hợp vào test_plan; chưa thực thi và chưa có bằng chứng về hiệu năng. Mô hình tải, tỷ lệ giao dịch và ngưỡng hiệu năng dưới đây đều cần xác nhận; hai quy tắc nghiệp vụ đã xác nhận phải được giữ nguyên.",
+          "findings": [
+            {
+              "title": "2.000 người dùng đồng thời không tương đương 2.000 request đăng nhập đồng thời",
+              "detail": "Đã xác nhận: mục tiêu là 2.000 người dùng đồng thời. Chưa rõ đây là người dùng đang hoạt động, phiên đã xác thực hay người cùng đăng nhập tại một thời điểm. Đề xuất diễn giải là 2.000 người dùng ảo hoạt động trong hệ thống. Với giả định mỗi người thực hiện một lần đăng nhập mỗi 300 giây, tải danh nghĩa là khoảng 6,67 giao dịch đăng nhập/giây. Số giao dịch đăng nhập đang xử lý phụ thuộc tốc độ đến và thời gian xử lý: N ≈ λ × W trong trạng thái ổn định. Một giao dịch có thể tạo nhiều HTTP request; chưa có đặc tả để xác định số lượng.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "Mô hình tải và lịch tăng tải đề xuất",
+              "detail": "Đề xuất dùng mô hình đóng với 2.000 người dùng ảo, mỗi người có tối đa một giao dịch đăng nhập đang xử lý. Chạy baseline 50 người trong 5 phút, tăng tuyến tính từ 50 lên 2.000 trong 20 phút, duy trì 2.000 trong 30 phút, rồi giảm tải trong 5 phút. Phân bố thời điểm bắt đầu và chu kỳ đăng nhập quanh 300 giây bằng jitter để tránh đồng bộ ngoài ý muốn; thời gian chờ bằng chu kỳ trừ thời gian giao dịch, tối thiểu bằng 0. Ghi nhận tốc độ đến thực tế vì mô hình đóng có thể giảm throughput khi hệ thống chậm. Nếu mục tiêu thực sự là 2.000 lần đăng nhập cùng lúc, cần một thử nghiệm spike riêng với cửa sổ phát tải được xác nhận.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "Tỷ lệ hợp lệ và sai mật khẩu phải giữ nguyên hai quy tắc",
+              "detail": "Đề xuất tỷ lệ theo số lần thử đăng nhập là 90% hợp lệ và 10% sai mật khẩu, tương ứng khoảng 6 và 0,67 giao dịch/giây ở tải danh nghĩa. Đã xác nhận: tài khoản hợp lệ vào dashboard; mật khẩu sai không tạo phiên xác thực. Mỗi lần thử phải bắt đầu từ trạng thái chưa xác thực; nhánh sai mật khẩu cần kiểm tra không có phiên xác thực mới và không truy cập được dashboard được bảo vệ. Đây là phép kiểm chứng đề xuất, chưa thực hiện. Dùng tài khoản riêng và dữ liệu tổng hợp; phải xác nhận chính sách khóa tài khoản, giới hạn tốc độ và CAPTCHA để tránh nhánh sai mật khẩu làm mất tính hợp lệ của nhánh đăng nhập đúng.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "Metric và tiêu chí nghiệm thu đề xuất",
+              "detail": "Đo riêng từng nhánh: latency p50/p95/p99 từ lúc gửi thông tin đăng nhập đến dashboard sử dụng được hoặc thông báo từ chối hiển thị; latency HTTP, tốc độ giao dịch bắt đầu/kết thúc, request đang xử lý, người dùng hoạt động, phiên xác thực, lỗi ngoài dự kiến và timeout. Trong giai đoạn duy trì, đề xuất p95 ≤ 3 giây, p99 ≤ 5 giây cho mỗi nhánh; giao dịch hoàn tất ≥ 95% tải danh nghĩa, khoảng 6,33 giao dịch/giây, trên mỗi cửa sổ 5 phút. Lỗi ngoài dự kiến < 1% và timeout < 0,1%, mẫu số là số giao dịch bắt đầu trong cửa sổ, đối soát sau khi chúng kết thúc. Từ chối đúng do sai mật khẩu không tính là lỗi. Hai quy tắc nghiệp vụ phải đạt 100% trên các giao dịch có kết quả; mọi trường hợp sai mật khẩu tạo phiên đều làm thất bại nghiệm thu. Các ngưỡng số học là đề xuất, chưa phải SLA đã xác nhận.",
+              "severity": "medium",
+              "evidence_ids": []
+            },
+            {
+              "title": "Thiếu điều kiện để diễn giải kết quả và xác định điểm nghẽn",
+              "detail": "Thông tin được cung cấp chỉ nêu môi trường local; chưa có URL, tài khoản test, kiến trúc, tài nguyên, timeout, SLA hoặc kết quả chạy. Vì vậy chưa thể kết luận năng lực phục vụ 2.000 người dùng hay xác định điểm nghẽn. Cần telemetry CPU, bộ nhớ, hàng đợi, connection pool, truy vấn cơ sở dữ liệu và dịch vụ xác thực nếu các thành phần đó tồn tại; đây là điểm cần quan sát, không phải điểm nghẽn đã được chứng minh. Máy phát tải phải được theo dõi riêng để loại trừ giới hạn của chính harness. Kết quả local chỉ áp dụng cho cấu hình được đo.",
+              "severity": "high",
+              "evidence_ids": []
+            }
+          ],
+          "recommendations": [
+            "Trước khi cấu hình, xác nhận ý nghĩa của 2.000 người dùng đồng thời, chu kỳ 300 giây, tỷ lệ 90/10 và các ngưỡng đề xuất; cung cấp URL, đường dẫn dashboard, tài khoản tổng hợp, chính sách khóa tài khoản và cấu hình môi trường.",
+            "Chuẩn bị harness tải bên ngoài được rà soát, đủ tài khoản riêng cho người dùng ảo, khả năng kiểm chứng phiên xác thực và dashboard, cơ chế đăng xuất hoặc hết phiên, cùng kế hoạch dọn dữ liệu. Phân bổ nguồn lực máy phát tải riêng; 1–4 worker kiểm thử chức năng không phải công cụ tạo tải này.",
+            "Khi được phép thực thi ở bước sau, dùng baseline để xác minh transaction, phép đo và hai quy tắc nghiệp vụ trước khi áp dụng ramp-up và giai đoạn duy trì đã đề xuất.",
+            "Đối chiếu từng cửa sổ 5 phút và toàn bộ giai đoạn duy trì bằng latency theo nhánh, throughput, tỷ lệ lỗi/timeout và telemetry. Báo cáo cả tải thực đạt; không suy ra p95 hoặc năng lực duy trì từ thời gian của một ca chức năng.",
+            "Thống nhất điều kiện dừng trước khi chạy: đề xuất dừng khi lỗi ngoài dự kiến > 5% hoặc timeout > 1% trong 2 phút liên tiếp, p99 > 10 giây trong 5 phút, hoặc tài nguyên vượt giới hạn môi trường đã duyệt; dừng ngay nếu sai mật khẩu tạo phiên. Sau đó rà soát bằng trace và telemetry trước khi tăng tải hoặc lập spike riêng."
+          ],
+          "run_id": null,
+          "duration_ms": 65080
+        },
+        {
+          "kind": "analysis",
+          "skill_id": "test_data",
+          "skill_file": "test-data.md",
+          "skills": [
+            "automation-core.md",
+            "test-data.md",
+            "subagent-handoff.md"
+          ],
+          "summary": "Phân tích đề xuất các phân vùng dữ liệu đăng nhập và mức ưu tiên dựa trên hai quy tắc đã xác nhận: thông tin đăng nhập hợp lệ dẫn tới dashboard; mật khẩu sai không tạo phiên. Các kỳ vọng về trường trống, định dạng, độ dài và chuẩn hóa cần được xác nhận. Chưa có tài khoản test, nguồn triển khai hoặc kết quả chạy; không tạo, sửa hay thực thi case.",
+          "findings": [
+            {
+              "title": "P0 — Phân vùng hợp lệ và mật khẩu sai",
+              "detail": "Nhóm 1: cặp tài khoản và mật khẩu hợp lệ được cấp cho môi trường test; kỳ vọng đã xác nhận là vào dashboard. Nhóm 2: cùng tài khoản đó với mật khẩu tổng hợp khác mật khẩu đúng; kỳ vọng đã xác nhận là không tạo phiên. Có thể đề xuất chuỗi 'SaiMatKhau_2026!' nếu bảo đảm khác mật khẩu thật, nhưng tính phù hợp với bộ kiểm tra đầu vào chưa biết. Phụ thuộc: fixture được cấp và cách quan sát phiên. Chuẩn bị phiên sạch để phiên có sẵn không làm sai kết luận. Nội dung thông báo lỗi và mã HTTP chưa được quy định.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Thiếu, rỗng và chỉ có khoảng trắng",
+              "detail": "Ma trận đề xuất: tài khoản rỗng với mật khẩu đúng; tài khoản hợp lệ với mật khẩu rỗng; cả hai rỗng; lần lượt dùng ' ' và '   ' cho từng trường. Mục đích là phân biệt thiếu giá trị với giá trị chứa khoảng trắng. Nếu giao diện API được xác nhận tồn tại, bổ sung bỏ trường và null; không coi chúng là dữ liệu riêng biệt của biểu mẫu trình duyệt nếu biểu mẫu không biểu diễn được. Kỳ vọng đề xuất cần xác nhận: dữ liệu bắt buộc bị thiếu hoặc rỗng bị từ chối và không tạo phiên. Chưa biết tính bắt buộc và chính sách cắt khoảng trắng; mật khẩu rỗng chỉ thuộc nhóm mật khẩu sai khi xác nhận nó khác mật khẩu của fixture.",
+              "severity": "medium",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1/P2 — Định dạng, Unicode và chuẩn hóa",
+              "detail": "Các ứng viên tổng hợp 'qa_login_01', 'qa.login@example.invalid', 'qa đăng nhập' dùng để khảo sát định dạng, chưa phải tài khoản được cấp và chưa thể gán nhãn hợp lệ hay không hợp lệ. Khi có fixture, đề xuất biến thể đổi hoa/thường, thêm khoảng trắng đầu/cuối, và hai biểu diễn Unicode 'é' với 'e\\u0301'. P1 cho chuẩn hóa mật khẩu vì ảnh hưởng cách xác định mật khẩu đúng/sai; P2 cho các biến thể tài khoản còn lại. Kỳ vọng cần xác nhận theo chính sách phân biệt hoa/thường, Unicode và khoảng trắng của từng trường. Không tự suy ra đăng nhập thành công hoặc thất bại từ biến thể. Phụ thuộc: fixture phù hợp và quy tắc chuẩn hóa riêng cho tài khoản, mật khẩu.",
+              "severity": "medium",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Biên độ dài chưa có ngưỡng xác nhận",
+              "detail": "Chưa có độ dài tối thiểu, tối đa hoặc đơn vị đo của hai trường nên chưa thể đưa ra giá trị biên số học có căn cứ. Sau khi xác nhận khoảng bao hàm [m, M], đề xuất độ dài m−1 nếu không âm, m, một giá trị bên trong nếu tồn tại, M và M+1 cho từng trường. Kỳ vọng kiểm tra đầu vào: giá trị trong khoảng đáp ứng riêng quy tắc độ dài; giá trị ngoài khoảng bị từ chối nếu đây là giới hạn cứng. Đáp ứng độ dài không đồng nghĩa đăng nhập thành công. Phụ thuộc: ngưỡng, đơn vị byte/ký tự và fixture hợp lệ tại các biên; dùng Unicode để phân biệt cách đếm khi cần.",
+              "severity": "medium",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Kết hợp hai trường và dữ liệu không khớp",
+              "detail": "Đề xuất kết hợp tài khoản hợp lệ/mật khẩu sai, tài khoản rỗng/mật khẩu sai và cả hai trường rỗng để kiểm tra tương tác giữa các phân vùng. Chỉ tổ hợp đầu có kỳ vọng không tạo phiên đã được xác nhận; hai tổ hợp còn lại cần quy tắc trường bắt buộc. Nếu được cấp hai tài khoản A và B với mật khẩu khác nhau, đề xuất dùng tài khoản A với mật khẩu của B: đây là mật khẩu sai đối với A nên không được tạo phiên. Phụ thuộc: fixture được cấp, mật khẩu khác nhau và trạng thái tài khoản ổn định. Các nhóm dữ liệu độc lập có thể giảm bằng pairwise; giữ riêng tổ hợp có kỳ vọng đã xác nhận và các biên quan trọng.",
+              "severity": "info",
+              "evidence_ids": []
+            }
+          ],
+          "recommendations": [
+            "Ưu tiên chuẩn bị fixture được cấp cho hai nhóm P0 và xác định dấu hiệu quan sát dashboard, phiên đăng nhập; không dùng các chuỗi ứng viên làm danh tính được phép.",
+            "Xác nhận trường bắt buộc, định dạng tài khoản, giới hạn độ dài và đơn vị đo trước khi chốt dữ liệu không hợp lệ hoặc ngưỡng biên.",
+            "Xác nhận riêng chính sách hoa/thường, khoảng trắng và chuẩn hóa Unicode cho tài khoản và mật khẩu; gắn kỳ vọng tương ứng cho từng biến thể.",
+            "Khi triển khai kiểm thử sau này, dùng phiên trình duyệt riêng; nếu đăng nhập sai có thể tăng bộ đếm hoặc khóa tài khoản, cần fixture riêng cho mỗi worker và cách khôi phục trạng thái phía máy chủ trước khi chạy song song.",
+            "Bàn giao các phân vùng và giá trị đề xuất cho người thiết kế case sau khi bổ sung quy tắc; giữ các hàng thiếu fixture hoặc oracle ở trạng thái cần xác nhận."
+          ],
+          "run_id": null,
+          "duration_ms": 55991
+        }
+      ],
+      "lead_output": {
+        "kind": "analysis",
+        "skill_id": "test_plan",
+        "skill_file": "test-plan.md",
+        "skills": [
+          "automation-core.md",
+          "test-plan.md"
+        ],
+        "summary": "Kế hoạch tổng hợp ba phân tích độc lập về bảo mật xác thực/phân quyền, hiệu năng với 2.000 người dùng đồng thời và dữ liệu biên/không hợp lệ. Phạm vi đầu tiên là người dùng chưa xác thực đăng nhập trên môi trường local: tài khoản hợp lệ vào dashboard, mật khẩu sai không tạo phiên. Đây là hai quy tắc đã xác nhận; các ưu tiên và ngưỡng bổ sung dưới đây là đề xuất. Chưa có URL, repository, tài khoản test hoặc kết quả chạy; chưa thực thi kiểm thử.",
+        "findings": [
+          {
+            "title": "P0 — Phạm vi đầu tiên và tiêu chí nghiệp vụ đã xác nhận",
+            "detail": "Xây dựng hai ca hành trình độc lập, mỗi ca bắt đầu từ trạng thái chưa xác thực: đăng nhập bằng tài khoản hợp lệ và đăng nhập cùng tài khoản bằng mật khẩu sai. Nghiệm thu đã xác nhận: ca hợp lệ đến dashboard; ca sai không tạo phiên xác thực có thể sử dụng. Cần xác định dấu hiệu dashboard sẵn sàng và cách kiểm chứng phiên. Chỉ thấy thông báo lỗi hoặc không chuyển trang chưa đủ chứng minh không tạo phiên. Ưu tiên P0 là đề xuất vì đây là hành vi cốt lõi và cơ sở cho các phép thử tiếp theo.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "Bảo mật — Truy cập trực tiếp và vượt quyền là rủi ro cần kiểm chứng",
+            "detail": "Đề xuất P0 cho truy cập dashboard và API được bảo vệ khi chưa đăng nhập hoặc dùng phiên không hợp lệ. Tiêu chí đề xuất: từ chối truy cập, không trả dữ liệu bảo vệ và không thực hiện thao tác trái quyền. Nếu hệ thống có nhiều vai trò, chủ sở hữu hoặc tenant, bổ sung P0 cho truy cập chéo bằng hai tài khoản và tài nguyên tổng hợp đã được cấp phép. Chưa biết các tài nguyên được bảo vệ hoặc ma trận quyền nên đây là rủi ro giả thuyết, không phải lỗ hổng đã quan sát. Mức kiểm thử phù hợp là tích hợp tại máy chủ, kết hợp một hành trình giao diện.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "Bảo mật — Vòng đời phiên và chống dò mật khẩu cần đặc tả",
+            "detail": "Đề xuất P1 cho chống cố định phiên, vô hiệu hóa phiên sau đăng xuất/hết hạn và xử lý thử sai nhiều lần. Cần xác nhận cơ chế phiên, thời hạn, chính sách khóa hoặc giới hạn tốc độ, đăng nhập đồng thời và hành vi đăng nhập sai khi đã có phiên. Các phép thử nên tập trung vào chuyển trạng thái phiên và kiểm soát phía máy chủ. Chính sách khóa tài khoản có thể làm sai lệch kết quả tải và dữ liệu âm; phải thống nhất trước khi xây dựng workload. Chưa có tiêu chí đã xác nhận cho các kiểm soát này.",
+            "severity": "medium",
+            "evidence_ids": []
+          },
+          {
+            "title": "Hiệu năng — Cần chốt ý nghĩa của 2.000 người dùng đồng thời",
+            "detail": "Yêu cầu đã nêu là 2.000 người dùng đồng thời; chưa rõ đó là người dùng hoạt động, phiên đã đăng nhập hay 2.000 người cùng gửi yêu cầu đăng nhập. Đề xuất ban đầu: mô hình đóng với 2.000 người dùng ảo, tối đa một giao dịch đang xử lý mỗi người; baseline 50 người trong 5 phút, tăng lên 2.000 trong 20 phút, duy trì 30 phút, giảm tải 5 phút. Giả định chu kỳ đăng nhập 300 giây và tỷ lệ lần thử 90% hợp lệ/10% sai, có phân tán thời điểm bắt đầu, cho tải danh nghĩa khoảng 6,67 giao dịch/giây. Đây không phải phép thử 2.000 yêu cầu đăng nhập đồng thời; nếu yêu cầu là đăng nhập cùng lúc, cần workload burst riêng. Ưu tiên P0 cho xác nhận mô hình và giữ đúng hai quy tắc nghiệp vụ dưới tải.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "Hiệu năng — Tiêu chí nghiệm thu tạm đề xuất",
+            "detail": "Trong giai đoạn duy trì đủ 2.000 người dùng ảo theo mô hình được thống nhất, đề xuất đo riêng hai nhánh với p95 ≤ 3 giây, p99 ≤ 5 giây, lỗi ngoài dự kiến ≤ 1% số lần thử và giao dịch hoàn tất ≥ 95% tải danh nghĩa, khoảng 6,33 giao dịch/giây nếu giữ chu kỳ 300 giây. Đo thời gian từ gửi thông tin đến dashboard sẵn sàng hoặc thông báo từ chối; ghi thêm latency HTTP, timeout, tải thực đạt và tài nguyên máy chủ/máy phát tải. Từ chối đúng mật khẩu sai không tính là lỗi hiệu năng. Không chấp nhận vi phạm hai quy tắc nghiệp vụ trong mẫu quan sát. Các ngưỡng này cần được thống nhất và chỉ đánh giá sau khi baseline xác nhận workload hợp lệ; chưa có bằng chứng năng lực hệ thống. API runner một request/ca và 1–4 worker chức năng không tạo được workload này; cần harness tải riêng.",
+            "severity": "medium",
+            "evidence_ids": []
+          },
+          {
+            "title": "Dữ liệu — Ưu tiên phân vùng xác thực, rồi biên và chuẩn hóa",
+            "detail": "P0 gồm fixture hợp lệ được cấp và cùng tài khoản với mật khẩu chắc chắn khác mật khẩu đúng. Đề xuất P1 cho từng trường rỗng, cả hai rỗng, chỉ chứa khoảng trắng, biên độ dài và chuẩn hóa mật khẩu; P2 cho biến thể định dạng, hoa/thường và Unicode của tài khoản, điều chỉnh ưu tiên nếu đặc tả cho thấy tác động xác thực. Khi biết khoảng độ dài [m, M] và đơn vị đo, chọn m−1 nếu không âm, m, giá trị bên trong nếu có, M và M+1. Chỉ bổ sung bỏ trường/null khi có API biểu diễn được chúng. Nghiệm thu bổ sung phải theo quy tắc định dạng, độ dài và chuẩn hóa đã thống nhất; chuỗi tổng hợp đáp ứng định dạng chưa phải tài khoản hợp lệ. Phiên trình duyệt riêng không cô lập bộ đếm sai, khóa tài khoản hoặc bản ghi phía máy chủ.",
+            "severity": "medium",
+            "evidence_ids": []
+          }
+        ],
+        "recommendations": [
+          "Chốt đầu vào và oracle cho phạm vi P0: cần URL đăng nhập/dashboard, tài khoản test được cấp, dấu hiệu phiên có thể sử dụng và tài nguyên được bảo vệ. Đồng thời xác nhận ý nghĩa 2.000 người dùng, cấu hình local và chính sách khóa tài khoản. Đầu ra là bảng quy tắc phân biệt rõ yêu cầu đã xác nhận với đề xuất; chưa cần repository để bắt đầu.",
+          "Lập ma trận dữ liệu bằng test_data khi có fixture và quy tắc trường nhập. Đầu ra gồm các phân vùng, giá trị biên, kỳ vọng và trạng thái chuẩn bị; thành công khi mỗi giá trị có oracle rõ ràng, tài khoản được cấp hợp lệ và cách khôi phục bộ đếm/khóa phía máy chủ. Với tải, chuẩn bị đủ tài khoản riêng theo chính sách đăng nhập đồng thời.",
+          "Dùng ui_automation để khám phá luồng khi có URL và tài khoản được phép. Đầu ra cần xác định đường đến dashboard, mục tiêu giao diện duy nhất và dấu hiệu kết quả quan sát được. Đây là bước tương lai có thể thay đổi trạng thái; quan sát trang không được ghi nhận là test đã PASS.",
+          "Dùng gen_testcase để soạn tối đa 12 ca mới theo thứ tự P0 rồi P1/P2; dùng automation_builder cho các ca được chọn. Đầu vào là quy tắc, dữ liệu và quan sát đã có. Ca trình duyệt phải tự chuẩn bị đăng nhập, bắt đầu bằng navigate và có assertion kết quả. Phép chứng minh không tạo phiên hoặc vượt quyền cần kiểm tra tích hợp phù hợp nếu DSL giao diện không đủ; không dùng API runner expected_status đơn lẻ để kết luận về phiên.",
+          "Dùng case_review để rà soát định nghĩa trước khi chạy: kiểm tra khả năng tái lập, oracle, mục tiêu duy nhất, dữ liệu riêng và bảo toàn hai quy tắc đã xác nhận. Đồng thời rà soát đặc tả harness tải bên ngoài với mô hình, tỷ lệ, thời lượng và ngưỡng đã thống nhất. Thành công là các định nghĩa đủ điều kiện chạy; trạng thái READY không phải PASS.",
+          "Ở giai đoạn thực thi sau này, dùng run_tests cho một nhóm nhỏ ca P0 độc lập trước; chỉ mở rộng sau khi có kết quả đạt. Chạy baseline rồi workload tải bằng harness riêng sau khi baseline xác nhận phép đo và dữ liệu. Nghiệm thu đề xuất gồm tất cả ca P0 đã chọn đạt, không có vi phạm xác thực/phân quyền quan sát được và đạt ngưỡng tải đã thống nhất trong toàn bộ giai đoạn duy trì. Chẩn đoán dựa trên run_result, log và telemetry thực tế; hiện chỉ lập kế hoạch, không chạy bước nào."
+        ],
+        "run_id": null
+      }
+    },
+    {
+      "check": "serial",
+      "overlap": false,
+      "metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 168551,
+        "worker_ms": 168538
+      },
+      "model_calls_excluding_frozen_route": 4,
+      "children": [
+        {
+          "kind": "analysis",
+          "skill_id": "security",
+          "skill_file": "security.md",
+          "skills": [
+            "automation-core.md",
+            "security.md",
+            "subagent-handoff.md"
+          ],
+          "summary": "Phân tích chỉ tập trung vào rủi ro xác thực, phiên đăng nhập và phân quyền; chưa thực thi kiểm thử và chưa có bằng chứng xác nhận lỗ hổng. Hai quy tắc đã xác nhận là tài khoản hợp lệ vào dashboard và mật khẩu sai không tạo phiên. Các kiểm soát khác dưới đây là đề xuất cần thống nhất, không phải yêu cầu đã xác nhận.",
+          "findings": [
+            {
+              "title": "Mật khẩu sai và trạng thái phiên cần được kiểm tra riêng",
+              "detail": "Đã xác nhận: mật khẩu sai không tạo phiên. Chưa rõ hành vi khi trình duyệt đã có phiên hợp lệ trước lần đăng nhập sai. Rủi ro giả định: chỉ kiểm tra thông báo lỗi có thể bỏ sót việc hệ thống cấp phiên có quyền truy cập. Cần quan sát trạng thái xác thực sau yêu cầu thất bại; sự hiện diện của cookie đơn thuần không chứng minh có phiên đăng nhập.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "Chưa xác nhận quy tắc bảo vệ dashboard",
+              "detail": "Đã xác nhận: tài khoản hợp lệ vào dashboard. Suy luận cần xác nhận: dashboard và dữ liệu phía sau yêu cầu xác thực tại máy chủ. Nếu suy luận này đúng, truy cập trực tiếp khi chưa đăng nhập hoặc dùng phiên không hợp lệ phải bị từ chối. Chưa có tuyến truy cập, API hoặc phản hồi để đánh giá việc thực thi.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "Vòng đời phiên chưa có tiêu chí nghiệm thu",
+              "detail": "Chưa biết cơ chế lưu phiên, thời hạn, đăng xuất, thu hồi hoặc chính sách nhiều phiên. Đề xuất kiểm soát: đổi định danh phiên sau đăng nhập nếu dùng phiên định danh, vô hiệu hóa phiên khi đăng xuất và áp dụng thời hạn đã thống nhất. Rủi ro chiếm dụng hoặc tái sử dụng phiên hiện chỉ là giả thuyết, chưa có bằng chứng vi phạm.",
+              "severity": "medium",
+              "evidence_ids": []
+            },
+            {
+              "title": "Kiểm tra vượt quyền phụ thuộc mô hình vai trò và sở hữu tài nguyên",
+              "detail": "Chưa có bằng chứng hệ thống có nhiều vai trò, tài nguyên riêng theo người dùng hoặc nhiều tenant. Kiểm tra vượt quyền ngang và dọc chỉ áp dụng khi những ranh giới này tồn tại. Cần ma trận quyền cùng tài khoản và tài nguyên được phép dùng để xác định thao tác nào phải được cho phép hoặc từ chối; không thể tự đặt chính sách quyền.",
+              "severity": "high",
+              "evidence_ids": []
+            }
+          ],
+          "recommendations": [
+            "P0 — Kiểm tra hai quy tắc đã xác nhận bằng tài khoản test hợp lệ được cấp và trình duyệt chưa có phiên xác thực. Với mật khẩu đúng, nghiệm thu khi vào dashboard và được nhận diện là đúng tài khoản. Với mật khẩu sai tổng hợp, nghiệm thu khi không tạo phiên xác thực; kiểm tra tiếp trạng thái phiên và quyền truy cập tài nguyên đã thống nhất là được bảo vệ. Dùng tài khoản test để tránh tác động tài khoản thật.",
+            "P0 — Sau khi xác nhận dashboard yêu cầu đăng nhập, kiểm tra truy cập trực tiếp dashboard và API liên quan trong trạng thái chưa đăng nhập, với phiên không hợp lệ và với phiên hợp lệ. Tiêu chí đề xuất: máy chủ từ chối các trạng thái không được xác thực, không trả dữ liệu được bảo vệ; phiên hợp lệ chỉ nhận nội dung được phép. Cần URL và chính sách phản hồi để chốt mã trạng thái hoặc chuyển hướng mong đợi.",
+            "P1 — Thống nhất thời hạn phiên và quy tắc đăng xuất, rồi kiểm tra đăng nhập từ trạng thái trước xác thực, đăng xuất và hết hạn bằng tài khoản test. Tiêu chí đề xuất: phiên trước xác thực không tiếp tục mang quyền sau đăng nhập nếu cần đổi định danh; phiên đã đăng xuất hoặc hết hạn không truy cập được dashboard qua yêu cầu mới. Xác định riêng hành vi đăng nhập sai khi đã có phiên, không mặc định phải xóa phiên cũ.",
+            "P0 nếu tồn tại ranh giới quyền — Chuẩn bị hai tài khoản cùng vai trò sở hữu các tài nguyên tổng hợp khác nhau và một cặp tài khoản có quyền khác nhau; bổ sung hai tenant nếu sản phẩm có tenant. Theo ma trận quyền được xác nhận, thử tài khoản thấp quyền truy cập thao tác hạn chế và tài nguyên ngoài phạm vi của mình, kèm kiểm tra đối chứng bằng chủ thể được phép. Tiêu chí đề xuất: từ chối tại máy chủ, không lộ dữ liệu và không thay đổi tài nguyên. Nếu kiểm tra thao tác ghi, cần kế hoạch khôi phục dữ liệu.",
+            "Chuẩn bị tối thiểu URL đăng nhập/dashboard, tài khoản test được phép dùng, cơ chế phiên và ma trận quyền trước khi chuyển sang thực thi. Chọn công cụ quan sát nội dung phản hồi, trạng thái phiên và dữ liệu sau thao tác: runner chỉ kiểm tra HTTP status không đủ chứng minh không lộ dữ liệu hoặc không tạo phiên. Chỉ công bố đạt/không đạt sau khi có kết quả chạy và bằng chứng tương ứng."
+          ],
+          "run_id": null,
+          "duration_ms": 44340
+        },
+        {
+          "kind": "analysis",
+          "skill_id": "performance",
+          "skill_file": "performance.md",
+          "skills": [
+            "automation-core.md",
+            "performance.md",
+            "subagent-handoff.md"
+          ],
+          "summary": "Đề xuất thử nghiệm tải đăng nhập với 2.000 người dùng ảo hoạt động đồng thời, có ramp-up và giai đoạn duy trì để đo độ trễ, thông lượng và lỗi. Đây chỉ là kế hoạch; chưa có nguồn triển khai hoặc kết quả chạy. Mô hình tải và ngưỡng hiệu năng bên dưới là đề xuất cần xác nhận; hai quy tắc đã xác nhận là tài khoản hợp lệ vào dashboard và mật khẩu sai không tạo phiên xác thực.",
+          "findings": [
+            {
+              "title": "Cần xác định ý nghĩa của 2.000 người dùng đồng thời",
+              "detail": "Đã nêu: mục tiêu 2.000 người dùng đồng thời. Chưa rõ đây là người dùng đang hoạt động, phiên đã xác thực hay người cùng gửi đăng nhập. Đề xuất diễn giải ban đầu là 2.000 người dùng ảo hoạt động, mỗi người tối đa một giao dịch đăng nhập đang xử lý. Số request đang xử lý phụ thuộc tốc độ đến và thời gian phản hồi: trong trạng thái ổn định, xấp xỉ tốc độ request/giây nhân độ trễ trung bình theo giây. Một giao dịch có thể phát sinh nhiều request do chuyển hướng và tải dashboard. Tỷ lệ đăng nhập hợp lệ 90% không đồng nghĩa có 2.000 phiên đã xác thực.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "Mô hình tải cơ sở và tỷ lệ giao dịch",
+              "detail": "Đề xuất mô hình đóng gồm 2.000 người dùng ảo lặp chu kỳ đăng nhập, kết thúc phiên sau lần thành công và chờ ngẫu nhiên 30–90 giây, trung bình 60 giây, trước chu kỳ tiếp theo. Tỷ lệ giao dịch: 90% thông tin hợp lệ, 10% đúng tên tài khoản nhưng sai mật khẩu. Nếu thời gian giao dịch và chuẩn bị nhỏ, tốc độ gần 33,3 giao dịch/giây; đây là ước tính, không phải năng lực đã đo. Mô hình mở bổ sung có thể giữ tốc độ đến này để phát hiện việc mô hình đóng tự giảm tải khi hệ thống chậm. Nếu mục tiêu thực tế là 2.000 phiên đăng nhập tồn tại đồng thời, cần một kịch bản riêng tạo đủ 2.000 phiên hợp lệ; giữ phiên không chứng minh thông lượng đăng nhập bền vững.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "Ramp-up và thời gian duy trì đề xuất",
+              "detail": "Đề xuất đo baseline ở 1, 10 và 100 người dùng ảo, mỗi mức 5 phút; sau đó tăng đều thêm 250 người mỗi 2,5 phút để đạt 2.000 trong 20 phút, duy trì 30 phút và giảm tải trong 5 phút. Đánh giá từng cửa sổ 5 phút trong giai đoạn duy trì, đồng thời báo cáo tổng giai đoạn. Soak 120 phút ở cùng mức tải là phần mở rộng để phát hiện tích lũy phiên hoặc tài nguyên. Spike 2.000 người gửi đăng nhập gần đồng thời là thử nghiệm riêng, cần xác nhận mục tiêu và giới hạn môi trường; không suy ra yêu cầu spike từ số người dùng đồng thời.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "Metric và ngưỡng nghiệm thu",
+              "detail": "Đề xuất đo độ trễ xác thực từ lúc gửi request đăng nhập đến khi nhận đầy đủ phản hồi xác thực; tách p50/p95/p99 cho giao dịch hợp lệ và sai mật khẩu. Đo riêng thời gian từ gửi biểu mẫu đến dashboard sử dụng được hoặc thông báo lỗi xuất hiện trên mẫu kiểm tra trình duyệt. Ngưỡng xác thực đề xuất cần xác nhận: p95 ≤ 1 giây, p99 ≤ 2 giây; tỷ lệ lỗi hệ thống và timeout cộng lại ≤ 0,1% tổng giao dịch bắt đầu trong từng cửa sổ 5 phút. Phản hồi từ chối đúng do sai mật khẩu không tính là lỗi hệ thống. Với mô hình mở, thông lượng hoàn tất đúng phải đạt ≥ 95% tốc độ giao dịch mục tiêu và hàng đợi không tăng liên tục. Báo cáo thêm request/giây, giao dịch/giây, số giao dịch đang xử lý, số phiên xác thực và các giao dịch chưa hoàn tất. Tiêu chí chức năng đã xác nhận: mọi lần đăng nhập hợp lệ được kiểm tra phải vào dashboard; mọi lần sai mật khẩu được kiểm tra phải không tạo phiên xác thực. Không suy rộng kết quả mẫu thành bảo đảm cho mọi giao dịch.",
+              "severity": "high",
+              "evidence_ids": []
+            },
+            {
+              "title": "Thiếu thông tin môi trường và cơ sở xác định nút thắt",
+              "detail": "Đã cung cấp: môi trường local; base_url trống; chưa có repository, tài khoản test hoặc kết quả chạy. Chưa biết route đăng nhập/dashboard, cơ chế phiên, MFA/CAPTCHA, khóa tài khoản, giới hạn tốc độ, cấu hình máy và dữ liệu nền. Vì vậy chưa thể xác định nút thắt hoặc kết luận năng lực production. Các giả thuyết về CPU xác minh mật khẩu, kho phiên hay truy vấn tài khoản chỉ nên đưa vào khi có bằng chứng kiến trúc. Telemetry cần chuẩn bị gồm CPU/RAM, số kết nối và thời gian chờ, độ trễ truy vấn, lỗi ứng dụng, cùng số phiên; ghi rõ metric nào môi trường thực sự hỗ trợ.",
+              "severity": "medium",
+              "evidence_ids": []
+            }
+          ],
+          "recommendations": [
+            "Trước khi cấu hình, xác nhận định nghĩa 2.000 người dùng, URL và route, cấu hình môi trường, giới hạn tải được phép, tỷ lệ 90/10, thời gian chờ và các ngưỡng đề xuất. Xác nhận chính sách khóa tài khoản để phân biệt từ chối do sai mật khẩu với từ chối do giới hạn bảo vệ.",
+            "Chuẩn bị bộ tài khoản tổng hợp riêng cho nhánh hợp lệ và sai mật khẩu, đủ cho mô hình đã chọn; tránh nhánh sai mật khẩu khóa tài khoản của nhánh hợp lệ. Quy định cách kết thúc phiên, đặt lại trạng thái và dọn dữ liệu sau thử nghiệm; tính riêng lưu lượng chuẩn bị/dọn dẹp.",
+            "Dùng harness tải bên ngoài có khả năng điều tiết người dùng hoặc tốc độ đến, quản lý phiên độc lập và thu metric. Trước tải lớn, kiểm tra chức năng ở baseline: hợp lệ đến dashboard; sai mật khẩu không tạo phiên xác thực và không truy cập được tài nguyên cần đăng nhập.",
+            "Sau baseline, thực hiện thí nghiệm có giới hạn theo ramp-up và thời gian duy trì đề xuất. Thu metric theo từng nhánh, từng mức tải và cửa sổ 5 phút; ghi số mẫu của percentile, tải thực tế đạt được, tài nguyên máy phát tải và máy ứng dụng. Với độ trễ dashboard, xác nhận ngưỡng riêng trước khi dùng làm tiêu chí nghiệm thu.",
+            "Đề xuất dừng ngay khi phát hiện sai mật khẩu tạo phiên xác thực; dừng tải nếu lỗi hệ thống/timeout vượt 5% trong 1 phút, p99 vượt 5 giây trong 3 phút hoặc tài nguyên chạm giới hạn đã thống nhất. Các ngưỡng dừng này cần xác nhận. Sau thử nghiệm, đối chiếu tiêu chí chức năng, độ trễ, thông lượng và telemetry; chỉ kết luận khả năng đáp ứng workload trên môi trường thực sự đã đo."
+          ],
+          "run_id": null,
+          "duration_ms": 72587
+        },
+        {
+          "kind": "analysis",
+          "skill_id": "test_data",
+          "skill_file": "test-data.md",
+          "skills": [
+            "automation-core.md",
+            "test-data.md",
+            "subagent-handoff.md"
+          ],
+          "summary": "Đây là đề xuất dữ liệu tổng hợp cho phân tích độc lập luồng đăng nhập; chưa tạo, sửa hoặc thực thi case. Hai kết quả kỳ vọng đã xác nhận là đăng nhập hợp lệ vào dashboard và mật khẩu sai không tạo phiên. Định dạng tài khoản, giới hạn độ dài và chính sách chuẩn hóa còn chưa biết; các nhóm phụ thuộc những quy tắc này cần xác nhận trước khi chốt kỳ vọng.",
+          "findings": [
+            {
+              "title": "P0 — Phân vùng đăng nhập hợp lệ và mật khẩu sai",
+              "detail": "Dữ liệu: một cặp tài khoản/mật khẩu test hợp lệ được cấp; cùng tài khoản với mật khẩu tổng hợp 'SaiMatKhau!42', sau khi xác nhận giá trị này khác mật khẩu thật. Kỳ vọng đã xác nhận: cặp hợp lệ vào dashboard; mật khẩu sai không tạo phiên. Chuẩn bị: mỗi lần bắt đầu trong trạng thái chưa đăng nhập và có cách quan sát phiên xác thực. Chưa có tài khoản test hoặc kết quả chạy; đây là các hàng dữ liệu đề xuất.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Thiếu, null, rỗng và chỉ có khoảng trắng",
+              "detail": "Phân vùng đề xuất cho từng trường: bỏ trường, null, chuỗi rỗng '', một dấu cách ' ', ba dấu cách '   '; giữ trường còn lại ở giá trị hợp lệ, rồi bổ sung trường hợp cả hai rỗng. Mục đích: phân biệt thiếu dữ liệu với dữ liệu có mặt nhưng không có nội dung. Bỏ trường và null chỉ là hàng riêng nếu giao diện nhận dữ liệu biểu diễn được chúng. Chưa biết tính bắt buộc/nullability và quy tắc chuẩn hóa; kỳ vọng từ chối, thông báo lỗi và không tạo phiên cho các hàng này cần xác nhận.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Biên độ dài cần giới hạn đã xác nhận",
+              "detail": "Chưa có giới hạn nên chưa thể cung cấp giá trị biên cụ thể có căn cứ. Với mỗi trường, khi xác nhận miền độ dài bao gồm hai đầu [m, M], đề xuất độ dài m−1 nếu không âm, m, một giá trị trong miền nếu tồn tại, M và M+1. Cần xác nhận đơn vị đo là byte, ký tự hay đơn vị mã và lớp nào áp dụng giới hạn. Kỳ vọng đề xuất: giá trị ngoài miền bị từ chối; giá trị trong miền đáp ứng quy tắc độ dài. Đáp ứng độ dài không tự chứng minh đăng nhập thành công; kiểm tra thành công tại biên cần cặp thông tin đăng nhập hợp lệ được chuẩn bị tương ứng.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1/P2 — Định dạng, Unicode và chuẩn hóa",
+              "detail": "Các tài khoản tổng hợp 'qa_login', 'qa+login@example.test' và '000123' dùng để thăm dò các lớp định dạng; chưa thể gọi lớp nào hợp lệ hoặc không hợp lệ. Với tài khoản test được cấp, đề xuất biến thể đổi hoa/thường và thêm khoảng trắng đầu/cuối; với trường chuỗi, đề xuất 'tést' và 'te\\u0301st' để phân biệt Unicode dựng sẵn và tổ hợp. Với mật khẩu, đề xuất đổi hoa/thường hoặc thêm khoảng trắng. Kỳ vọng tương đương hay khác biệt phụ thuộc chính sách chuẩn hóa chưa biết; chỉ áp dụng quy tắc không tạo phiên khi biến thể được xác định là mật khẩu sai. Ưu tiên P1 cho biến đổi mật khẩu, P2 cho các lớp định dạng và Unicode nếu chưa có yêu cầu liên quan.",
+              "severity": "info",
+              "evidence_ids": []
+            },
+            {
+              "title": "P1 — Tương tác giữa tài khoản và mật khẩu",
+              "detail": "Đề xuất các tổ hợp: tài khoản tồn tại/mật khẩu đúng; tài khoản tồn tại/mật khẩu sai; tài khoản xác nhận không tồn tại/mật khẩu tổng hợp; tài khoản có định dạng không hợp lệ/mật khẩu tổng hợp sau khi có quy tắc định dạng. Hai hàng đầu có kỳ vọng đã xác nhận; hai hàng sau có kỳ vọng đề xuất là từ chối và không tạo phiên, cần xác nhận. Không tự coi một tên tổng hợp là tài khoản không tồn tại: phải kiểm tra hoặc dành riêng trong môi trường test. Cần biết chính sách khóa tài khoản trước khi tái sử dụng tài khoản cho nhiều lần sai hoặc chạy song song.",
+              "severity": "info",
+              "evidence_ids": []
+            }
+          ],
+          "recommendations": [
+            "Chốt quy tắc cho từng trường: bắt buộc/nullability, định dạng, giới hạn độ dài và đơn vị đo, xử lý hoa/thường, khoảng trắng và Unicode.",
+            "Chuẩn bị tài khoản test hợp lệ được cấp, tài khoản tổng hợp xác nhận không tồn tại và cách quan sát việc tạo phiên; không dùng danh tính hoặc bản ghi sản xuất.",
+            "Ưu tiên P0 cho hai quy tắc đã xác nhận, P1 cho dữ liệu thiếu/rỗng, biên và tương tác, P2 cho các lớp định dạng/Unicode chưa có yêu cầu. Đây là mức ưu tiên đề xuất.",
+            "Xác định chính sách khóa tài khoản, giới hạn thử và cách khôi phục trạng thái; dùng tài khoản riêng cho các nhánh chạy song song có thể ảnh hưởng lẫn nhau. Reset trình duyệt không khôi phục dữ liệu phía máy chủ.",
+            "Sau khi chốt quy tắc, dùng tổ hợp theo cặp để giảm các chiều độc lập, giữ riêng các hàng P0 và tương tác quan trọng; chuyển ma trận đã xác nhận cho bước thiết kế case."
+          ],
+          "run_id": null,
+          "duration_ms": 51611
+        }
+      ],
+      "lead_output": {
+        "kind": "analysis",
+        "skill_id": "test_plan",
+        "skill_file": "test-plan.md",
+        "skills": [
+          "automation-core.md",
+          "test-plan.md"
+        ],
+        "summary": "Kế hoạch bao gồm ba phần phân tích độc lập: bảo mật xác thực/phân quyền, hiệu năng với 2.000 người dùng đồng thời và dữ liệu biên/không hợp lệ. Phạm vi là người dùng đăng nhập trên môi trường local; lát cắt đầu tiên gồm đăng nhập hợp lệ vào dashboard và đăng nhập sai mật khẩu không tạo phiên. Đây là hai quy tắc đã xác nhận. Các ưu tiên và ngưỡng khác dưới đây là đề xuất; chưa chạy test, chưa có bằng chứng lỗi hoặc kết quả PASS/FAIL.",
+        "findings": [
+          {
+            "title": "P0 — Bảo mật: xác thực và quyền truy cập sau đăng nhập",
+            "detail": "Đã xác nhận: tài khoản hợp lệ vào dashboard; mật khẩu sai không tạo phiên. Đề xuất kiểm tra từ trạng thái chưa đăng nhập, xác nhận đúng danh tính sau thành công và quan sát quyền truy cập sau thất bại. Chỉ thấy thông báo lỗi hoặc cookie không đủ chứng minh trạng thái phiên xác thực. Suy luận cần xác nhận: dashboard và API phía sau được bảo vệ tại máy chủ; khi đó truy cập trực tiếp với trạng thái chưa xác thực hoặc phiên không hợp lệ phải bị từ chối. Chưa có bằng chứng hệ thống vi phạm các quy tắc này.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "P0 có điều kiện/P1 — Bảo mật: phân quyền và vòng đời phiên",
+            "detail": "Chưa biết hệ thống có nhiều vai trò, tài nguyên theo chủ sở hữu hoặc tenant. Nếu có, ưu tiên P0 cho kiểm tra vượt quyền ngang/dọc theo ma trận quyền được xác nhận. Đề xuất P1 cho đăng xuất, hết hạn, thu hồi phiên, chống cố định phiên và giới hạn thử đăng nhập. Cần thống nhất chính sách trước khi chốt kỳ vọng; đặc biệt chưa rõ hành vi đăng nhập sai khi trình duyệt đang có phiên hợp lệ. Đây là rủi ro giả định, không phải lỗ hổng đã quan sát.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "P1 — Hiệu năng: 2.000 người dùng chưa xác định đủ workload",
+            "detail": "Mục tiêu 2.000 người dùng đồng thời đã được nêu, nhưng chưa rõ là người hoạt động, phiên đang tồn tại hay 2.000 yêu cầu đăng nhập gửi cùng lúc. Đề xuất workload cơ sở: 2.000 người dùng ảo, mỗi người tối đa một giao dịch đang xử lý, tỷ lệ 90% hợp lệ/10% sai mật khẩu, kết thúc phiên thành công và chờ ngẫu nhiên 30–90 giây giữa các chu kỳ. Nếu thời gian giao dịch và chuẩn bị nhỏ, tốc độ xấp xỉ 33,3 giao dịch/giây; đây là ước tính, không phải năng lực đo được. Spike 2.000 yêu cầu gần đồng thời là kịch bản riêng, không thể dùng kết quả workload cơ sở để kết luận cho spike.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "P1 — Hiệu năng: tiêu chí nghiệm thu cần được thống nhất",
+            "detail": "Đề xuất baseline 1, 10 và 100 người dùng, mỗi mức 5 phút; tăng thêm 250 người mỗi 2,5 phút để đạt 2.000 trong 20 phút; duy trì 30 phút và giảm tải 5 phút. Ngưỡng tạm đề xuất cho phản hồi xác thực: p95 ≤ 1 giây, p99 ≤ 2 giây cho từng nhánh, lỗi hệ thống cộng timeout ≤ 0,1%, đánh giá từng cửa sổ 5 phút và toàn giai đoạn duy trì. Từ chối đúng do sai mật khẩu không tính là lỗi hệ thống; khóa tài khoản hoặc giới hạn tốc độ phải được phân loại riêng theo chính sách. Đo riêng thời gian dashboard sử dụng được, tải thực tế, thông lượng, số mẫu và tài nguyên máy phát tải/máy ứng dụng. Môi trường local chưa có cấu hình nên chưa thể suy rộng kết quả tương lai sang production.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "P1/P2 — Dữ liệu: phân vùng và biên phụ thuộc quy tắc đầu vào",
+            "detail": "Đề xuất P1 cho từng trường rỗng, chỉ có khoảng trắng, cả hai trường rỗng, tài khoản xác nhận không tồn tại và biên độ dài. Với giới hạn đã xác nhận [m, M], chọn m−1 nếu không âm, m, giá trị trong miền nếu có, M và M+1; xác định đơn vị byte/ký tự/đơn vị mã. Thiếu trường, null và sai kiểu chỉ áp dụng tại giao diện nhận dữ liệu biểu diễn được chúng. Đề xuất P2 cho định dạng, hoa/thường, khoảng trắng đầu/cuối và Unicode nếu sản phẩm hỗ trợ. Không tự coi một chuỗi là hợp lệ hoặc không hợp lệ khi chưa có quy tắc. Chuỗi đáp ứng định dạng hoặc độ dài không mặc nhiên là thông tin đăng nhập đúng.",
+            "severity": "medium",
+            "evidence_ids": []
+          },
+          {
+            "title": "Thiếu đầu vào để xây dựng và chạy case có kết quả kiểm chứng",
+            "detail": "Đã biết môi trường local; base_url đang rỗng và chưa có repository, tài khoản test hoặc kết quả chạy. Cần URL/route, tài khoản được cấp, trạng thái bắt đầu và cách quan sát phiên để xây dựng lát cắt P0. Kiểm tra phân quyền cần thêm ma trận quyền và tài nguyên test; tải lớn cần cấu hình môi trường, chính sách khóa/giới hạn tốc độ và bộ tài khoản phù hợp. Thiếu repository không cản trở lập kế hoạch. Các phân tích chuyên môn được cung cấp là đề xuất, không phải bằng chứng sản phẩm hay kết quả thực thi.",
+            "severity": "info",
+            "evidence_ids": []
+          }
+        ],
+        "recommendations": [
+          "Chốt đầu vào và tiêu chí: ghi nhận URL đăng nhập/dashboard, tài khoản test, cách kiểm chứng phiên, định nghĩa 2.000 người dùng, quy tắc dữ liệu và chính sách khóa/phiên. Dùng test_data để đề xuất bộ giá trị sau khi có quy tắc; việc cấp tài khoản, vai trò và tài nguyên phía máy chủ là fixture chuẩn bị bên ngoài. Thành công của bước này là bảng quy tắc phân biệt rõ đã xác nhận và còn đề xuất.",
+          "Khám phá lát cắt P0 bằng ui_automation khi có URL và tài khoản: từ trang đăng nhập, thực hiện một lần hợp lệ và một lần sai mật khẩu trong các phiên trình duyệt độc lập. Đầu ra cần là route, locator duy nhất và điểm quan sát kết quả. Đây là bước tương lai; quan sát trang không chứng minh test đã chạy hoặc đạt.",
+          "Tạo định nghĩa bằng gen_testcase, trước hết cho hai case P0 đã xác nhận, sau đó các case dữ liệu P1 và truy cập trực tiếp nếu quy tắc bảo vệ được xác nhận; giới hạn tối đa 12 case mới và dùng bảng dữ liệu để quản lý biến thể. Tiêu chí P0: hợp lệ vào dashboard đúng tài khoản; sai mật khẩu từ trạng thái chưa xác thực không tạo phiên. Tiêu chí phân quyền đề xuất: mọi thao tác trái ma trận quyền bị máy chủ từ chối.",
+          "Dùng automation_builder cho các case được chọn rồi case_review để rà soát chuẩn bị, oracle và payload. Mỗi case trình duyệt phải bắt đầu bằng navigate, tự chuẩn bị đăng nhập và có assertion kết quả quan sát được. API runner chỉ kiểm tra status cho một request mỗi case, nên không đủ tự chứng minh không tạo phiên hoặc kiểm tra chuỗi vòng đời phiên; cần phương tiện quan sát bổ sung. Thành công là định nghĩa đủ điều kiện chạy, chưa phải PASS.",
+          "Chuẩn bị tải bằng harness bên ngoài hỗ trợ quản lý 2.000 người dùng và phiên độc lập; run_tests không thay thế công cụ tải này. Đầu vào là workload và ngưỡng đã thống nhất, cấu hình môi trường và tài khoản riêng cho nhánh hợp lệ/sai mật khẩu. Phải xác định cách kết thúc phiên và tính lưu lượng chuẩn bị/dọn dẹp; tránh nhánh sai mật khẩu khóa tài khoản dùng cho nhánh hợp lệ. Reset trình duyệt không khôi phục trạng thái máy chủ.",
+          "Sau khi kế hoạch được chọn để thực thi, dùng run_tests chạy một lựa chọn nhỏ độc lập gồm hai case P0 và các case P1 đã đủ đầu vào; chỉ tiến tới tải lớn khi các quy tắc chức năng đạt. Harness tải thực hiện baseline, ramp-up và duy trì như đề xuất; soak 120 phút hoặc spike là phần mở rộng riêng. Bằng chứng cần là run_result cho chức năng và báo cáo metric/tải thực đạt cho hiệu năng, kèm số mẫu và trạng thái tài khoản.",
+          "Nghiệm thu theo thứ tự: hai quy tắc đã xác nhận phải đạt; các kiểm soát bảo mật/dữ liệu bổ sung phải đạt theo chính sách đã thống nhất; workload phải đạt đúng định nghĩa 2.000 người dùng và ngưỡng hiệu năng được chấp nhận. Không kết luận đạt khi chưa có kết quả ghi nhận. Sau thực thi mới dùng chẩn đoán dựa trên kết quả chạy để phân biệt lỗi sản phẩm, dữ liệu, môi trường và công cụ; mọi tiêu chí chưa thống nhất vẫn được đánh dấu tạm đề xuất."
+        ],
+        "run_id": null
+      }
+    }
+  ]
+}

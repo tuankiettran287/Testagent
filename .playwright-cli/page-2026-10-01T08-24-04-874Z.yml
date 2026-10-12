@@ -1,0 +1,116 @@
+- generic [ref=f2e3]:
+  - generic "TestAgent local terminal" [ref=f2e4]:
+    - generic [ref=f2e9]: testagent — local workspace
+    - generic [ref=f2e12]: LOCAL SESSION
+  - complementary [ref=f2e14]:
+    - generic [ref=f2e17]:
+      - strong [ref=f2e18]: TestAgent
+      - generic [ref=f2e19]: QUALITY ENGINEERING CLI
+    - generic [ref=f2e20]: ~/ WORKSPACE
+    - navigation "Điều hướng chính" [ref=f2e21]:
+      - button "Tổng quan" [ref=f2e22] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=f2e30] [cursor=pointer]
+      - button "Test cases" [ref=f2e36] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=f2e41] [cursor=pointer]
+      - button "Kết nối AI" [active] [ref=f2e46] [cursor=pointer]
+    - generic [ref=f2e51]:
+      - generic [ref=f2e52]: SYSTEM / STATUS
+      - generic [ref=f2e53]:
+        - generic [ref=f2e56]:
+          - strong [ref=f2e57]: API
+          - generic [ref=f2e58]: Đang hoạt động
+        - generic [ref=f2e61]:
+          - strong [ref=f2e62]: Model AI
+          - generic [ref=f2e63]: Chưa kết nối
+        - generic [ref=f2e66]:
+          - strong [ref=f2e67]: Browser runner
+          - generic [ref=f2e68]: Sẵn sàng
+      - generic [ref=f2e69]:
+        - generic [ref=f2e70]: v0.1.0
+        - generic [ref=f2e71]: LOCAL BUILD
+  - generic [ref=f2e72]:
+    - banner [ref=f2e73]:
+      - generic [ref=f2e74]:
+        - generic [ref=f2e75]: ❯
+        - generic [ref=f2e76]: ~/testagent
+        - generic [ref=f2e77]: /
+        - strong [ref=f2e78]: Kết nối AI
+      - generic [ref=f2e79]:
+        - generic [ref=f2e80]: Chọn dự án
+        - combobox "Chọn dự án" [ref=f2e82] [cursor=pointer]:
+          - option "Chọn dự án" [disabled] [selected]
+        - button "Tạo dự án mới" [ref=f2e83] [cursor=pointer]:
+          - generic [ref=f2e86]: Dự án mới
+    - main [ref=f2e87]:
+      - generic [ref=f2e131]:
+        - generic [ref=f2e132]:
+          - generic [ref=f2e133]: LOCAL CLI / AI CONNECTIONS
+          - heading "Kết nối AI" [level=1] [ref=f2e134]
+          - paragraph [ref=f2e135]: Đăng nhập tài khoản và chọn model để dùng cho các kỹ năng TestAgent.
+        - button "Kiểm tra kết nối" [ref=f2e136] [cursor=pointer]
+      - generic [ref=f2e137]:
+        - strong [ref=f2e138]: AI từ tài khoản của bạn
+        - paragraph [ref=f2e139]: TestAgent gửi tác vụ qua CLI trên máy chạy ứng dụng. Hạn mức và model theo provider bạn đăng nhập. Không cần nhập API key.
+      - generic [ref=f2e140]:
+        - article [ref=f2e141]:
+          - generic [ref=f2e142]:
+            - generic [ref=f2e143]:
+              - generic [ref=f2e144]: CHATGPT
+              - heading "Codex / ChatGPT" [level=2] [ref=f2e145]
+            - generic [ref=f2e146]: Đã kết nối
+          - paragraph [ref=f2e148]: Dùng tài khoản ChatGPT của bạn qua Codex CLI.
+          - generic [ref=f2e149]:
+            - generic [ref=f2e150]: trantuankieta6@gmail.com
+            - generic [ref=f2e151]: plus
+          - generic [ref=f2e152]:
+            - text: Model khả dụng
+            - combobox "Model Codex / ChatGPT" [ref=f2e153]:
+              - option "GPT-6.1-Sol" [selected]
+              - option "GPT-6-Astra"
+              - option "GPT-6-Sol"
+              - option "GPT-6-Luna"
+              - option "GPT-5.6-Sol"
+              - option "GPT-5.6-Terra"
+              - option "GPT-5.6-Luna"
+              - option "GPT-5.5"
+          - generic [ref=f2e154]:
+            - button "Dùng model này" [ref=f2e155] [cursor=pointer]
+            - button "Đăng xuất" [ref=f2e156] [cursor=pointer]
+        - article [ref=f2e157]:
+          - generic [ref=f2e158]:
+            - generic [ref=f2e159]:
+              - generic [ref=f2e160]: ANTIGRAVITY
+              - heading "Antigravity" [level=2] [ref=f2e161]
+            - generic [ref=f2e162]: Đã kết nối
+          - paragraph [ref=f2e164]: Dùng phiên Google trong Antigravity CLI.
+          - generic [ref=f2e165]: Phiên CLI trên máy này
+          - generic [ref=f2e167]:
+            - text: Model khả dụng
+            - combobox "Model Antigravity" [ref=f2e168]:
+              - option "Gemini 3.8 Flash (High)" [selected]
+              - option "Gemini 3.8 Flash (Medium)"
+              - option "Gemini 3.8 Flash (Low)"
+              - option "Gemini 3.7 Flash (High)"
+              - option "Gemini 3.7 Flash (Medium)"
+              - option "Gemini 3.7 Flash (Low)"
+              - option "Gemini 3.6 Flash (High)"
+              - option "Gemini 3.6 Flash (Medium)"
+              - option "Gemini 3.6 Flash (Low)"
+              - option "Gemini 3.1 Pro (High)"
+              - option "Gemini 3.1 Pro (Low)"
+              - option "Claude Sonnet 4.6 (Thinking)"
+              - option "Claude Opus 4.6 (Thinking)"
+              - option "GPT-OSS 120B (Medium)"
+          - generic [ref=f2e169]:
+            - button "Dùng model này" [ref=f2e170] [cursor=pointer]
+            - button "Đăng xuất" [ref=f2e171] [cursor=pointer]
+        - article [ref=f2e172]:
+          - generic [ref=f2e173]:
+            - generic [ref=f2e174]:
+              - generic [ref=f2e175]: CLAUDE
+              - heading "Claude Code" [level=2] [ref=f2e176]
+            - generic [ref=f2e177]: Chưa đăng nhập
+          - paragraph [ref=f2e179]: Dùng tài khoản Claude của bạn qua Claude Code.
+          - paragraph [ref=f2e180]: Đăng nhập tài khoản Claude; phiên API key không được sử dụng.
+          - button "Mở đăng nhập CLI" [ref=f2e182] [cursor=pointer]
+      - paragraph [ref=f2e183]: Phiên đăng nhập được CLI quản lý trên máy chạy backend. Đăng xuất tại đây cũng đăng xuất phiên CLI tương ứng.

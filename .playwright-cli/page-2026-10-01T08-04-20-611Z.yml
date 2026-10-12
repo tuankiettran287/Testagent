@@ -1,0 +1,27 @@
+- generic [ref=e2]:
+  - generic [ref=e3]:
+    - complementary [ref=e4]:
+      - generic [ref=e10]:
+        - generic [ref=e11]: Digital Worker Studio
+        - generic [ref=e12]: Presale
+      - navigation "Điều hướng chính" [ref=e14]:
+        - generic [ref=e15]:
+          - button "Hồ sơ thầu" [ref=e16] [cursor=pointer]
+          - button "Hoạt động" [ref=e20] [cursor=pointer]
+      - button "U" [ref=e26] [cursor=pointer]
+    - generic [ref=e30]:
+      - banner [ref=e31]:
+        - navigation "Vị trí" [ref=e32]:
+          - generic [ref=e33]: Hồ sơ thầu
+        - generic [ref=e34]:
+          - button "Chuyển ngôn ngữ" [ref=e35] [cursor=pointer]:
+            - generic [ref=e36]: VI
+            - generic [ref=e37]: /
+            - generic [ref=e38]: EN
+          - button "Chuyển sang giao diện tối" [ref=e39] [cursor=pointer]
+      - button "✨ Trợ lý" [ref=e46] [cursor=pointer]
+  - status [ref=e48]:
+    - generic [ref=e53]:
+      - generic [ref=e54]: Lỗi 500
+      - generic [ref=e55]: Internal Server Error
+    - button "Đóng" [ref=e56] [cursor=pointer]

@@ -1,0 +1,22 @@
+[
+  {
+    "prompt": "Kiểm tra API login chịu được 2.000 concurrent users không.",
+    "expected": "performance",
+    "requested_function": "orchestrator",
+    "source": "ai",
+    "function": "performance",
+    "reason": "Yêu cầu đánh giá API login với 2.000 người dùng đồng thời thuộc kiểm thử hiệu năng; cần xác định workload, chỉ số và ngưỡng chấp nhận trước khi chạy tải.",
+    "run_id": null,
+    "case_ids": []
+  },
+  {
+    "prompt": "Viết báo cáo QA từ kết quả chạy test, nêu lỗi và hành động tiếp theo.",
+    "expected": "report",
+    "requested_function": "orchestrator",
+    "source": "ai",
+    "function": "report",
+    "reason": "Yêu cầu là viết báo cáo QA từ kết quả chạy test, nêu lỗi và hành động tiếp theo. Dùng lượt chạy hoàn tất gần nhất nếu có; nếu chưa có, cần cung cấp kết quả chạy để lập báo cáo.",
+    "run_id": null,
+    "case_ids": []
+  }
+]

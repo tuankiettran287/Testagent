@@ -1,0 +1,176 @@
+- generic [ref=e3]:
+  - generic "TestAgent local terminal" [ref=e4]:
+    - generic [ref=e9]: testagent — local workspace
+    - generic [ref=e12]: LOCAL SESSION
+  - complementary [ref=e14]:
+    - generic [ref=e17]:
+      - strong [ref=e18]: TestAgent
+      - generic [ref=e19]: QUALITY ENGINEERING CLI
+    - generic [ref=e20]: ~/ WORKSPACE
+    - navigation "Điều hướng chính" [ref=e21]:
+      - button "Tổng quan" [ref=e22] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=e30] [cursor=pointer]
+      - button "Test cases" [ref=e36] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=e41] [cursor=pointer]
+      - button "Kết nối AI" [ref=e46] [cursor=pointer]
+    - generic [ref=e51]:
+      - generic [ref=e52]: SYSTEM / STATUS
+      - generic [ref=e53]:
+        - generic [ref=e56]:
+          - strong [ref=e57]: API
+          - generic [ref=e58]: Đang hoạt động
+        - generic [ref=e61]:
+          - strong [ref=e62]: Model AI
+          - generic [ref=e63]: Chưa kết nối
+        - generic [ref=e66]:
+          - strong [ref=e67]: Browser runner
+          - generic [ref=e68]: Sẵn sàng
+      - generic [ref=e69]:
+        - generic [ref=e70]: v0.1.0
+        - generic [ref=e71]: LOCAL BUILD
+  - generic [ref=e72]:
+    - banner [ref=e73]:
+      - generic [ref=e74]:
+        - generic [ref=e75]: ❯
+        - generic [ref=e76]: ~/testagent
+        - generic [ref=e77]: /
+        - strong [ref=e78]: Tổng quan
+      - generic [ref=e79]:
+        - generic [ref=e80]: Chọn dự án
+        - combobox "Chọn dự án" [ref=e82] [cursor=pointer]:
+          - option "Chọn dự án" [disabled]
+          - option "QA ? ki?m tra sub-agent" [selected]
+        - button "Tạo dự án mới" [ref=e83] [cursor=pointer]:
+          - generic [ref=e86]: Dự án mới
+    - main [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]: PROJECT / LOCAL / OVERVIEW
+          - heading "QA ? ki?m tra sub-agent" [level=1] [ref=e91]
+          - paragraph [ref=e92]: Trung tâm điều phối kiểm thử và theo dõi chất lượng.
+        - generic [ref=e93]:
+          - button "Nạp nguồn (tùy chọn)" [ref=e94] [cursor=pointer]
+          - button "Cấu hình" [ref=e97] [cursor=pointer]
+      - region "Thiết lập dự án" [ref=e102]:
+        - generic [ref=e103]:
+          - generic [ref=e104]: PROJECT READINESS
+          - heading "Chuẩn bị kiểm thử website." [level=2] [ref=e105]
+          - paragraph [ref=e106]: Kết nối AI và đặt URL website. Bạn có thể tạo test từ yêu cầu; tài liệu và repository là ngữ cảnh bổ sung tùy chọn.
+          - generic "0 trên 2 bước hoàn tất" [ref=e107]
+          - generic [ref=e108]: 0 / 2 bước hoàn tất
+        - generic [ref=e109]:
+          - button "01 Kết nối mô hình AI Đăng nhập provider và chọn model" [ref=e110] [cursor=pointer]:
+            - generic [ref=e111]: "01"
+            - generic [ref=e112]:
+              - strong [ref=e113]: Kết nối mô hình AI
+              - generic [ref=e114]: Đăng nhập provider và chọn model
+          - button "02 Đặt URL website Để AI đọc trang và chạy browser/API test" [ref=e117] [cursor=pointer]:
+            - generic [ref=e118]: "02"
+            - generic [ref=e119]:
+              - strong [ref=e120]: Đặt URL website
+              - generic [ref=e121]: Để AI đọc trang và chạy browser/API test
+          - button "Nạp nguồn (tùy chọn) Thêm tài liệu hoặc repository nếu có" [ref=e124] [cursor=pointer]:
+            - generic [ref=e128]:
+              - strong [ref=e129]: Nạp nguồn (tùy chọn)
+              - generic [ref=e130]: Thêm tài liệu hoặc repository nếu có
+      - generic [ref=e133]:
+        - generic [ref=e134]:
+          - generic [ref=e139]:
+            - generic [ref=e140]: AGENT WORKBENCH
+            - heading "Giao việc cho TestAgent" [level=2] [ref=e141]
+            - paragraph [ref=e142]: Mô tả mục tiêu để AI chọn agent phù hợp, hoặc chọn kỹ năng trực tiếp.
+          - generic [ref=e143]:
+            - generic [ref=e144]:
+              - generic [ref=e145]:
+                - text: Provider
+                - combobox "Provider AI" [ref=e146]:
+                  - option "Chọn tài khoản AI" [disabled] [selected]
+                  - option "Codex / ChatGPT · Chưa kết nối" [disabled]
+                  - option "Antigravity · Chưa kết nối" [disabled]
+                  - option "Claude Code · Chưa kết nối" [disabled]
+              - generic [ref=e147]:
+                - text: Model
+                - combobox "Model AI" [disabled] [ref=e148]:
+                  - option "Chọn model" [disabled] [selected]
+              - button "Kết nối tài khoản" [ref=e149] [cursor=pointer]
+            - generic [ref=e150]:
+              - generic [ref=e151]: Kỹ năng agent
+              - combobox "Kỹ năng agent" [ref=e152]:
+                - option "Tự động điều phối" [selected]
+                - option "Tạo UI automation"
+                - option "Tạo test case"
+                - option "Chuyển case thành automation"
+                - option "Rà soát test cases"
+                - option "Chạy bộ test"
+                - option "Tạo API test"
+                - option "Sửa automation bị lỗi"
+                - option "Viết report"
+                - option "Phân tích lỗi"
+                - option "Đọc repository"
+                - option "Phân tích yêu cầu"
+                - option "Lập test plan"
+                - option "Tạo unit test"
+                - option "Phân tích regression"
+                - option "Phân tích hiệu năng"
+                - option "Phân tích bảo mật"
+                - option "Lập phiên exploratory"
+                - option "Thiết kế test data"
+              - paragraph [ref=e153]: Hiểu yêu cầu, chọn agent phù hợp và kiểm tra ngữ cảnh cần thiết
+              - generic [ref=e154]:
+                - text: "Skill:"
+                - code [ref=e158]: orchestrator.md
+            - generic [ref=e159]:
+              - generic [ref=e160]: Thực thi test
+              - combobox "Thực thi test" [ref=e161]:
+                - option "Xem test trước, chọn chạy sau" [selected]
+                - option "Cho phép chạy test theo yêu cầu"
+              - paragraph [ref=e162]: AI chọn agent theo mục tiêu và ngữ cảnh dự án. Nếu cần tạo automation, agent sẽ quan sát website; test chỉ chạy theo chế độ bạn chọn.
+            - generic [ref=e163]: Yêu cầu của bạn
+            - textbox "Yêu cầu của bạn" [ref=e164]:
+              - /placeholder: "Ví dụ: Test luồng đăng nhập, thêm sản phẩm vào giỏ; dùng tài khoản test demo / mật khẩu..."
+            - generic [ref=e165]:
+              - generic [ref=e166]: Mô tả mục tiêu; agent phù hợp được chọn tự động.
+              - button "Gửi cho agent" [disabled] [ref=e167]
+          - generic [ref=e170]:
+            - strong [ref=e171]: "Để gửi yêu cầu:"
+            - generic [ref=e172]:
+              - text: Đăng nhập và chọn model trong
+              - button "Kết nối AI" [ref=e173] [cursor=pointer]
+              - text: .
+        - generic [ref=e174]:
+          - generic [ref=e176]:
+            - heading "Hoạt động gần đây" [level=2] [ref=e177]
+            - paragraph [ref=e178]: Nhấn vào tác vụ để xem kết quả agent
+          - button "L?p k? ho?ch ki?m th? t? ??nh gi? b?o m?t v? hi?u n?ng ? d? li?u m? ph?ng Lập test plan · 11:27 5/10/26 COMPLETED" [active] [ref=e180] [cursor=pointer]:
+            - generic [ref=e184]:
+              - strong [ref=e185]: L?p k? ho?ch ki?m th? t? ??nh gi? b?o m?t v? hi?u n?ng ? d? li?u m? ph?ng
+              - generic [ref=e186]: Lập test plan · 11:27 5/10/26
+            - generic [ref=e187]: COMPLETED
+  - dialog [ref=e189]:
+    - generic [ref=e190]:
+      - generic [ref=e191]: AGENT TASK · qa-paren
+      - button "Đóng" [ref=e192] [cursor=pointer]
+    - heading "Lập test plan" [level=2] [ref=e195]
+    - generic [ref=e196]:
+      - generic [ref=e197]: COMPLETED
+      - generic [ref=e198]: 11:27 5/10/26
+    - generic [ref=e199]:
+      - generic [ref=e200]: Skill được sử dụng
+      - code [ref=e201]: test-plan.md
+    - generic [ref=e202]:
+      - heading "Yêu cầu" [level=3] [ref=e203]
+      - paragraph [ref=e204]: L?p k? ho?ch ki?m th? t? ??nh gi? b?o m?t v? hi?u n?ng ? d? li?u m? ph?ng
+    - generic [ref=e205]:
+      - heading "Điều phối" [level=3] [ref=e206]
+      - paragraph [ref=e207]:
+        - text: Đã giao cho
+        - strong [ref=e208]: Lập test plan
+        - text: .
+      - paragraph [ref=e209]: T?ng h?p ??nh gi? b?o m?t v? hi?u n?ng th?nh k? ho?ch ki?m th?.
+    - generic [ref=e210]:
+      - heading "Tóm tắt" [level=3] [ref=e211]
+      - paragraph [ref=e212]: D? li?u m? ph?ng ?? ki?m tra hi?n th? task v? c?c ph?n ph?n t?ch ??c l?p. Kh?ng c? test n?o ???c th?c thi.
+    - generic [ref=e213]:
+      - heading "Đề xuất" [level=3] [ref=e214]
+      - list [ref=e215]:
+        - listitem [ref=e216]: X?c nh?n y?u c?u v? d? li?u tr??c khi t?o automation.

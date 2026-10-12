@@ -1,0 +1,76 @@
+- generic [ref=f1e3]:
+  - generic "TestAgent local terminal" [ref=f1e4]: testagent — local workspace
+  - button "Đóng menu" [ref=f1e240] [cursor=pointer]
+  - complementary [ref=f1e14]:
+    - generic [ref=f1e15]:
+      - generic [ref=f1e16]: ">_"
+      - generic [ref=f1e17]:
+        - strong [ref=f1e18]:
+          - text: TestAgent
+          - generic [ref=f1e19]: _
+        - generic [ref=f1e20]: QUALITY ENGINEERING CLI
+    - generic [ref=f1e21]: ~/workspace
+    - navigation "Điều hướng chính" [ref=f1e22]:
+      - button "Tổng quan" [ref=f1e23] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=f1e30] [cursor=pointer]
+      - button "Test cases" [ref=f1e35] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=f1e39] [cursor=pointer]
+    - generic [ref=f1e43]:
+      - generic [ref=f1e44]: SYSTEM / STATUS
+      - generic [ref=f1e45]: API đang hoạt động
+      - generic [ref=f1e47]: AI chưa kết nối
+      - generic [ref=f1e49]: v0.1.0 · local build
+  - generic [ref=f1e50]:
+    - banner [ref=f1e51]:
+      - button "Mở menu" [active] [ref=f1e237] [cursor=pointer]
+      - generic [ref=f1e57]:
+        - generic [ref=f1e58]: Chọn dự án
+        - combobox "Chọn dự án" [ref=f1e59]:
+          - option "Chọn dự án" [disabled]
+          - option "Terminal UI preview temporary" [selected]
+        - button "Tạo dự án mới" [ref=f1e60] [cursor=pointer]
+    - main [ref=f1e64]:
+      - generic [ref=f1e96]:
+        - generic [ref=f1e97]:
+          - generic [ref=f1e98]: PROJECT / STAGING / SOURCES
+          - heading "Nguồn dữ liệu" [level=1] [ref=f1e182]
+          - paragraph [ref=f1e100]: Nguồn tri thức để các agent hiểu hệ thống cần kiểm thử.
+        - button "Cấu hình" [ref=f1e105] [cursor=pointer]
+      - generic [ref=f1e183]:
+        - generic [ref=f1e184]:
+          - generic [ref=f1e186]:
+            - heading "Nạp nguồn dữ liệu" [level=2] [ref=f1e187]
+            - paragraph [ref=f1e188]: Hỗ trợ tài liệu, OpenAPI, mã nguồn và UI.
+          - generic [ref=f1e189]:
+            - button "Tài liệu PDF, DOCX, TXT, MD, CSV, XLSX" [ref=f1e190] [cursor=pointer]:
+              - strong [ref=f1e195]: Tài liệu
+              - generic [ref=f1e196]: PDF, DOCX, TXT, MD, CSV, XLSX
+            - button "OpenAPI JSON hoặc YAML specification" [ref=f1e197] [cursor=pointer]:
+              - strong [ref=f1e201]: OpenAPI
+              - generic [ref=f1e202]: JSON hoặc YAML specification
+            - button "Source ZIP Repository dạng .zip" [ref=f1e203] [cursor=pointer]:
+              - strong [ref=f1e208]: Source ZIP
+              - generic [ref=f1e209]: Repository dạng .zip
+          - button "Choose File" [ref=f1e210]
+          - generic [ref=f1e211]: hoặc nhập repository
+          - generic [ref=f1e213]:
+            - generic [ref=f1e214]: Git HTTPS URL hoặc đường dẫn trong IMPORT_ROOT
+            - generic [ref=f1e215]:
+              - textbox "Git HTTPS URL hoặc đường dẫn trong IMPORT_ROOT" [ref=f1e216]:
+                - /placeholder: https://github.com/org/repo.git
+              - button "Nhập" [ref=f1e217] [cursor=pointer]
+          - generic [ref=f1e218]: hoặc quét giao diện
+          - generic [ref=f1e220]:
+            - generic [ref=f1e221]: Đường dẫn trang trên Base URL
+            - generic [ref=f1e222]:
+              - textbox "Đường dẫn trang trên Base URL" [ref=f1e223]:
+                - /placeholder: /login
+                - text: /
+              - button "Quét UI" [disabled] [ref=f1e224]
+        - generic [ref=f1e225]:
+          - generic [ref=f1e227]:
+            - heading "Nguồn đã nạp" [level=2] [ref=f1e228]
+            - paragraph [ref=f1e229]: 0 nguồn trong kho tri thức
+          - generic [ref=f1e230]:
+            - heading "Chưa có nguồn dữ liệu" [level=3] [ref=f1e235]
+            - paragraph [ref=f1e236]: Nạp tài liệu hoặc mã nguồn để bắt đầu phân tích.

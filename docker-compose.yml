@@ -1,0 +1,32 @@
+services:
+  api:
+    build: .
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      DATA_DIR: /data
+      IMPORT_ROOT: /workspace
+      WEB_ORIGIN: http://localhost:5173
+    volumes:
+      - ./data:/data
+      - ./:/workspace:ro
+    ports:
+      - "8000:8000"
+    security_opt:
+      - no-new-privileges:true
+    shm_size: 1gb
+  web:
+    image: node:22-alpine
+    working_dir: /app
+    environment:
+      VITE_API_PROXY_TARGET: http://api:8000
+    volumes:
+      - ./web:/app
+      - /app/node_modules
+    command: sh -c "npm install && npm run dev -- --host 0.0.0.0"
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+

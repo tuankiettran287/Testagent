@@ -1,0 +1,201 @@
+- generic [ref=f1e3]:
+  - generic "TestAgent local terminal" [ref=f1e4]:
+    - generic [ref=f1e9]: testagent — local workspace
+    - generic [ref=f1e12]: LOCAL SESSION
+  - complementary [ref=f1e14]:
+    - generic [ref=f1e17]:
+      - strong [ref=f1e18]: TestAgent
+      - generic [ref=f1e19]: QUALITY ENGINEERING CLI
+    - generic [ref=f1e20]: ~/ WORKSPACE
+    - navigation "Điều hướng chính" [ref=f1e21]:
+      - button "Tổng quan" [ref=f1e22] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=f1e30] [cursor=pointer]
+      - button "Test cases" [ref=f1e36] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=f1e41] [cursor=pointer]
+      - button "Kết nối AI" [ref=f1e46] [cursor=pointer]
+    - generic [ref=f1e51]:
+      - generic [ref=f1e52]: SYSTEM / STATUS
+      - generic [ref=f1e53]:
+        - generic [ref=f1e56]:
+          - strong [ref=f1e57]: API
+          - generic [ref=f1e58]: Đang hoạt động
+        - generic [ref=f1e61]:
+          - strong [ref=f1e62]: Model AI
+          - generic [ref=f1e63]: Chưa kết nối
+        - generic [ref=f1e66]:
+          - strong [ref=f1e67]: Browser runner
+          - generic [ref=f1e68]: Sẵn sàng
+      - generic [ref=f1e69]:
+        - generic [ref=f1e70]: v0.1.0
+        - generic [ref=f1e71]: LOCAL BUILD
+  - generic [ref=f1e72]:
+    - banner [ref=f1e73]:
+      - generic [ref=f1e74]:
+        - generic [ref=f1e75]: ❯
+        - generic [ref=f1e76]: ~/testagent
+        - generic [ref=f1e77]: /
+        - strong [ref=f1e78]: Tổng quan
+      - generic [ref=f1e79]:
+        - generic [ref=f1e80]: Chọn dự án
+        - combobox "Chọn dự án" [ref=f1e82] [cursor=pointer]:
+          - option "Chọn dự án" [disabled]
+          - option "QA · kiểm tra sub-agent" [selected]
+        - button "Tạo dự án mới" [ref=f1e83] [cursor=pointer]:
+          - generic [ref=f1e86]: Dự án mới
+    - main [ref=f1e87]:
+      - generic [ref=f1e130]:
+        - generic [ref=f1e131]:
+          - generic [ref=f1e132]: PROJECT / LOCAL / OVERVIEW
+          - heading "QA · kiểm tra sub-agent" [level=1] [ref=f1e133]
+          - paragraph [ref=f1e134]: Trung tâm điều phối kiểm thử và theo dõi chất lượng.
+        - generic [ref=f1e135]:
+          - button "Nạp nguồn (tùy chọn)" [ref=f1e136] [cursor=pointer]
+          - button "Cấu hình" [ref=f1e139] [cursor=pointer]
+      - region "Thiết lập dự án" [ref=f1e144]:
+        - generic [ref=f1e145]:
+          - generic [ref=f1e146]: PROJECT READINESS
+          - heading "Chuẩn bị kiểm thử website." [level=2] [ref=f1e147]
+          - paragraph [ref=f1e148]: Kết nối AI và đặt URL website. Bạn có thể tạo test từ yêu cầu; tài liệu và repository là ngữ cảnh bổ sung tùy chọn.
+          - generic "0 trên 2 bước hoàn tất" [ref=f1e149]
+          - generic [ref=f1e150]: 0 / 2 bước hoàn tất
+        - generic [ref=f1e151]:
+          - button "01 Kết nối mô hình AI Đăng nhập provider và chọn model" [ref=f1e152] [cursor=pointer]:
+            - generic [ref=f1e153]: "01"
+            - generic [ref=f1e154]:
+              - strong [ref=f1e155]: Kết nối mô hình AI
+              - generic [ref=f1e156]: Đăng nhập provider và chọn model
+          - button "02 Đặt URL website Để AI đọc trang và chạy browser/API test" [ref=f1e159] [cursor=pointer]:
+            - generic [ref=f1e160]: "02"
+            - generic [ref=f1e161]:
+              - strong [ref=f1e162]: Đặt URL website
+              - generic [ref=f1e163]: Để AI đọc trang và chạy browser/API test
+          - button "Nạp nguồn (tùy chọn) Thêm tài liệu hoặc repository nếu có" [ref=f1e166] [cursor=pointer]:
+            - generic [ref=f1e170]:
+              - strong [ref=f1e171]: Nạp nguồn (tùy chọn)
+              - generic [ref=f1e172]: Thêm tài liệu hoặc repository nếu có
+      - generic [ref=f1e175]:
+        - generic [ref=f1e176]:
+          - generic [ref=f1e181]:
+            - generic [ref=f1e182]: AGENT WORKBENCH
+            - heading "Giao việc cho TestAgent" [level=2] [ref=f1e183]
+            - paragraph [ref=f1e184]: Mô tả mục tiêu để AI chọn agent phù hợp, hoặc chọn kỹ năng trực tiếp.
+          - generic [ref=f1e185]:
+            - generic [ref=f1e186]:
+              - generic [ref=f1e187]:
+                - text: Provider
+                - combobox "Provider AI" [ref=f1e188]:
+                  - option "Chọn tài khoản AI" [disabled] [selected]
+                  - option "Codex / ChatGPT · Chưa kết nối" [disabled]
+                  - option "Antigravity · Chưa kết nối" [disabled]
+                  - option "Claude Code · Chưa kết nối" [disabled]
+              - generic [ref=f1e189]:
+                - text: Model
+                - combobox "Model AI" [disabled] [ref=f1e190]:
+                  - option "Chọn model" [disabled] [selected]
+              - button "Kết nối tài khoản" [ref=f1e191] [cursor=pointer]
+            - generic [ref=f1e192]:
+              - generic [ref=f1e193]: Kỹ năng agent
+              - combobox "Kỹ năng agent" [ref=f1e194]:
+                - option "Tự động điều phối" [selected]
+                - option "Tạo UI automation"
+                - option "Tạo test case"
+                - option "Chuyển case thành automation"
+                - option "Rà soát test cases"
+                - option "Chạy bộ test"
+                - option "Tạo API test"
+                - option "Sửa automation bị lỗi"
+                - option "Viết report"
+                - option "Phân tích lỗi"
+                - option "Đọc repository"
+                - option "Phân tích yêu cầu"
+                - option "Lập test plan"
+                - option "Tạo unit test"
+                - option "Phân tích regression"
+                - option "Phân tích hiệu năng"
+                - option "Phân tích bảo mật"
+                - option "Lập phiên exploratory"
+                - option "Thiết kế test data"
+              - paragraph [ref=f1e195]: Hiểu yêu cầu, chọn agent phù hợp và kiểm tra ngữ cảnh cần thiết
+              - generic [ref=f1e196]:
+                - text: "Skill:"
+                - code [ref=f1e200]: orchestrator.md
+            - generic [ref=f1e201]:
+              - generic [ref=f1e202]: Cách điều phối
+              - combobox "Cách điều phối" [ref=f1e203]:
+                - option "Tự động chia việc khi cần" [selected]
+                - option "Chạy một agent"
+              - paragraph [ref=f1e204]: AI có thể giao tối đa 3 phần phân tích độc lập cho sub-agent. Mỗi phần thêm một lượt gọi model.
+            - generic [ref=f1e205]:
+              - generic [ref=f1e206]: Thực thi test
+              - combobox "Thực thi test" [ref=f1e207]:
+                - option "Xem test trước, chọn chạy sau" [selected]
+                - option "Cho phép chạy test theo yêu cầu"
+              - paragraph [ref=f1e208]: AI chọn agent theo mục tiêu và ngữ cảnh dự án. Nếu cần tạo automation, agent sẽ quan sát website; test chỉ chạy theo chế độ bạn chọn.
+            - generic [ref=f1e209]: Yêu cầu của bạn
+            - textbox "Yêu cầu của bạn" [ref=f1e210]:
+              - /placeholder: "Ví dụ: Test luồng đăng nhập, thêm sản phẩm vào giỏ; dùng tài khoản test demo / mật khẩu..."
+            - generic [ref=f1e211]:
+              - generic [ref=f1e212]: Mô tả mục tiêu; agent phù hợp được chọn tự động.
+              - button "Gửi cho agent" [disabled] [ref=f1e213]
+          - generic [ref=f1e216]:
+            - strong [ref=f1e217]: "Để gửi yêu cầu:"
+            - generic [ref=f1e218]:
+              - text: Đăng nhập và chọn model trong
+              - button "Kết nối AI" [ref=f1e219] [cursor=pointer]
+              - text: .
+        - generic [ref=f1e220]:
+          - generic [ref=f1e222]:
+            - heading "Hoạt động gần đây" [level=2] [ref=f1e223]
+            - paragraph [ref=f1e224]: Nhấn vào tác vụ để xem kết quả agent
+          - button "Lập kế hoạch kiểm thử từ đánh giá bảo mật và hiệu năng — dữ liệu mô phỏng Lập test plan · 11:27 5/10/26 COMPLETED" [active] [ref=f1e226] [cursor=pointer]:
+            - generic [ref=f1e230]:
+              - strong [ref=f1e231]: Lập kế hoạch kiểm thử từ đánh giá bảo mật và hiệu năng — dữ liệu mô phỏng
+              - generic [ref=f1e232]: Lập test plan · 11:27 5/10/26
+            - generic [ref=f1e233]: COMPLETED
+  - dialog [ref=f1e235]:
+    - generic [ref=f1e236]:
+      - generic [ref=f1e237]: AGENT TASK · qa-paren
+      - button "Đóng" [ref=f1e238] [cursor=pointer]
+    - heading "Lập test plan" [level=2] [ref=f1e241]
+    - generic [ref=f1e242]:
+      - generic [ref=f1e243]: COMPLETED
+      - generic [ref=f1e244]: 11:27 5/10/26
+    - generic [ref=f1e245]:
+      - generic [ref=f1e246]: Skill được sử dụng
+      - code [ref=f1e247]: test-plan.md
+    - generic [ref=f1e248]:
+      - heading "Yêu cầu" [level=3] [ref=f1e249]
+      - paragraph [ref=f1e250]: Lập kế hoạch kiểm thử từ đánh giá bảo mật và hiệu năng — dữ liệu mô phỏng
+    - generic [ref=f1e251]:
+      - heading "Điều phối" [level=3] [ref=f1e252]
+      - paragraph [ref=f1e253]:
+        - text: Đã giao cho
+        - strong [ref=f1e254]: Lập test plan
+        - text: .
+      - paragraph [ref=f1e255]: Tổng hợp các phân tích độc lập thành kế hoạch kiểm thử. Đây là fixture giao diện, không phải kết quả gọi model.
+    - region "Các phần việc của sub-agent" [ref=f1e256]:
+      - heading "Phân tích từ sub-agent 1/2 hoàn tất" [level=3] [ref=f1e257]:
+        - text: Phân tích từ sub-agent
+        - generic [ref=f1e258]: 1/2 hoàn tất
+      - paragraph [ref=f1e259]: Các phần việc độc lập được chuyển về agent chính để tổng hợp.
+      - group [ref=f1e260]:
+        - generic "› Phân tích bảo mật Phân tích phạm vi security từ dữ liệu đã cung cấp và ghi rõ thông tin còn thiếu. COMPLETED" [ref=f1e261] [cursor=pointer]:
+          - text: ›
+          - generic [ref=f1e262]:
+            - strong [ref=f1e263]: Phân tích bảo mật
+            - generic [ref=f1e264]: Phân tích phạm vi security từ dữ liệu đã cung cấp và ghi rõ thông tin còn thiếu.
+          - generic [ref=f1e265]: COMPLETED
+      - group [ref=f1e266]:
+        - generic "› Phân tích hiệu năng Phân tích phạm vi performance từ dữ liệu đã cung cấp và ghi rõ thông tin còn thiếu. FAILED" [ref=f1e267] [cursor=pointer]:
+          - text: ›
+          - generic [ref=f1e268]:
+            - strong [ref=f1e269]: Phân tích hiệu năng
+            - generic [ref=f1e270]: Phân tích phạm vi performance từ dữ liệu đã cung cấp và ghi rõ thông tin còn thiếu.
+          - generic [ref=f1e271]: FAILED
+    - generic [ref=f1e272]:
+      - heading "Tóm tắt" [level=3] [ref=f1e273]
+      - paragraph [ref=f1e274]: Dữ liệu mô phỏng để kiểm tra task con và phần tổng hợp. Không có test nào được thực thi.
+    - generic [ref=f1e275]:
+      - heading "Đề xuất" [level=3] [ref=f1e276]
+      - list [ref=f1e277]:
+        - listitem [ref=f1e278]: Xác nhận yêu cầu và dữ liệu trước khi tạo automation.

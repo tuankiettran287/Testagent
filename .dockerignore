@@ -1,0 +1,11 @@
+.env
+.git
+.venv
+data
+output
+web/node_modules
+web/dist
+browser_runner/node_modules
+browser_runner/dist
+__pycache__
+*.pyc

@@ -1,0 +1,104 @@
+- generic [ref=e3]:
+  - complementary [ref=e4]:
+    - generic [ref=e9]:
+      - strong [ref=e10]: TestAgent
+      - generic [ref=e11]: QA WORKSPACE
+    - generic [ref=e12]: KHÔNG GIAN LÀM VIỆC
+    - navigation "Điều hướng chính" [ref=e13]:
+      - button "Tổng quan" [ref=e14] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=e21] [cursor=pointer]
+      - button "Test cases" [ref=e26] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=e30] [cursor=pointer]
+    - generic [ref=e34]:
+      - generic [ref=e35]: Chưa cấu hình mô hình
+      - generic [ref=e37]: TestAgent · MVP
+  - generic [ref=e38]:
+    - banner [ref=e39]:
+      - generic [ref=e40]:
+        - generic [ref=e41]: Workspace
+        - generic [ref=e42]: /
+        - strong [ref=e43]: Tổng quan
+      - generic [ref=e44]:
+        - generic [ref=e45]: Chọn dự án
+        - combobox "Chọn dự án" [ref=e46]:
+          - option "Chọn dự án" [disabled]
+          - option "UI Preview temporary" [selected]
+        - button "Dự án mới" [ref=e47] [cursor=pointer]
+    - main [ref=e50]:
+      - status [ref=e81]:
+        - generic [ref=e82]: Đã tạo dự án mới. Hãy nạp tài liệu hoặc repository để bắt đầu.
+        - button "Đóng thông báo" [ref=e83] [cursor=pointer]
+      - generic [ref=e86]:
+        - generic [ref=e87]:
+          - generic [ref=e88]: STAGING WORKSPACE
+          - heading "UI Preview temporary" [level=1] [ref=e89]
+          - paragraph [ref=e90]: Theo dõi chất lượng và điều phối kiểm thử từ một chỗ.
+        - button "Cấu hình" [ref=e92] [cursor=pointer]
+      - region "Chỉ số dự án" [ref=e93]:
+        - generic [ref=e94]:
+          - generic [ref=e95]: Nguồn dữ liệu
+          - strong [ref=e96]: "0"
+          - text: Tài liệu · mã nguồn · API
+        - generic [ref=e97]:
+          - generic [ref=e98]: Test cases
+          - strong [ref=e99]: "0"
+          - generic [ref=e100]: 0 có thể chạy
+        - generic [ref=e101]:
+          - generic [ref=e102]: Truy vết nguồn
+          - strong [ref=e103]: 0%
+          - generic [ref=e104]: 0/0 nguồn được gắn test
+        - generic [ref=e105]:
+          - generic [ref=e106]: Pass rate gần nhất
+          - strong [ref=e107]: —
+          - text: Chưa có lượt chạy
+      - generic [ref=e108]:
+        - generic [ref=e109]:
+          - generic [ref=e114]:
+            - heading "Giao việc cho TestAgent" [level=2] [ref=e115]
+            - paragraph [ref=e116]: Chọn agent nhỏ rồi mô tả công việc.
+          - generic [ref=e117]:
+            - generic [ref=e118]:
+              - generic [ref=e119]: Chức năng
+              - combobox "Chức năng" [ref=e120]:
+                - option "Tạo test case" [selected]
+                - option "Đọc repository"
+                - option "Viết report"
+                - option "Phân tích yêu cầu"
+                - option "Lập test plan"
+                - option "Tạo unit test"
+                - option "Tạo API test"
+                - option "Tạo UI automation"
+                - option "Phân tích lỗi"
+                - option "Phân tích regression"
+                - option "Phân tích hiệu năng"
+                - option "Phân tích bảo mật"
+                - option "Lập phiên exploratory"
+                - option "Thiết kế test data"
+              - paragraph [ref=e121]: Sinh test case có truy vết tới nguồn
+              - generic [ref=e122]:
+                - text: "Skill:"
+                - code [ref=e123]: gen-testcase.md
+            - generic [ref=e124]: Yêu cầu kiểm thử
+            - textbox "Yêu cầu kiểm thử" [ref=e125]:
+              - /placeholder: "Ví dụ: Phân tích luồng đăng nhập, dữ liệu biên và các trường hợp lỗi..."
+            - generic [ref=e126]:
+              - generic [ref=e127]: Agent dùng ngữ cảnh của dự án.
+              - button "Tạo test case" [disabled] [ref=e128]
+          - generic [ref=e131]: Hãy nạp ít nhất một nguồn dữ liệu để agent làm việc.
+          - generic [ref=e132]: Cấu hình MODEL_API_URL và MODEL_NAME trong .env để bật agent.
+        - generic [ref=e133]:
+          - generic [ref=e135]:
+            - heading "Hoạt động gần đây" [level=2] [ref=e136]
+            - paragraph [ref=e137]: Nhấn vào tác vụ để xem kết quả agent
+          - generic [ref=e138]:
+            - heading "Chưa có hoạt động" [level=3] [ref=e142]
+            - paragraph [ref=e143]: Tác vụ của bạn sẽ xuất hiện tại đây.
+      - generic [ref=e144]:
+        - generic [ref=e145]:
+          - generic [ref=e146]:
+            - heading "Test cases mới" [level=2] [ref=e147]
+            - paragraph [ref=e148]: Kiểm tra các trường hợp vừa được tạo
+          - button "Xem tất cả" [ref=e149] [cursor=pointer]
+        - generic [ref=e152]:
+          - heading "Chưa có test case" [level=3] [ref=e156]
+          - paragraph [ref=e157]: Nạp nguồn dữ liệu và tạo tác vụ kiểm thử đầu tiên.

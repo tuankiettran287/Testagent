@@ -1,0 +1,753 @@
+{
+  "selection": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "generated": {
+    "id": "b640d8a5-a38e-4fbb-b005-59be633156fc",
+    "project_id": "30453ebc-cb9c-4dfb-a683-dd4cdb7352a3",
+    "prompt": "Tao dung hai test case doc lap cho website fixture: (1) dang nhap bang tai khoan native_demo, passphrase portable_test_secret_42, phai toi /portal va hien Portal for native_demo; (2) native_demo voi passphrase wrong_for_native_fixture phai bi tu choi, hien The passphrase is incorrect. va van o /signin. Day la cac quy tac da xac dinh. Kham pha tung kich ban tren browser sach, bao gom thao tac dang nhap trong moi test. Chi tao automation de xem lai, chua chay xac nhan.",
+    "intent": "ui_automation",
+    "skill_file": "ui-automation.md",
+    "status": "READY",
+    "summary": {
+      "kind": "test_cases",
+      "skill_id": "ui_automation",
+      "skill_file": "ui-automation.md",
+      "skills": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md",
+        "automation-patterns.md"
+      ],
+      "summary": "Đã tạo đúng hai test case độc lập từ quy tắc người dùng và browser_journey đã cung cấp. Mỗi case tự mở trang, điền và gửi biểu mẫu đăng nhập, rồi kiểm tra kết quả đã quan sát. Automation chỉ để xem lại; chưa chạy xác nhận.",
+      "risks": [
+        "Quan sát trong browser_journey là bằng chứng khám phá, không phải kết quả chạy xác nhận các test case được tạo.",
+        "assert_text kiểm tra văn bản có chứa chuỗi yêu cầu, không kiểm tra toàn bộ văn bản bằng nhau."
+      ],
+      "case_count": 2,
+      "case_ids": [
+        "a8c6cd31-aeae-44ae-844c-a758f6769adb",
+        "42f4a6ac-44c0-4ee4-acca-fbbfb8330854"
+      ],
+      "executable_ids": [
+        "a8c6cd31-aeae-44ae-844c-a758f6769adb",
+        "42f4a6ac-44c0-4ee4-acca-fbbfb8330854"
+      ],
+      "workflow": "ui_automation",
+      "scenarios": [
+        "Đăng nhập bằng native_demo với passphrase hợp lệ: phải tới /portal và hiển thị Portal for native_demo.",
+        "Đăng nhập bằng native_demo với passphrase sai trên browser sạch riêng: phải hiển thị The passphrase is incorrect. và vẫn ở /signin."
+      ],
+      "activity": [
+        {
+          "message": "Khám phá đăng nhập hợp lệ trên browser sạch, gửi biểu mẫu rồi quan sát kết quả trước khi kiểm tra /portal.",
+          "url": "http://127.0.0.1:55436/signin"
+        },
+        {
+          "message": "Đã quan sát đăng nhập hợp lệ tới /portal và hiển thị Portal for native_demo. Kiểm tra hai kết quả này trước khi mở browser sạch cho kịch bản passphrase sai; chưa chạy xác nhận test.",
+          "url": "http://127.0.0.1:55436/portal"
+        },
+        {
+          "message": "Đã quan sát kịch bản đăng nhập hợp lệ tới /portal và hiển thị Portal for native_demo. Mở browser sạch riêng để khám phá kịch bản passphrase sai; chưa chạy xác nhận test.",
+          "url": "http://127.0.0.1:55436/portal"
+        },
+        {
+          "message": "Đã reset browser về phiên sạch. Tiếp tục kịch bản tiếp theo.",
+          "url": "http://127.0.0.1:55436/signin"
+        },
+        {
+          "message": "Browser sạch đã sẵn sàng. Gửi biểu mẫu với passphrase sai rồi quan sát thông báo từ chối và URL theo quy tắc đã xác định; chưa chạy xác nhận test.",
+          "url": "http://127.0.0.1:55436/signin"
+        },
+        {
+          "message": "Đã quan sát thông báo từ chối trên browser sạch riêng. Kiểm tra thông báo và URL /signin theo quy tắc đã xác định; đây là khám phá để tạo automation, chưa chạy xác nhận test.",
+          "url": "http://127.0.0.1:55436/signin"
+        },
+        {
+          "message": "Đã khám phá hai kịch bản trên browser sạch riêng, mỗi kịch bản đều gửi biểu mẫu đăng nhập: đăng nhập hợp lệ tới /portal và hiển thị Portal for native_demo; passphrase sai hiển thị The passphrase is incorrect. và vẫn ở /signin. Đã đủ bằng chứng để tạo automation xem lại; chưa chạy xác nhận test.",
+          "url": "http://127.0.0.1:55436/signin"
+        }
+      ],
+      "manual_count": 0,
+      "phase": "READY",
+      "execution_mode": "generate",
+      "execution": null
+    },
+    "error": "",
+    "created_at": "2026-10-01T15:32:46.445539+00:00",
+    "finished_at": "2026-10-01T15:35:06.536178+00:00",
+    "ai_provider": "codex",
+    "ai_model": "gpt-6.1-sol",
+    "ai_effort": "high"
+  },
+  "cases": [
+    {
+      "id": "a8c6cd31-aeae-44ae-844c-a758f6769adb",
+      "project_id": "30453ebc-cb9c-4dfb-a683-dd4cdb7352a3",
+      "task_id": "b640d8a5-a38e-4fbb-b005-59be633156fc",
+      "title": "Đăng nhập hợp lệ tới portal của native_demo",
+      "level": "e2e",
+      "type": "positive",
+      "priority": "high",
+      "preconditions": [
+        "Website fixture hoạt động tại http://127.0.0.1:55436.",
+        "Case bắt đầu trong browser context sạch riêng.",
+        "Tài khoản fixture được cung cấp còn hoạt động."
+      ],
+      "steps": [
+        "Mở http://127.0.0.1:55436/signin.",
+        "Điền Account name bằng tài khoản native_demo.",
+        "Điền Passphrase bằng giá trị hợp lệ đã cung cấp.",
+        "Nhấn Enter portal.",
+        "Kiểm tra URL là http://127.0.0.1:55436/portal.",
+        "Kiểm tra tiêu đề portal hiển thị Portal for native_demo."
+      ],
+      "expected": [
+        "Theo quy tắc đã xác định và kết quả khám phá, đăng nhập hợp lệ đưa người dùng tới http://127.0.0.1:55436/portal.",
+        "Tiêu đề portal hiển thị Portal for native_demo."
+      ],
+      "source_ids": [],
+      "automation": {
+        "actions": [
+          {
+            "action": "navigate",
+            "url": "http://127.0.0.1:55436/signin"
+          },
+          {
+            "action": "fill",
+            "target": {
+              "testid": "account-id",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "native_demo"
+          },
+          {
+            "action": "fill",
+            "target": {
+              "testid": "passphrase",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "portable_test_secret_42"
+          },
+          {
+            "action": "click",
+            "target": {
+              "testid": "enter-portal",
+              "test_attribute": "data-qa",
+              "exact": true
+            }
+          },
+          {
+            "action": "assert_url",
+            "url": "http://127.0.0.1:55436/portal"
+          },
+          {
+            "action": "assert_text",
+            "target": {
+              "testid": "portal-heading",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "Portal for native_demo"
+          }
+        ]
+      },
+      "api_request": null,
+      "unit_test_code": null,
+      "created_at": "2026-10-01T15:35:06.531700+00:00"
+    },
+    {
+      "id": "42f4a6ac-44c0-4ee4-acca-fbbfb8330854",
+      "project_id": "30453ebc-cb9c-4dfb-a683-dd4cdb7352a3",
+      "task_id": "b640d8a5-a38e-4fbb-b005-59be633156fc",
+      "title": "Passphrase sai bị từ chối và vẫn ở signin",
+      "level": "ui",
+      "type": "negative",
+      "priority": "high",
+      "preconditions": [
+        "Website fixture hoạt động tại http://127.0.0.1:55436.",
+        "Case bắt đầu trong browser context sạch riêng, không dùng phiên của case đăng nhập hợp lệ.",
+        "Tài khoản native_demo tồn tại trong fixture."
+      ],
+      "steps": [
+        "Mở http://127.0.0.1:55436/signin.",
+        "Điền Account name bằng tài khoản native_demo.",
+        "Điền Passphrase bằng giá trị sai đã cung cấp.",
+        "Nhấn Enter portal.",
+        "Kiểm tra thông báo The passphrase is incorrect.",
+        "Kiểm tra URL vẫn là http://127.0.0.1:55436/signin."
+      ],
+      "expected": [
+        "Theo quy tắc đã xác định và kết quả khám phá, passphrase sai bị từ chối với thông báo The passphrase is incorrect.",
+        "Người dùng vẫn ở http://127.0.0.1:55436/signin."
+      ],
+      "source_ids": [],
+      "automation": {
+        "actions": [
+          {
+            "action": "navigate",
+            "url": "http://127.0.0.1:55436/signin"
+          },
+          {
+            "action": "fill",
+            "target": {
+              "testid": "account-id",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "native_demo"
+          },
+          {
+            "action": "fill",
+            "target": {
+              "testid": "passphrase",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "wrong_for_native_fixture"
+          },
+          {
+            "action": "click",
+            "target": {
+              "testid": "enter-portal",
+              "test_attribute": "data-qa",
+              "exact": true
+            }
+          },
+          {
+            "action": "assert_text",
+            "target": {
+              "testid": "signin-problem",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "The passphrase is incorrect."
+          },
+          {
+            "action": "assert_url",
+            "url": "http://127.0.0.1:55436/signin"
+          }
+        ]
+      },
+      "api_request": null,
+      "unit_test_code": null,
+      "created_at": "2026-10-01T15:35:06.531803+00:00"
+    }
+  ],
+  "review": {
+    "id": "84f42ff7-c966-4903-88ea-8936837875d4",
+    "project_id": "30453ebc-cb9c-4dfb-a683-dd4cdb7352a3",
+    "prompt": "Ra soat hai case da chon: oracle phai phu hop muc tieu, setup dang nhap phai doc lap, locator dung attribute quan sat. Chi ra gap co bang chung; chua co ket qua replay, khong ket luan PASS. Khong doi ky vong.",
+    "intent": "case_review",
+    "skill_file": "case-review.md",
+    "status": "COMPLETED",
+    "summary": {
+      "kind": "analysis",
+      "skill_id": "case_review",
+      "skill_file": "case-review.md",
+      "skills": [
+        "automation-core.md",
+        "case-review.md"
+      ],
+      "summary": "Hai case có oracle phù hợp mục tiêu và tự thực hiện đầy đủ luồng đăng nhập trong context riêng. Payload đủ điều kiện về cấu trúc; còn thiếu bằng chứng quan sát locator portal và kết quả replay, nên chưa thể kết luận PASS.",
+      "findings": [
+        {
+          "title": "Oracle phù hợp và setup độc lập",
+          "detail": "Case âm kiểm tra thông báo từ chối và URL signin sau khi submit; case dương kiểm tra URL portal và tiêu đề theo tài khoản. Cả hai đều bắt đầu bằng navigate, tự điền thông tin và submit, không phụ thuộc phiên của case khác. Không thấy gap giữa mục tiêu, bước và assertion trong định nghĩa đã cung cấp; giữ nguyên kỳ vọng.",
+          "severity": "info",
+          "evidence_ids": [
+            "42f4a6ac-44c0-4ee4-acca-fbbfb8330854",
+            "a8c6cd31-aeae-44ae-844c-a758f6769adb"
+          ]
+        },
+        {
+          "title": "Locator signin có bằng chứng; locator portal chưa được quan sát",
+          "detail": "Snapshot signin không có source ID xác nhận account-id, passphrase, enter-portal và signin-problem sử dụng data-qa, mỗi target có match_count 1; payload của hai case dùng đúng attribute này. Snapshot không chứa portal-heading, nên chưa xác minh được attribute và tính duy nhất của locator đó ở trạng thái đăng nhập. Đây là giới hạn bằng chứng, chưa phải lỗi locator; cần quan sát portal hoặc kiểm chứng qua replay trước khi xác nhận.",
+          "severity": "info",
+          "evidence_ids": [
+            "42f4a6ac-44c0-4ee4-acca-fbbfb8330854",
+            "a8c6cd31-aeae-44ae-844c-a758f6769adb"
+          ]
+        },
+        {
+          "title": "Chưa có bằng chứng thực thi",
+          "detail": "Không có run result được cung cấp; website inspection ghi rõ chưa thực hiện test action. Hai case có thể được đánh giá là sẵn sàng về cấu trúc, nhưng hành vi đăng nhập, thông báo lỗi và assertion sau submit chưa được chứng minh bằng replay. Cần chạy các case để xác lập kết quả thực tế.",
+          "severity": "info",
+          "evidence_ids": []
+        }
+      ],
+      "recommendations": [
+        "Dùng ui_automation nếu cần bổ sung bằng chứng quan sát data-qa=\"portal-heading\" và tính duy nhất trên portal; không đổi kỳ vọng.",
+        "Dùng run_tests cho hai case đã chọn trong context riêng và lưu kết quả từng case. Chỉ kết luận PASS/FAIL dựa trên kết quả thực thi."
+      ],
+      "run_id": null
+    },
+    "error": "",
+    "created_at": "2026-10-01T15:35:06.542606+00:00",
+    "finished_at": "2026-10-01T15:35:51.865380+00:00",
+    "ai_provider": "codex",
+    "ai_model": "gpt-6.1-sol",
+    "ai_effort": "high"
+  },
+  "run": {
+    "id": "fc953ec0-ef4f-4d02-abb4-2c461fbf727d",
+    "project_id": "30453ebc-cb9c-4dfb-a683-dd4cdb7352a3",
+    "status": "COMPLETED",
+    "requested_at": "2026-10-01T15:35:52.622027+00:00",
+    "started_at": "2026-10-01T15:35:52.642153+00:00",
+    "finished_at": "2026-10-01T15:35:55.144421+00:00",
+    "summary": {
+      "test_case_ids": [
+        "a8c6cd31-aeae-44ae-844c-a758f6769adb",
+        "42f4a6ac-44c0-4ee4-acca-fbbfb8330854"
+      ],
+      "mode": "parallel",
+      "workers": 2,
+      "total": 2,
+      "completed": 2,
+      "counts": {
+        "PASS": 2,
+        "FAIL": 0,
+        "ERROR": 0,
+        "TIMEOUT": 0
+      }
+    }
+  },
+  "results": [
+    {
+      "id": "fab65290-ad3c-4e77-83b2-a11edaebb173",
+      "run_id": "fc953ec0-ef4f-4d02-abb4-2c461fbf727d",
+      "test_case_id": "a8c6cd31-aeae-44ae-844c-a758f6769adb",
+      "status": "PASS",
+      "duration_ms": 2489,
+      "failure_type": null,
+      "message": "All assertions passed",
+      "artifacts": [
+        "a8c6cd31-aeae-44ae-844c-a758f6769adb.spec.ts",
+        "a8c6cd31-aeae-44ae-844c-a758f6769adb.png",
+        "a8c6cd31-aeae-44ae-844c-a758f6769adb-trace.zip",
+        "08b21d75776b1095656d3ff24f85fd82.webm"
+      ]
+    },
+    {
+      "id": "1da9bdf1-53e1-40f3-a913-938db79d4bcb",
+      "run_id": "fc953ec0-ef4f-4d02-abb4-2c461fbf727d",
+      "test_case_id": "42f4a6ac-44c0-4ee4-acca-fbbfb8330854",
+      "status": "PASS",
+      "duration_ms": 2490,
+      "failure_type": null,
+      "message": "All assertions passed",
+      "artifacts": [
+        "42f4a6ac-44c0-4ee4-acca-fbbfb8330854.spec.ts",
+        "42f4a6ac-44c0-4ee4-acca-fbbfb8330854.png",
+        "42f4a6ac-44c0-4ee4-acca-fbbfb8330854-trace.zip",
+        "d84d7a054fae365a935ce59249a5d7f9.webm"
+      ]
+    }
+  ],
+  "native_calls": [
+    {
+      "function": "ui_automation",
+      "phase": "exploration",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md"
+      ],
+      "result": {
+        "summary": "Khám phá đăng nhập hợp lệ trên browser sạch, gửi biểu mẫu rồi quan sát kết quả trước khi kiểm tra /portal.",
+        "scenarios": [
+          "Đăng nhập bằng native_demo với passphrase hợp lệ: phải tới /portal và hiển thị Portal for native_demo.",
+          "Đăng nhập bằng native_demo với passphrase sai trên browser sạch riêng: phải hiển thị The passphrase is incorrect. và vẫn ở /signin."
+        ],
+        "actions": [
+          {
+            "action": "fill",
+            "target": {
+              "testid": "account-id",
+              "test_attribute": "data-qa"
+            },
+            "value": "native_demo"
+          },
+          {
+            "action": "fill",
+            "target": {
+              "testid": "passphrase",
+              "test_attribute": "data-qa"
+            },
+            "value": "portable_test_secret_42"
+          },
+          {
+            "action": "click",
+            "target": {
+              "testid": "enter-portal",
+              "test_attribute": "data-qa"
+            }
+          }
+        ],
+        "done": false,
+        "blocked_reason": null,
+        "reset_browser": false
+      }
+    },
+    {
+      "function": "ui_automation",
+      "phase": "exploration",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md"
+      ],
+      "result": {
+        "summary": "Đã quan sát đăng nhập hợp lệ tới /portal và hiển thị Portal for native_demo. Kiểm tra hai kết quả này trước khi mở browser sạch cho kịch bản passphrase sai; chưa chạy xác nhận test.",
+        "scenarios": [
+          "Đăng nhập bằng native_demo với passphrase hợp lệ: phải tới /portal và hiển thị Portal for native_demo.",
+          "Đăng nhập bằng native_demo với passphrase sai trên browser sạch riêng: phải hiển thị The passphrase is incorrect. và vẫn ở /signin."
+        ],
+        "actions": [
+          {
+            "action": "assert_url",
+            "url": "http://127.0.0.1:55436/portal"
+          },
+          {
+            "action": "assert_text",
+            "target": {
+              "testid": "portal-heading",
+              "test_attribute": "data-qa"
+            },
+            "value": "Portal for native_demo"
+          }
+        ],
+        "done": false,
+        "blocked_reason": null,
+        "reset_browser": false
+      }
+    },
+    {
+      "function": "ui_automation",
+      "phase": "exploration",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md"
+      ],
+      "result": {
+        "summary": "Đã quan sát kịch bản đăng nhập hợp lệ tới /portal và hiển thị Portal for native_demo. Mở browser sạch riêng để khám phá kịch bản passphrase sai; chưa chạy xác nhận test.",
+        "scenarios": [
+          "Đăng nhập bằng native_demo với passphrase hợp lệ: phải tới /portal và hiển thị Portal for native_demo.",
+          "Đăng nhập bằng native_demo với passphrase sai trên browser sạch riêng: phải hiển thị The passphrase is incorrect. và vẫn ở /signin."
+        ],
+        "actions": [],
+        "done": false,
+        "blocked_reason": null,
+        "reset_browser": true
+      }
+    },
+    {
+      "function": "ui_automation",
+      "phase": "exploration",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md"
+      ],
+      "result": {
+        "summary": "Browser sạch đã sẵn sàng. Gửi biểu mẫu với passphrase sai rồi quan sát thông báo từ chối và URL theo quy tắc đã xác định; chưa chạy xác nhận test.",
+        "scenarios": [
+          "Đăng nhập hợp lệ bằng native_demo: tới /portal và hiển thị Portal for native_demo; đã quan sát trong phiên trước.",
+          "Đăng nhập bằng native_demo với passphrase sai trong phiên sạch riêng: hiển thị The passphrase is incorrect. và vẫn ở /signin."
+        ],
+        "actions": [
+          {
+            "action": "fill",
+            "target": {
+              "testid": "account-id",
+              "test_attribute": "data-qa"
+            },
+            "value": "native_demo"
+          },
+          {
+            "action": "fill",
+            "target": {
+              "testid": "passphrase",
+              "test_attribute": "data-qa"
+            },
+            "value": "wrong_for_native_fixture"
+          },
+          {
+            "action": "click",
+            "target": {
+              "testid": "enter-portal",
+              "test_attribute": "data-qa"
+            }
+          }
+        ],
+        "done": false,
+        "blocked_reason": null,
+        "reset_browser": false
+      }
+    },
+    {
+      "function": "ui_automation",
+      "phase": "exploration",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md"
+      ],
+      "result": {
+        "summary": "Đã quan sát thông báo từ chối trên browser sạch riêng. Kiểm tra thông báo và URL /signin theo quy tắc đã xác định; đây là khám phá để tạo automation, chưa chạy xác nhận test.",
+        "scenarios": [
+          "Đăng nhập bằng native_demo với passphrase hợp lệ: phải tới /portal và hiển thị Portal for native_demo.",
+          "Đăng nhập bằng native_demo với passphrase sai trên browser sạch riêng: phải hiển thị The passphrase is incorrect. và vẫn ở /signin."
+        ],
+        "actions": [
+          {
+            "action": "assert_text",
+            "target": {
+              "testid": "signin-problem",
+              "test_attribute": "data-qa",
+              "exact": true
+            },
+            "value": "The passphrase is incorrect."
+          },
+          {
+            "action": "assert_url",
+            "url": "http://127.0.0.1:55436/signin"
+          }
+        ],
+        "done": false,
+        "blocked_reason": null,
+        "reset_browser": false
+      }
+    },
+    {
+      "function": "ui_automation",
+      "phase": "exploration",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md"
+      ],
+      "result": {
+        "summary": "Đã khám phá hai kịch bản trên browser sạch riêng, mỗi kịch bản đều gửi biểu mẫu đăng nhập: đăng nhập hợp lệ tới /portal và hiển thị Portal for native_demo; passphrase sai hiển thị The passphrase is incorrect. và vẫn ở /signin. Đã đủ bằng chứng để tạo automation xem lại; chưa chạy xác nhận test.",
+        "scenarios": [
+          "Đăng nhập bằng native_demo với passphrase hợp lệ: phải tới /portal và hiển thị Portal for native_demo.",
+          "Đăng nhập bằng native_demo với passphrase sai trên browser sạch riêng: phải hiển thị The passphrase is incorrect. và vẫn ở /signin."
+        ],
+        "actions": [],
+        "done": true,
+        "blocked_reason": null,
+        "reset_browser": false
+      }
+    },
+    {
+      "function": "ui_automation",
+      "phase": "final",
+      "files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md",
+        "automation-patterns.md"
+      ],
+      "result": {
+        "intent": "ui_automation",
+        "summary": "Đã tạo đúng hai test case độc lập từ quy tắc người dùng và browser_journey đã cung cấp. Mỗi case tự mở trang, điền và gửi biểu mẫu đăng nhập, rồi kiểm tra kết quả đã quan sát. Automation chỉ để xem lại; chưa chạy xác nhận.",
+        "risks": [
+          "Quan sát trong browser_journey là bằng chứng khám phá, không phải kết quả chạy xác nhận các test case được tạo.",
+          "assert_text kiểm tra văn bản có chứa chuỗi yêu cầu, không kiểm tra toàn bộ văn bản bằng nhau."
+        ],
+        "cases": [
+          {
+            "title": "Đăng nhập hợp lệ tới portal của native_demo",
+            "level": "e2e",
+            "type": "positive",
+            "priority": "high",
+            "preconditions": [
+              "Website fixture hoạt động tại http://127.0.0.1:55436.",
+              "Case bắt đầu trong browser context sạch riêng.",
+              "Tài khoản fixture được cung cấp còn hoạt động."
+            ],
+            "steps": [
+              "Mở http://127.0.0.1:55436/signin.",
+              "Điền Account name bằng tài khoản native_demo.",
+              "Điền Passphrase bằng giá trị hợp lệ đã cung cấp.",
+              "Nhấn Enter portal.",
+              "Kiểm tra URL là http://127.0.0.1:55436/portal.",
+              "Kiểm tra tiêu đề portal hiển thị Portal for native_demo."
+            ],
+            "expected": [
+              "Theo quy tắc đã xác định và kết quả khám phá, đăng nhập hợp lệ đưa người dùng tới http://127.0.0.1:55436/portal.",
+              "Tiêu đề portal hiển thị Portal for native_demo."
+            ],
+            "source_ids": [],
+            "automation": {
+              "actions": [
+                {
+                  "action": "navigate",
+                  "url": "http://127.0.0.1:55436/signin"
+                },
+                {
+                  "action": "fill",
+                  "target": {
+                    "testid": "account-id",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  },
+                  "value": "native_demo"
+                },
+                {
+                  "action": "fill",
+                  "target": {
+                    "testid": "passphrase",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  },
+                  "value": "portable_test_secret_42"
+                },
+                {
+                  "action": "click",
+                  "target": {
+                    "testid": "enter-portal",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  }
+                },
+                {
+                  "action": "assert_url",
+                  "url": "http://127.0.0.1:55436/portal"
+                },
+                {
+                  "action": "assert_text",
+                  "target": {
+                    "testid": "portal-heading",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  },
+                  "value": "Portal for native_demo"
+                }
+              ]
+            }
+          },
+          {
+            "title": "Passphrase sai bị từ chối và vẫn ở signin",
+            "level": "ui",
+            "type": "negative",
+            "priority": "high",
+            "preconditions": [
+              "Website fixture hoạt động tại http://127.0.0.1:55436.",
+              "Case bắt đầu trong browser context sạch riêng, không dùng phiên của case đăng nhập hợp lệ.",
+              "Tài khoản native_demo tồn tại trong fixture."
+            ],
+            "steps": [
+              "Mở http://127.0.0.1:55436/signin.",
+              "Điền Account name bằng tài khoản native_demo.",
+              "Điền Passphrase bằng giá trị sai đã cung cấp.",
+              "Nhấn Enter portal.",
+              "Kiểm tra thông báo The passphrase is incorrect.",
+              "Kiểm tra URL vẫn là http://127.0.0.1:55436/signin."
+            ],
+            "expected": [
+              "Theo quy tắc đã xác định và kết quả khám phá, passphrase sai bị từ chối với thông báo The passphrase is incorrect.",
+              "Người dùng vẫn ở http://127.0.0.1:55436/signin."
+            ],
+            "source_ids": [],
+            "automation": {
+              "actions": [
+                {
+                  "action": "navigate",
+                  "url": "http://127.0.0.1:55436/signin"
+                },
+                {
+                  "action": "fill",
+                  "target": {
+                    "testid": "account-id",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  },
+                  "value": "native_demo"
+                },
+                {
+                  "action": "fill",
+                  "target": {
+                    "testid": "passphrase",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  },
+                  "value": "wrong_for_native_fixture"
+                },
+                {
+                  "action": "click",
+                  "target": {
+                    "testid": "enter-portal",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  }
+                },
+                {
+                  "action": "assert_text",
+                  "target": {
+                    "testid": "signin-problem",
+                    "test_attribute": "data-qa",
+                    "exact": true
+                  },
+                  "value": "The passphrase is incorrect."
+                },
+                {
+                  "action": "assert_url",
+                  "url": "http://127.0.0.1:55436/signin"
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "function": "case_review",
+      "phase": "final",
+      "files": [
+        "automation-core.md",
+        "case-review.md"
+      ],
+      "result": {
+        "summary": "Hai case có oracle phù hợp mục tiêu và tự thực hiện đầy đủ luồng đăng nhập trong context riêng. Payload đủ điều kiện về cấu trúc; còn thiếu bằng chứng quan sát locator portal và kết quả replay, nên chưa thể kết luận PASS.",
+        "findings": [
+          {
+            "title": "Oracle phù hợp và setup độc lập",
+            "detail": "Case âm kiểm tra thông báo từ chối và URL signin sau khi submit; case dương kiểm tra URL portal và tiêu đề theo tài khoản. Cả hai đều bắt đầu bằng navigate, tự điền thông tin và submit, không phụ thuộc phiên của case khác. Không thấy gap giữa mục tiêu, bước và assertion trong định nghĩa đã cung cấp; giữ nguyên kỳ vọng.",
+            "severity": "info",
+            "evidence_ids": [
+              "42f4a6ac-44c0-4ee4-acca-fbbfb8330854",
+              "a8c6cd31-aeae-44ae-844c-a758f6769adb"
+            ]
+          },
+          {
+            "title": "Locator signin có bằng chứng; locator portal chưa được quan sát",
+            "detail": "Snapshot signin không có source ID xác nhận account-id, passphrase, enter-portal và signin-problem sử dụng data-qa, mỗi target có match_count 1; payload của hai case dùng đúng attribute này. Snapshot không chứa portal-heading, nên chưa xác minh được attribute và tính duy nhất của locator đó ở trạng thái đăng nhập. Đây là giới hạn bằng chứng, chưa phải lỗi locator; cần quan sát portal hoặc kiểm chứng qua replay trước khi xác nhận.",
+            "severity": "info",
+            "evidence_ids": [
+              "42f4a6ac-44c0-4ee4-acca-fbbfb8330854",
+              "a8c6cd31-aeae-44ae-844c-a758f6769adb"
+            ]
+          },
+          {
+            "title": "Chưa có bằng chứng thực thi",
+            "detail": "Không có run result được cung cấp; website inspection ghi rõ chưa thực hiện test action. Hai case có thể được đánh giá là sẵn sàng về cấu trúc, nhưng hành vi đăng nhập, thông báo lỗi và assertion sau submit chưa được chứng minh bằng replay. Cần chạy các case để xác lập kết quả thực tế.",
+            "severity": "info",
+            "evidence_ids": []
+          }
+        ],
+        "recommendations": [
+          "Dùng ui_automation nếu cần bổ sung bằng chứng quan sát data-qa=\"portal-heading\" và tính duy nhất trên portal; không đổi kỳ vọng.",
+          "Dùng run_tests cho hai case đã chọn trong context riêng và lưu kết quả từng case. Chỉ kết luận PASS/FAIL dựa trên kết quả thực thi."
+        ]
+      }
+    }
+  ],
+  "sources": []
+}

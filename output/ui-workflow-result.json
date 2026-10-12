@@ -1,0 +1,15 @@
+{
+  "id": "a91e0b3b-0410-4673-972d-a52c75d78b94",
+  "project_id": "85d866f3-d9a8-472d-90c7-9ade1d231f0c",
+  "prompt": "Đăng nhập trang web bằng tài khoản demo được công bố trên trang, xác nhận đã vào được trang sản phẩm. Tự quan sát sau khi đăng nhập để chọn locator và assertion. Lên kịch bản và chạy đúng một test automation cho luồng đăng nhập thành công.",
+  "intent": "ui_automation",
+  "skill_file": "ui-automation.md",
+  "status": "COMPLETED",
+  "summary": "{\"kind\": \"test_cases\", \"skill_id\": \"ui_automation\", \"skill_file\": \"ui-automation.md\", \"summary\": \"Đúng một kịch bản đăng nhập thành công bằng tài khoản demo công bố trên trang, dùng locator và assertion đã quan sát sau đăng nhập để ứng dụng thực thi.\", \"risks\": [\"Bằng chứng hiện tại là kết quả khám phá giao diện, chưa phải kết quả chạy test automation; chỉ lần chạy của ứng dụng mới xác lập PASS/FAIL.\", \"Kỳ vọng về trang đích dựa trên giao diện đã quan sát, chưa được đối chiếu với đặc tả nghiệp vụ.\"], \"case_count\": 1, \"case_ids\": [\"6611a75d-8718-4132-9bbe-db55af7f36d3\"], \"executable_ids\": [\"6611a75d-8718-4132-9bbe-db55af7f36d3\"], \"workflow\": \"ui_automation\", \"scenarios\": [\"Đăng nhập bằng standard_user / secret_sauce được công bố trên trang; xác nhận vào trang sản phẩm bằng URL và nội dung thực tế quan sát sau đăng nhập.\"], \"activity\": [{\"message\": \"Dùng tài khoản demo standard_user để đăng nhập, sau đó quan sát trang đích để chọn locator và assertion cho đúng một test đăng nhập thành công.\", \"url\": \"https://www.saucedemo.com/\"}, {\"message\": \"Đã quan sát trang sản phẩm sau khi gửi form đăng nhập. Tiếp tục kiểm tra URL, tiêu đề Products và sản phẩm hiển thị cho một kịch bản duy nhất.\", \"url\": \"https://www.saucedemo.com/inventory.html\"}, {\"message\": \"Đã đăng nhập bằng standard_user / secret_sauce và xác nhận URL /inventory.html, tiêu đề Products, danh sách sản phẩm và Sauce Labs Backpack. Các locator dùng đúng data-test; kết quả quan sát này là bằng chứng để xây dựng test, chưa phải báo cáo test automation PASS.\", \"url\": \"https://www.saucedemo.com/inventory.html\"}], \"skills\": [\"ui-automation.md\", \"locator-mastery.md\"], \"run_id\": \"edcbc0e8-3d91-43d0-a14f-6346894223b9\", \"phase\": \"COMPLETED\", \"execution\": {\"status\": \"COMPLETED\", \"total\": 1, \"counts\": {\"PASS\": 1, \"FAIL\": 0, \"ERROR\": 0, \"TIMEOUT\": 0}}, \"manual_count\": 0}",
+  "error": "",
+  "created_at": "2026-10-01T12:36:52.309847+00:00",
+  "finished_at": "2026-10-01T12:38:21.698053+00:00",
+  "ai_provider": "codex",
+  "ai_model": "gpt-6.1-sol",
+  "ai_effort": "high"
+}

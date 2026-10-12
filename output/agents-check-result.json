@@ -1,0 +1,471 @@
+{
+  "started_at": "2026-10-06T01:43:21.003073+00:00",
+  "model_mode": "mock",
+  "synthetic_target": true,
+  "browser_and_http_execution": "real",
+  "checks": [
+    {
+      "kind": "skill",
+      "function": "orchestrator",
+      "status": "PASS",
+      "duration_ms": 1558,
+      "model_calls": 2,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "performance.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "ui_automation",
+      "status": "PASS",
+      "duration_ms": 6230,
+      "model_calls": 3,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md",
+        "automation-patterns.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "gen_testcase",
+      "status": "PASS",
+      "duration_ms": 1652,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "gen-testcase.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "automation_builder",
+      "status": "PASS",
+      "duration_ms": 5571,
+      "model_calls": 3,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "automation-builder.md",
+        "locator-mastery.md",
+        "automation-patterns.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "case_review",
+      "status": "PASS",
+      "duration_ms": 1477,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "case-review.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "run_tests",
+      "status": "PASS",
+      "duration_ms": 371,
+      "model_calls": 0,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "suite-execution.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "repair_automation",
+      "status": "PASS",
+      "duration_ms": 5446,
+      "model_calls": 3,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "automation-repair.md",
+        "locator-mastery.md",
+        "automation-patterns.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "repo_under",
+      "status": "PASS",
+      "duration_ms": 13,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "repo-under.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "report",
+      "status": "PASS",
+      "duration_ms": 19,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "report-skill.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "requirement_under",
+      "status": "PASS",
+      "duration_ms": 1516,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "requirement-under.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "test_plan",
+      "status": "PASS",
+      "duration_ms": 1565,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "test-plan.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "unit_test",
+      "status": "PASS",
+      "duration_ms": 18,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "unit-test.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": "parsed; generated code is not executed"
+    },
+    {
+      "kind": "skill",
+      "function": "api_test",
+      "status": "PASS",
+      "duration_ms": 2012,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "api-test.md"
+      ],
+      "generated_api_execution": "COMPLETED",
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "defect_analysis",
+      "status": "PASS",
+      "duration_ms": 24,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "defect-analysis.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "regression",
+      "status": "PASS",
+      "duration_ms": 18,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "regression.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "performance",
+      "status": "PASS",
+      "duration_ms": 1602,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "performance.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "security",
+      "status": "PASS",
+      "duration_ms": 1522,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "security.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "exploratory",
+      "status": "PASS",
+      "duration_ms": 1644,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "exploratory.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "skill",
+      "function": "test_data",
+      "status": "PASS",
+      "duration_ms": 1581,
+      "model_calls": 1,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "test-data.md"
+      ],
+      "generated_api_execution": null,
+      "unit_code_validation": null
+    },
+    {
+      "kind": "sub_agent",
+      "function": "case_review",
+      "status": "PASS",
+      "duration_ms": 82,
+      "instruction_files": [
+        "automation-core.md",
+        "case-review.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 115,
+        "worker_ms": 255
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "repo_under",
+      "status": "PASS",
+      "duration_ms": 63,
+      "instruction_files": [
+        "automation-core.md",
+        "repo-under.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 115,
+        "worker_ms": 255
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "report",
+      "status": "PASS",
+      "duration_ms": 110,
+      "instruction_files": [
+        "automation-core.md",
+        "report-skill.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 115,
+        "worker_ms": 255
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "requirement_under",
+      "status": "PASS",
+      "duration_ms": 86,
+      "instruction_files": [
+        "automation-core.md",
+        "requirement-under.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 91,
+        "worker_ms": 217
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "test_plan",
+      "status": "PASS",
+      "duration_ms": 54,
+      "instruction_files": [
+        "automation-core.md",
+        "test-plan.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 91,
+        "worker_ms": 217
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "defect_analysis",
+      "status": "PASS",
+      "duration_ms": 77,
+      "instruction_files": [
+        "automation-core.md",
+        "defect-analysis.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 91,
+        "worker_ms": 217
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "regression",
+      "status": "PASS",
+      "duration_ms": 60,
+      "instruction_files": [
+        "automation-core.md",
+        "regression.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 64,
+        "worker_ms": 125
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "performance",
+      "status": "PASS",
+      "duration_ms": 41,
+      "instruction_files": [
+        "automation-core.md",
+        "performance.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 64,
+        "worker_ms": 125
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "security",
+      "status": "PASS",
+      "duration_ms": 24,
+      "instruction_files": [
+        "automation-core.md",
+        "security.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 3,
+        "completed": 3,
+        "wall_ms": 64,
+        "worker_ms": 125
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "exploratory",
+      "status": "PASS",
+      "duration_ms": 45,
+      "instruction_files": [
+        "automation-core.md",
+        "exploratory.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 2,
+        "completed": 2,
+        "wall_ms": 49,
+        "worker_ms": 78
+      }
+    },
+    {
+      "kind": "sub_agent",
+      "function": "test_data",
+      "status": "PASS",
+      "duration_ms": 33,
+      "instruction_files": [
+        "automation-core.md",
+        "test-data.md",
+        "subagent-handoff.md"
+      ],
+      "group_metrics": {
+        "sub_agent_count": 2,
+        "completed": 2,
+        "wall_ms": 49,
+        "worker_ms": 78
+      }
+    }
+  ],
+  "errors": [],
+  "model_calls": 40,
+  "finished_at": "2026-10-06T01:44:18.393583+00:00",
+  "passed": 30,
+  "failed": 0
+}

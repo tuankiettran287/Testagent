@@ -1,0 +1,62 @@
+{
+  "id": "b8f8891e-9cde-41ac-aa0c-8166e77c6440",
+  "project_id": "85d866f3-d9a8-472d-90c7-9ade1d231f0c",
+  "status": "COMPLETED",
+  "requested_at": "2026-10-01T13:57:00.348390+00:00",
+  "started_at": "2026-10-01T13:57:00.366453+00:00",
+  "finished_at": "2026-10-01T13:57:03.706244+00:00",
+  "summary": {
+    "test_case_ids": [
+      "5f763b04-1d21-455b-8265-9bc7e5d81b0c",
+      "660b38a8-21c7-42e0-b486-92c02a2f6ad9"
+    ],
+    "mode": "parallel",
+    "workers": 2,
+    "total": 2,
+    "completed": 2,
+    "counts": {
+      "PASS": 2,
+      "FAIL": 0,
+      "ERROR": 0,
+      "TIMEOUT": 0
+    }
+  },
+  "results": [
+    {
+      "id": "c834365e-e46f-43d8-abbc-464e3dbbc7a6",
+      "run_id": "b8f8891e-9cde-41ac-aa0c-8166e77c6440",
+      "test_case_id": "660b38a8-21c7-42e0-b486-92c02a2f6ad9",
+      "status": "PASS",
+      "duration_ms": 3318,
+      "failure_type": null,
+      "message": "All assertions passed",
+      "artifacts": [
+        "660b38a8-21c7-42e0-b486-92c02a2f6ad9.spec.ts",
+        "660b38a8-21c7-42e0-b486-92c02a2f6ad9.png",
+        "660b38a8-21c7-42e0-b486-92c02a2f6ad9-trace.zip",
+        "a1742fbff05a9125c31bca6828565336.webm"
+      ],
+      "title": "Nhập mật khẩu sai và bị từ chối đăng nhập",
+      "level": "ui",
+      "priority": "high"
+    },
+    {
+      "id": "996a4d50-dc04-4573-9b58-9e8bd0ebb953",
+      "run_id": "b8f8891e-9cde-41ac-aa0c-8166e77c6440",
+      "test_case_id": "5f763b04-1d21-455b-8265-9bc7e5d81b0c",
+      "status": "PASS",
+      "duration_ms": 3319,
+      "failure_type": null,
+      "message": "All assertions passed",
+      "artifacts": [
+        "5f763b04-1d21-455b-8265-9bc7e5d81b0c.spec.ts",
+        "5f763b04-1d21-455b-8265-9bc7e5d81b0c.png",
+        "5f763b04-1d21-455b-8265-9bc7e5d81b0c-trace.zip",
+        "8fc4024606fb1ad5e19b310f2b67cf0e.webm"
+      ],
+      "title": "Đăng nhập bằng tài khoản standard_user",
+      "level": "ui",
+      "priority": "high"
+    }
+  ]
+}

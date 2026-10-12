@@ -1,0 +1,15 @@
+{
+  "task_id": "b52a9bbb-b757-4086-88f5-169b622421d0",
+  "case_id": "52c70f49-5acf-4844-8776-57a8eb59c073",
+  "run_ids": [
+    "ffcb09ef-dd49-439e-86dd-ec20793473ec",
+    "3c73fae0-03c4-453b-adda-931c67db0196"
+  ],
+  "cases_unchanged": true,
+  "ready_before_run": true,
+  "native_ai": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  }
+}

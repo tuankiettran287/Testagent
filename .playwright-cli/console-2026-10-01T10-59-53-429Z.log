@@ -1,0 +1,54 @@
+[     167ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[   51743ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[  299927ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[  301077ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[  301581ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 1908710ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 1909396ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 1910859ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 1911402ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 1912106ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 1912649ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 5273778ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 6155915ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 6157135ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 6157913ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 6158544ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 6159216ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9012282ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9768457ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9770249ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9770796ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/sources:0
+[ 9770797ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/runs:0
+[ 9770797ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/coverage:0
+[ 9770797ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tasks:0
+[ 9770798ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tests:0
+[ 9770853ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9866173ms] [LOG] [vite] server connection lost. Polling for restart... @ http://127.0.0.1:15173/@vite/client:963
+[ 9866175ms] [ERROR] WebSocket connection to 'ws://127.0.0.1:15173/' failed: Error in connection establishment: net::ERR_CONNECTION_REFUSED @ http://127.0.0.1:15173/@vite/client:1034
+[ 9871488ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9878075ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9879766ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[ 9880186ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/sources:0
+[ 9880186ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/coverage:0
+[ 9880186ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/runs:0
+[ 9880186ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tasks:0
+[ 9880186ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tests:0
+[ 9880234ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10061338ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10063550ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10064094ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/sources:0
+[10064094ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tasks:0
+[10064094ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tests:0
+[10064094ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/runs:0
+[10064094ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/coverage:0
+[10064145ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10597920ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10728221ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10730247ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162
+[10730780ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/sources:0
+[10730781ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tasks:0
+[10730781ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/coverage:0
+[10730781ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/runs:0
+[10730782ms] [ERROR] Failed to load resource: the server responded with a status of 404 (Not Found) @ http://127.0.0.1:15173/api/projects/suite-ui-fixture/tests:0
+[10730844ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:15173/node_modules/.vite/deps/react-dom_client.js?v=9e05a0ac:22162

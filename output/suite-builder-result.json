@@ -1,0 +1,15 @@
+{
+  "id": "b52a9bbb-b757-4086-88f5-169b622421d0",
+  "project_id": "85d866f3-d9a8-472d-90c7-9ade1d231f0c",
+  "prompt": "Chuyển case đăng nhập đã chọn thành Playwright automation chạy độc lập. Dùng tài khoản standard_user / secret_sauce công bố trên trang. Quan sát giao diện sau đăng nhập để xác nhận trang Products và URL inventory. Giữ nguyên mục tiêu, tiêu đề và kỳ vọng của case. Tạo automation để xem trước, chưa chạy xác nhận.",
+  "intent": "automation_builder",
+  "skill_file": "automation-builder.md",
+  "status": "READY",
+  "summary": "{\"kind\": \"test_cases\", \"skill_id\": \"automation_builder\", \"skill_file\": \"automation-builder.md\", \"summary\": \"Đã tạo automation xem trước cho đúng case đã chọn, giữ nguyên tiêu đề, mục tiêu và kỳ vọng. Dựa trên browser_journey được cung cấp, bổ sung assertion Products và URL inventory sau khi gửi form đăng nhập. Chưa chạy xác nhận automation.\", \"risks\": [\"Quan sát trong browser_journey là bằng chứng khám phá giao diện, không phải kết quả chạy xác nhận automation; chưa kết luận PASS.\", \"Ứng dụng thực thi cần tạo browser context riêng chưa đăng nhập cho mỗi lần chạy để case độc lập với phiên và thứ tự chạy.\"], \"case_count\": 1, \"case_ids\": [\"52c70f49-5acf-4844-8776-57a8eb59c073\"], \"executable_ids\": [\"52c70f49-5acf-4844-8776-57a8eb59c073\"], \"workflow\": \"ui_automation\", \"scenarios\": [\"Đăng nhập bằng tài khoản được công bố trên trang: từ phiên chưa đăng nhập, nhập standard_user / secret_sauce, nhấn Login và quan sát giao diện cùng URL để xác minh đăng nhập thành công trước khi bổ sung assertion cho trang Products và URL inventory.\"], \"activity\": [{\"message\": \"Giữ nguyên tiêu đề, mục tiêu và kỳ vọng của case; đăng nhập bằng tài khoản công bố để quan sát trang sau đăng nhập, làm cơ sở tạo automation xem trước, chưa chạy xác nhận.\", \"url\": \"https://www.saucedemo.com/\"}, {\"message\": \"Đã quan sát trang Products sau khi gửi form đăng nhập, tại URL https://www.saucedemo.com/inventory.html. Bổ sung assertion cho bản automation xem trước, giữ nguyên tiêu đề, mục tiêu và kỳ vọng của case; chưa chạy xác nhận automation.\", \"url\": \"https://www.saucedemo.com/inventory.html\"}, {\"message\": \"Đã quan sát đăng nhập thành công bằng standard_user / secret_sauce: tiêu đề Products hiển thị tại https://www.saucedemo.com/inventory.html. Đủ dữ liệu tạo Playwright automation độc lập để xem trước, giữ nguyên mục tiêu, tiêu đề và kỳ vọng của case; chưa chạy xác nhận automation.\", \"url\": \"https://www.saucedemo.com/inventory.html\"}], \"skills\": [\"automation-builder.md\", \"ui-automation.md\", \"locator-mastery.md\"], \"manual_count\": 0, \"phase\": \"READY\", \"execution_mode\": \"generate\", \"execution\": null}",
+  "error": "",
+  "created_at": "2026-10-01T13:40:32.375731+00:00",
+  "finished_at": "2026-10-01T13:42:13.595296+00:00",
+  "ai_provider": "codex",
+  "ai_model": "gpt-6.1-sol",
+  "ai_effort": "high"
+}

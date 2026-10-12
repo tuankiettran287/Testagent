@@ -1,0 +1,57 @@
+{
+  "started_at": "2026-10-06T01:36:19.542913+00:00",
+  "model_mode": "live",
+  "synthetic_target": true,
+  "browser_and_http_execution": "real",
+  "checks": [
+    {
+      "kind": "skill",
+      "function": "orchestrator",
+      "status": "PASS",
+      "duration_ms": 43446,
+      "model_calls": 2,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "performance.md"
+      ]
+    },
+    {
+      "kind": "skill",
+      "function": "ui_automation",
+      "status": "PASS",
+      "duration_ms": 47294,
+      "model_calls": 3,
+      "task_status": "COMPLETED",
+      "instruction_files": [
+        "automation-core.md",
+        "ui-automation.md",
+        "locator-mastery.md",
+        "automation-patterns.md"
+      ]
+    },
+    {
+      "kind": "skill",
+      "function": "gen_testcase",
+      "status": "FAIL",
+      "error": "gen_testcase: FAILED: 1 validation error for GeneratedPlan\ncases.0\n  Value error, A test case must define only one execution engine [type=value_error, input_value={'title': 'Refresh status...'expected_status': 200}}, input_type=dict]\n    For further information visit https://errors.pydantic.dev/2.12/v/value_error: "
+    },
+    {
+      "kind": "skill",
+      "function": "automation_builder",
+      "status": "FAIL",
+      "error": "automation_builder: NEEDS_INPUT: : {\"kind\": \"test_cases\", \"workflow\": \"ui_automation\", \"phase\": \"NEEDS_INPUT\", \"summary\": \"Đã quan sát Healthy sau khi nhấn Refresh status; /health hiển thị JSON {\\\"status\\\":\\\"healthy\\\"}. Chưa xác minh được HTTP 200 vì http_status là null.\", \"scenarios\": [\"46b7400f-acf3-4e59-99d4-8c6f1ec53733: Mở /, nhấn Refresh status và kiểm tra trạng thái chứa Healthy; xác minh /health trả HTTP 200.\"], \"activity\": [{\"message\": \"Nhấn Refresh status để quan sát kết quả và giữ nguyên kỳ vọng Healthy.\", \"url\": \"http"
+    }
+  ],
+  "errors": [
+    "'charmap' codec can't encode character '\\u0110' in position 148: character maps to <undefined>"
+  ],
+  "selection": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "finished_at": "2026-10-06T01:39:11.388623+00:00",
+  "passed": 2,
+  "failed": 3
+}

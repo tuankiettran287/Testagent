@@ -1,0 +1,127 @@
+- generic [ref=f10e3]:
+  - generic "TestAgent local terminal" [ref=f10e4]:
+    - generic [ref=f10e9]: testagent — local workspace
+    - generic [ref=f10e12]: LOCAL SESSION
+  - complementary [ref=f10e14]:
+    - generic [ref=f10e17]:
+      - strong [ref=f10e18]: TestAgent
+      - generic [ref=f10e19]: QUALITY ENGINEERING CLI
+    - generic [ref=f10e20]: ~/ WORKSPACE
+    - navigation "Điều hướng chính" [ref=f10e21]:
+      - button "Tổng quan" [active] [ref=f10e22] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=f10e30] [cursor=pointer]
+      - button "Test cases" [ref=f10e36] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=f10e41] [cursor=pointer]
+      - button "Kết nối AI" [ref=f10e46] [cursor=pointer]
+    - generic [ref=f10e51]:
+      - generic [ref=f10e52]: SYSTEM / STATUS
+      - generic [ref=f10e53]:
+        - generic [ref=f10e56]:
+          - strong [ref=f10e57]: API
+          - generic [ref=f10e58]: Đang hoạt động
+        - generic [ref=f10e61]:
+          - strong [ref=f10e62]: Model AI
+          - generic [ref=f10e63]: Đã kết nối
+        - generic [ref=f10e66]:
+          - strong [ref=f10e67]: Browser runner
+          - generic [ref=f10e68]: Sẵn sàng
+      - generic [ref=f10e69]:
+        - generic [ref=f10e70]: v0.1.0
+        - generic [ref=f10e71]: LOCAL BUILD
+  - generic [ref=f10e72]:
+    - banner [ref=f10e73]:
+      - generic [ref=f10e74]:
+        - generic [ref=f10e75]: ❯
+        - generic [ref=f10e76]: ~/testagent
+        - generic [ref=f10e77]: /
+        - strong [ref=f10e78]: Tổng quan
+      - generic [ref=f10e79]:
+        - generic [ref=f10e80]: Chọn dự án
+        - combobox "Chọn dự án" [ref=f10e82] [cursor=pointer]:
+          - option "Chọn dự án" [disabled]
+          - option "TestAPP" [selected]
+        - button "Tạo dự án mới" [ref=f10e83] [cursor=pointer]:
+          - generic [ref=f10e86]: Dự án mới
+    - main [ref=f10e87]:
+      - generic [ref=f10e139]:
+        - generic [ref=f10e140]:
+          - generic [ref=f10e141]: PROJECT / STAGING / OVERVIEW
+          - heading "TestAPP" [level=1] [ref=f10e142]
+          - paragraph [ref=f10e143]: Trung tâm điều phối kiểm thử và theo dõi chất lượng.
+        - generic [ref=f10e144]:
+          - link "www.saucedemo.com" [ref=f10e145] [cursor=pointer]:
+            - /url: https://www.saucedemo.com
+          - button "Nạp nguồn (tùy chọn)" [ref=f10e153] [cursor=pointer]
+          - button "Cấu hình" [ref=f10e156] [cursor=pointer]
+      - generic [ref=f10e161]:
+        - generic [ref=f10e162]:
+          - generic [ref=f10e167]:
+            - generic [ref=f10e168]: AGENT WORKBENCH
+            - heading "Giao việc cho TestAgent" [level=2] [ref=f10e169]
+            - paragraph [ref=f10e170]: Chọn kỹ năng phù hợp và mô tả kết quả bạn cần.
+          - generic [ref=f10e171]:
+            - generic [ref=f10e172]:
+              - generic [ref=f10e173]:
+                - text: Provider
+                - combobox "Provider AI" [ref=f10e174]:
+                  - option "Chọn tài khoản AI" [disabled]
+                  - option "Codex / ChatGPT" [selected]
+                  - option "Antigravity · Chưa kết nối" [disabled]
+                  - option "Claude Code · Chưa kết nối" [disabled]
+              - generic [ref=f10e175]:
+                - text: Model
+                - combobox "Model AI" [ref=f10e176]:
+                  - option "Chọn model" [disabled]
+                  - option "GPT-6.1-Sol" [selected]
+                  - option "GPT-6-Astra"
+                  - option "GPT-6-Sol"
+                  - option "GPT-6-Luna"
+                  - option "GPT-5.6-Sol"
+                  - option "GPT-5.6-Terra"
+                  - option "GPT-5.6-Luna"
+                  - option "GPT-5.5"
+              - generic [ref=f10e177]:
+                - text: Effort
+                - combobox "Effort AI" [ref=f10e178]:
+                  - option "Mặc định (low)"
+                  - option "low" [selected]
+                  - option "medium"
+                  - option "high"
+                  - option "xhigh"
+                  - option "max"
+                  - option "ultra"
+              - button "Kết nối tài khoản" [ref=f10e179] [cursor=pointer]
+            - generic [ref=f10e180]:
+              - generic [ref=f10e181]: Kỹ năng agent
+              - combobox "Kỹ năng agent" [ref=f10e182]:
+                - option "Tạo test case" [selected]
+                - option "Tạo unit test"
+                - option "Tạo API test"
+                - option "Tạo UI automation"
+                - option "Đọc repository"
+                - option "Viết report"
+                - option "Phân tích yêu cầu"
+                - option "Lập test plan"
+                - option "Phân tích lỗi"
+                - option "Phân tích regression"
+                - option "Phân tích hiệu năng"
+                - option "Phân tích bảo mật"
+                - option "Lập phiên exploratory"
+                - option "Thiết kế test data"
+              - paragraph [ref=f10e183]: Tạo test từ website, yêu cầu và nguồn bổ sung nếu có
+              - generic [ref=f10e184]:
+                - text: "Skill:"
+                - code [ref=f10e188]: gen-testcase.md
+            - generic [ref=f10e189]: Yêu cầu của bạn
+            - textbox "Yêu cầu của bạn" [ref=f10e190]:
+              - /placeholder: "Ví dụ: Kiểm tra website ở Base URL, tạo UI smoke test cho các thành phần đang hiển thị..."
+            - generic [ref=f10e191]:
+              - generic [ref=f10e192]: AI đọc website và dùng nguồn bổ sung nếu có.
+              - button "Gửi cho agent" [disabled] [ref=f10e193]
+        - generic [ref=f10e196]:
+          - generic [ref=f10e198]:
+            - heading "Hoạt động gần đây" [level=2] [ref=f10e199]
+            - paragraph [ref=f10e200]: Nhấn vào tác vụ để xem kết quả agent
+          - generic [ref=f10e201]:
+            - heading "Chưa có hoạt động" [level=3] [ref=f10e205]
+            - paragraph [ref=f10e206]: Tác vụ của bạn sẽ xuất hiện tại đây.

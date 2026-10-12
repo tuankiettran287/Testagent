@@ -1,0 +1,21 @@
+from pathlib import Path
+
+p = Path('web/src/App.tsx')
+s = p.read_text(encoding='utf-8')
+s = s.replace('Test cases cho agent ({agentCaseIds.length}/30)', "Test cases cho agent ({agentCaseIds.length}/{selectedSkill.id === 'automation_builder' ? 20 : 30})")
+s = s.replace('Chọn từ 1 đến 30 case cho agent.', 'Chọn số case phù hợp trong danh sách trên.')
+p.write_text(s, encoding='utf-8')
+
+p = Path('README.md')
+s = p.read_text(encoding='utf-8')
+s = s.replace('hoàn thiện test rồi tự chạy Playwright.', 'hoàn thiện test để bạn xem trước. Có thể chọn **Tạo và chạy ngay** khi muốn tự thực thi sau khi tạo.')
+s = s.replace('4. Xem các trường hợp trong **Test cases**. Với test có browser DSL, có thể xem mã Playwright đã biên dịch. Test API lưu method, path và expected status.', '4. Xem các trường hợp trong **Test cases**. Mỗi dòng hiển thị trạng thái sẵn sàng và kết quả lần chạy gần nhất. Chạy từng case bằng nút **Chạy**, đánh dấu checkbox để **Chạy nhóm đã chọn**, hoặc **Chạy tất cả đang lọc**. Bộ lọc tìm kiếm/cấp độ giới hạn các case của nút chạy tất cả. Tối đa 30 case mỗi lượt. Chọn **Tuần tự** hoặc **Song song** với 1–4 case đồng thời; mỗi browser case có phiên độc lập. Case thủ công không được đưa vào lượt chạy; chọn **Tạo automation** để giao Automation Builder, hoặc **Rà soát case** để kiểm tra chất lượng trước khi chạy.')
+s = s.replace('5. Kết quả tác vụ automation hiển thị PASS/FAIL và liên kết', '5. Tác vụ tạo automation mặc định dừng ở **Sẵn sàng chạy** (`READY`), có nút **Chạy test vừa tạo**. Quan sát của AI không được ghi thành PASS. Lượt chạy thật cập nhật số case đã hoàn tất và PASS/FAIL/ERROR ngay khi từng case kết thúc. Chi tiết tác vụ và lượt chạy có liên kết')
+s = s.replace('Sau đó ứng dụng tạo kịch bản có thể chạy lại và thực thi bằng runner.', 'Sau đó ứng dụng tạo kịch bản có thể chạy lại; mặc định chờ bạn chọn chạy, hoặc thực thi ngay nếu đã chọn tùy chọn đó. Khi khám phá nhiều kịch bản, agent có thể reset browser về trạng thái sạch, tránh dùng chung phiên đăng nhập giữa case hợp lệ và case lỗi.')
+s = s.replace('| Viết report |', '| Chuyển case thành automation | `automation-builder.md` | Quan sát thật, cập nhật các case đã chọn theo ID; giữ mục tiêu/kỳ vọng, không tạo bản sao |\n| Rà soát test cases | `case-review.md` | Nhận xét coverage, assertion, dữ liệu và khả năng chạy độc lập |\n| Chạy bộ test | `suite-execution.md` | Chạy case đã chọn bằng runner, tuần tự/song song, không gọi AI |\n| Sửa automation bị lỗi | `automation-repair.md` | Dựa trên case lỗi và quan sát mới; giữ mọi assertion đầu ra, xem lại trước khi chạy |\n| Viết report |')
+s = s.replace('Các agent phân tích yêu cầu,', 'Có 18 agent chia thành **Automation test**, **Phân tích lỗi & báo cáo**, **Ngữ cảnh & mở rộng**. Trong chi tiết lượt chạy có nút phân tích kết quả, giao agent sửa automation và chạy lại case lỗi. Automation Builder nhận tối đa 20 case mỗi tác vụ. Các agent phân tích yêu cầu,')
+s = s.replace('`function` và `run_id` cho các chức năng dùng kết quả chạy.', '`function`, `case_ids` cho các chức năng dùng case đã chọn hoặc `run_id` cho các chức năng dùng kết quả chạy. `execution_mode: "generate"` chỉ tạo automation; `"run"` tạo và chạy ngay (mặc định API để tương thích). Giao diện mặc định dùng `"generate"`. Tác vụ `run_tests` nhận `run_mode: "sequential" | "parallel"` và `workers: 1..4`; không yêu cầu tài khoản AI. Endpoint `POST /api/tests/execute` nhận `test_case_ids`, `mode` và `workers`.')
+s = s.replace('`mode` (`test_cases` hoặc `analysis`) và `requires` (`none`, `code`, hoặc `run`).', '`mode` (`test_cases`, `analysis`, `execution`) và `requires` (`none`, `code`, `cases`, `run`), cùng `category` và `workflow`.')
+s = s.replace('self-healing, queue phân tán', 'tự sửa không cần review, queue phân tán')
+s += '\nCác kiểm tra automation còn xác nhận chế độ tạo để xem trước không tạo lượt chạy, Builder giữ ID và kỳ vọng của case cũ, sửa automation không bỏ assertion, chạy song song có giới hạn và cập nhật kết quả giữa lượt chạy, chạy tuần tự tiếp tục sau lỗi, case ngoài dự án/thủ công bị chặn, và Execution Agent hoạt động khi AI chưa kết nối. Fixture Chromium thực kiểm tra reset xóa cookie/local storage, locator khớp duy nhất và TypeScript artifacts.\n'
+p.write_text(s, encoding='utf-8')

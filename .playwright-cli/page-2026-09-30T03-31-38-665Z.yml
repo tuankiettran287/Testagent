@@ -1,0 +1,58 @@
+- generic [ref=e3]:
+  - generic "TestAgent local terminal" [ref=e4]:
+    - generic [ref=e9]: testagent — local workspace
+    - generic [ref=e12]: LOCAL SESSION
+  - complementary [ref=e14]:
+    - generic [ref=e15]:
+      - generic [ref=e16]: ">_"
+      - generic [ref=e17]:
+        - strong [ref=e18]:
+          - text: TestAgent
+          - generic [ref=e19]: _
+        - generic [ref=e20]: QUALITY ENGINEERING CLI
+    - generic [ref=e21]: ~/workspace
+    - navigation "Điều hướng chính" [ref=e22]:
+      - button "Tổng quan" [ref=e23] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=e30] [cursor=pointer]
+      - button "Test cases" [ref=e35] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=e39] [cursor=pointer]
+    - generic [ref=e43]:
+      - generic [ref=e44]: SYSTEM / STATUS
+      - generic [ref=e45]: API đang hoạt động
+      - generic [ref=e47]: AI chưa kết nối
+      - generic [ref=e49]: v0.1.0 · local build
+  - generic [ref=e50]:
+    - banner [ref=e51]:
+      - generic [ref=e52]:
+        - generic [ref=e53]: ❯
+        - generic [ref=e54]: ~/testagent
+        - generic [ref=e55]: /
+        - strong [ref=e56]: Tổng quan
+      - generic [ref=e57]:
+        - generic [ref=e58]: Chọn dự án
+        - combobox "Chọn dự án" [ref=e59]:
+          - option "Chọn dự án" [disabled] [selected]
+        - button "Tạo dự án mới" [ref=e60] [cursor=pointer]:
+          - generic [ref=e63]: Dự án mới
+    - main [ref=e64]:
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]: testagent@local ~ % testagent init
+          - generic [ref=e69]: ">_"
+          - generic [ref=e70]: AUTONOMOUS QA WORKSPACE / READY TO START
+          - heading "Từ ngữ cảnh đến kết quả kiểm thử." [level=1] [ref=e71]
+          - paragraph [ref=e72]: Tập hợp yêu cầu, repository và API trong một dự án. TestAgent giúp bạn thiết kế, thực thi và phân tích các bài kiểm thử từ cùng một nguồn dữ liệu.
+          - button "Tạo dự án đầu tiên" [ref=e73] [cursor=pointer]
+        - generic "Các bước bắt đầu" [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: "01"
+            - strong [ref=e81]: Tạo dự án
+            - generic [ref=e82]: Đặt môi trường và đích kiểm thử
+          - generic [ref=e83]:
+            - generic [ref=e84]: "02"
+            - strong [ref=e88]: Nạp ngữ cảnh
+            - generic [ref=e89]: Tài liệu, repository hoặc OpenAPI
+          - generic [ref=e90]:
+            - generic [ref=e91]: "03"
+            - strong [ref=e94]: Giao việc cho agent
+            - generic [ref=e95]: Tạo test, phân tích và báo cáo

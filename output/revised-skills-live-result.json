@@ -1,0 +1,85 @@
+{
+  "selection": {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "high"
+  },
+  "outcomes": [
+    {
+      "check": "routing",
+      "prompt": "Kiểm tra API login chịu được 2.000 concurrent users không.",
+      "requested_function": "orchestrator",
+      "source": "ai",
+      "function": "performance",
+      "reason": "Yêu cầu đánh giá API login với 2.000 người dùng đồng thời phù hợp với phân tích hiệu năng để xác định tải, chỉ số và ngưỡng chấp nhận. Chức năng này chỉ đề xuất kiểm thử tải; chưa thực thi hoặc kết luận khả năng chịu tải.",
+      "run_id": null,
+      "case_ids": []
+    },
+    {
+      "check": "routing",
+      "prompt": "Viết báo cáo QA từ kết quả chạy test, nêu lỗi và hành động tiếp theo.",
+      "requested_function": "orchestrator",
+      "source": "ai",
+      "function": "report",
+      "reason": "Yêu cầu là viết báo cáo QA, nêu lỗi và hành động tiếp theo từ kết quả chạy test, phù hợp với chức năng report. Hiện chưa có lượt chạy được cung cấp; cần kết quả chạy thực tế để lập báo cáo.",
+      "run_id": null,
+      "case_ids": []
+    },
+    {
+      "check": "missing_credentials",
+      "synthetic_evidence": true,
+      "target_actions_executed": false,
+      "output": {
+        "summary": "Đã quan sát biểu mẫu đăng nhập; chưa thể gửi biểu mẫu vì thiếu tài khoản test và mật khẩu.",
+        "scenarios": [
+          "Đăng nhập bằng tài khoản test hợp lệ, quan sát trang đích và dấu hiệu xác nhận người dùng đã đăng nhập."
+        ],
+        "actions": [],
+        "done": false,
+        "blocked_reason": "Vui lòng cung cấp tài khoản test và mật khẩu được phép sử dụng. Trang hiện tại không hiển thị thông tin đăng nhập demo công khai.",
+        "reset_browser": false
+      }
+    },
+    {
+      "check": "optional_sources_planning",
+      "target_actions_executed": false,
+      "output": {
+        "summary": "Có thể chuẩn bị ngay phạm vi, danh sách kịch bản và tiêu chí đánh giá dự kiến cho kiểm thử đăng nhập. Tác nhân giả định là người dùng chưa đăng nhập; lát kiểm thử đầu tiên đề xuất là mở trang đăng nhập, nhập thông tin hợp lệ và xác nhận đến trang yêu cầu xác thực. Môi trường được khai báo là local, nhưng chưa có URL, SRS, repository hoặc tài khoản test. Chưa có bằng chứng thực thi và không có kết luận PASS/FAIL.",
+        "findings": [
+          {
+            "title": "Rủi ro ưu tiên: xác thực sai hoặc không thiết lập phiên",
+            "detail": "Suy luận: đăng nhập hợp lệ thất bại hoặc thông tin sai vẫn được chấp nhận có tác động cao. Đề xuất ưu tiên luồng hợp lệ và mật khẩu sai ở mức hành trình giao diện. Chưa biết cơ chế đăng nhập là mật khẩu, SSO hay có MFA; chưa có bằng chứng lỗi, xác suất xảy ra hoặc bề mặt thay đổi.",
+            "severity": "high",
+            "evidence_ids": []
+          },
+          {
+            "title": "Thiếu địa chỉ truy cập và trạng thái dữ liệu ban đầu",
+            "detail": "Đã biết: base_url trống và chưa có tài khoản test. Đây là khoảng trống ngăn khám phá hoặc chạy luồng đăng nhập, nhưng không ngăn lập kế hoạch. Cần URL local truy cập được, đường dẫn đăng nhập, tài khoản được phép sử dụng và trạng thái tài khoản. Tài khoản cần được chuẩn bị bên ngoài nếu chưa có luồng tạo tài khoản được cho phép.",
+            "severity": "medium",
+            "evidence_ids": []
+          },
+          {
+            "title": "Chưa có quy tắc để xác định kết quả đúng",
+            "detail": "Chưa biết: trang đích sau đăng nhập, dấu hiệu xác thực thành công, phản hồi khi thông tin sai hoặc bỏ trống, quy tắc khóa tài khoản và MFA. Các kịch bản này hiện chỉ là đề xuất; không thể coi hành vi quan sát trên website là yêu cầu đã được xác nhận. Thiếu SRS hoặc repository không phải trở ngại bắt buộc nếu các quy tắc cần thiết được cung cấp trực tiếp.",
+            "severity": "medium",
+            "evidence_ids": []
+          },
+          {
+            "title": "Chưa có bằng chứng kiểm thử",
+            "detail": "Đã biết: danh sách nguồn rỗng và không có run_result được cung cấp. Không thể xác nhận website đã được kiểm tra, ca kiểm thử đã chạy hoặc chức năng hoạt động đúng.",
+            "severity": "info",
+            "evidence_ids": []
+          }
+        ],
+        "recommendations": [
+          "Chuẩn bị ngay bản nháp qua gen_testcase từ mục tiêu hiện có: đăng nhập hợp lệ, mật khẩu sai và bỏ trống trường bắt buộc. Đánh dấu điều kiện đầu vào và kết quả mong đợi chưa được xác nhận; chưa tạo payload thực thi khi thiếu URL hoặc giá trị cụ thể. Thành công là có các định nghĩa khác biệt, dễ rà soát và chỉ rõ khoảng trống.",
+          "Thu thập đầu vào thiết yếu trước khám phá: URL local và đường dẫn đăng nhập, phương thức xác thực, tài khoản được phép dùng, cách xử lý MFA nếu có, trang đích và dấu hiệu thành công. Dùng test_data để chuẩn bị giá trị thử phù hợp với quy tắc đã xác nhận; thành công là có tài khoản hoạt động và dữ liệu sai được phép sử dụng.",
+          "Dùng ui_automation để khám phá trang đăng nhập khi có URL truy cập được; dành bước khám phá cho cả trang đích sau đăng nhập. Đầu vào là URL, tài khoản và phạm vi cho phép. Thành công là ghi nhận được trường nhập, mục tiêu tương tác duy nhất và dấu hiệu kết quả quan sát được; việc khám phá chưa chứng minh ca tự động đã PASS.",
+          "Dùng automation_builder xây ca đầu tiên: bắt đầu bằng navigate, tự chuẩn bị đăng nhập và kết thúc bằng assertion về trang đích hoặc dấu hiệu xác thực đã thống nhất. Dùng case_review kiểm tra định nghĩa và assertion. Thành công là ca có thể chạy độc lập, không có placeholder và đủ điều kiện READY để xem xét.",
+          "Dùng run_tests chạy riêng ca hợp lệ trước, rồi ca mật khẩu sai và kiểm tra trường bắt buộc sau khi quy tắc được xác nhận. Tránh dùng chung tài khoản đồng thời; cần biết quy tắc khóa và cách khôi phục trước khi thử sai nhiều lần. Context trình duyệt riêng không cô lập trạng thái tài khoản trên server. Bằng chứng thành công phải là run_result có kết quả và assertion được ghi nhận.",
+          "Phân tích run_result thực tế để quyết định sửa ca, điều tra lỗi hoặc mở rộng sang truy cập trang bảo vệ khi chưa đăng nhập. Tiêu chí kết thúc đề xuất, chưa được phê duyệt: mọi ca đã chọn PASS, đăng nhập hợp lệ có dấu hiệu xác thực và thông tin sai không tạo quyền truy cập. Chưa kết luận đạt tiêu chí trước khi có kết quả chạy."
+        ]
+      }
+    }
+  ]
+}

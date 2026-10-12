@@ -1,0 +1,65 @@
+- generic [ref=f3e3]:
+  - generic "TestAgent local terminal" [ref=f3e4]: testagent — local workspace
+  - complementary [ref=f3e12]:
+    - generic [ref=f3e15]:
+      - strong [ref=f3e16]: TestAgent
+      - generic [ref=f3e17]: QUALITY ENGINEERING CLI
+    - generic [ref=f3e18]: ~/ WORKSPACE
+    - navigation "Điều hướng chính" [ref=f3e19]:
+      - button "Tổng quan" [ref=f3e20] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=f3e28] [cursor=pointer]
+      - button "Test cases" [ref=f3e34] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=f3e39] [cursor=pointer]
+      - button "Kết nối AI" [ref=f3e44] [cursor=pointer]
+    - generic [ref=f3e49]:
+      - generic [ref=f3e50]: SYSTEM / STATUS
+      - generic [ref=f3e51]:
+        - generic [ref=f3e54]:
+          - strong [ref=f3e55]: API
+          - generic [ref=f3e56]: Đang kiểm tra
+        - generic [ref=f3e59]:
+          - strong [ref=f3e60]: Model AI
+          - generic [ref=f3e61]: Đang kiểm tra
+        - generic [ref=f3e64]:
+          - strong [ref=f3e65]: Browser runner
+          - generic [ref=f3e66]: Đang kiểm tra
+      - generic [ref=f3e67]:
+        - generic [ref=f3e68]: v0.1.0
+        - generic [ref=f3e69]: LOCAL BUILD
+  - generic [ref=f3e70]:
+    - banner [ref=f3e71]:
+      - button "Mở menu" [ref=f3e72] [cursor=pointer]
+      - generic [ref=f3e75]:
+        - generic [ref=f3e76]: Chọn dự án
+        - combobox "Chọn dự án" [ref=f3e78] [cursor=pointer]:
+          - option "Chọn dự án" [disabled] [selected]
+        - button "Tạo dự án mới" [ref=f3e79] [cursor=pointer]
+    - main [ref=f3e82]:
+      - generic [ref=f3e83]:
+        - generic [ref=f3e84]:
+          - generic [ref=f3e85]:
+            - generic [ref=f3e86]: ~/testagent
+            - generic [ref=f3e87]: ❯
+            - code [ref=f3e88]: testagent init
+          - generic [ref=f3e90]: AUTONOMOUS QA WORKSPACEREADY TO START
+          - heading "Từ ngữ cảnh đến kết quả kiểm thử." [level=1] [ref=f3e93]
+          - paragraph [ref=f3e94]: Nhập URL website và mô tả điều bạn muốn kiểm tra. TestAgent đọc giao diện để tạo test; tài liệu, repository và API là ngữ cảnh bổ sung nếu có.
+          - button "Tạo dự án đầu tiên" [ref=f3e95] [cursor=pointer]
+        - generic [ref=f3e98]:
+          - generic [ref=f3e99]: BẮT ĐẦU / 03 BƯỚC
+          - list "Các bước bắt đầu" [ref=f3e100]:
+            - listitem [ref=f3e101]:
+              - generic [ref=f3e102]: "01"
+              - generic [ref=f3e106]:
+                - strong [ref=f3e107]: Tạo dự án
+                - generic [ref=f3e108]: Đặt môi trường và đích kiểm thử
+            - listitem [ref=f3e109]:
+              - generic [ref=f3e110]: "02"
+              - generic [ref=f3e114]:
+                - strong [ref=f3e115]: Kết nối tài khoản AI
+                - generic [ref=f3e116]: Chọn provider và model muốn dùng
+            - listitem [ref=f3e117]:
+              - generic [ref=f3e118]: "03"
+              - generic [ref=f3e122]:
+                - strong [ref=f3e123]: Giao việc cho agent
+                - generic [ref=f3e124]: Tạo test, phân tích và báo cáo

@@ -1,0 +1,252 @@
+- generic [ref=e3]:
+  - generic "TestAgent local terminal" [ref=e4]:
+    - generic [ref=e9]: testagent — local workspace
+    - generic [ref=e12]: LOCAL SESSION
+  - complementary [ref=e14]:
+    - generic [ref=e17]:
+      - strong [ref=e18]: TestAgent
+      - generic [ref=e19]: QUALITY ENGINEERING CLI
+    - generic [ref=e20]: ~/ WORKSPACE
+    - navigation "Điều hướng chính" [ref=e21]:
+      - button "Tổng quan" [ref=e22] [cursor=pointer]
+      - button "Nguồn dữ liệu" [ref=e30] [cursor=pointer]
+      - button "Test cases" [ref=e36] [cursor=pointer]
+      - button "Lịch sử chạy" [ref=e41] [cursor=pointer]
+      - button "Kết nối AI" [ref=e46] [cursor=pointer]
+    - generic [ref=e51]:
+      - generic [ref=e52]: SYSTEM / STATUS
+      - generic [ref=e53]:
+        - generic [ref=e56]:
+          - strong [ref=e57]: API
+          - generic [ref=e58]: Đang kiểm tra
+        - generic [ref=e61]:
+          - strong [ref=e62]: Model AI
+          - generic [ref=e63]: Đã kết nối
+        - generic [ref=e66]:
+          - strong [ref=e67]: Browser runner
+          - generic [ref=e68]: Đang kiểm tra
+      - generic [ref=e69]:
+        - generic [ref=e70]: v0.1.0
+        - generic [ref=e71]: LOCAL BUILD
+  - generic [ref=e72]:
+    - banner [ref=e73]:
+      - generic [ref=e74]:
+        - generic [ref=e75]: ❯
+        - generic [ref=e76]: ~/testagent
+        - generic [ref=e77]: /
+        - strong [ref=e78]: Tổng quan
+      - generic [ref=e79]:
+        - generic [ref=e80]: Chọn dự án
+        - combobox "Chọn dự án" [ref=e82] [cursor=pointer]:
+          - option "Chọn dự án" [disabled]
+          - option "TestAPP" [selected]
+        - button "Tạo dự án mới" [ref=e83] [cursor=pointer]:
+          - generic [ref=e86]: Dự án mới
+    - main [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89]:
+          - generic [ref=e90]: PROJECT / STAGING / OVERVIEW
+          - heading "TestAPP" [level=1] [ref=e91]
+          - paragraph [ref=e92]: Trung tâm điều phối kiểm thử và theo dõi chất lượng.
+        - generic [ref=e93]:
+          - link "www.saucedemo.com" [ref=e94] [cursor=pointer]:
+            - /url: https://www.saucedemo.com
+          - button "Nạp nguồn (tùy chọn)" [ref=e102] [cursor=pointer]
+          - button "Cấu hình" [ref=e105] [cursor=pointer]
+      - region "Chỉ số dự án" [ref=e110]:
+        - generic [ref=e111]:
+          - generic [ref=e112]: Nguồn dữ liệu
+          - strong [ref=e113]: "0"
+          - generic [ref=e114]: Tài liệu · mã nguồn · API
+        - generic [ref=e115]:
+          - generic [ref=e116]: Test cases
+          - strong [ref=e117]: "12"
+          - generic [ref=e118]: 7 có thể chạy
+        - generic [ref=e119]:
+          - generic [ref=e120]: Truy vết nguồn
+          - strong [ref=e121]: 0%
+          - generic [ref=e122]: 0/0 nguồn được gắn test
+        - generic [ref=e123]:
+          - generic [ref=e124]: Pass rate gần nhất
+          - strong [ref=e125]: 100%
+          - generic [ref=e126]: 20:57 1/10/26
+      - generic [ref=e127]:
+        - generic [ref=e128]:
+          - generic [ref=e133]:
+            - generic [ref=e134]: AGENT WORKBENCH
+            - heading "Giao việc cho TestAgent" [level=2] [ref=e135]
+            - paragraph [ref=e136]: Chọn kỹ năng phù hợp và mô tả kết quả bạn cần.
+          - generic [ref=e137]:
+            - generic [ref=e138]:
+              - generic [ref=e139]:
+                - text: Provider
+                - combobox "Provider AI" [ref=e140]:
+                  - option "Chọn tài khoản AI" [disabled]
+                  - option "Codex / ChatGPT" [selected]
+                  - option "Antigravity · Chưa kết nối" [disabled]
+                  - option "Claude Code · Chưa kết nối" [disabled]
+              - generic [ref=e141]:
+                - text: Model
+                - combobox "Model AI" [ref=e142]:
+                  - option "Chọn model" [disabled]
+                  - option "GPT-6.1-Sol" [selected]
+                  - option "GPT-6-Astra"
+                  - option "GPT-6-Sol"
+                  - option "GPT-6-Luna"
+                  - option "GPT-5.6-Sol"
+                  - option "GPT-5.6-Terra"
+                  - option "GPT-5.6-Luna"
+                  - option "GPT-5.5"
+              - generic [ref=e143]:
+                - text: Effort
+                - combobox "Effort AI" [ref=e144]:
+                  - option "Mặc định (low)"
+                  - option "low"
+                  - option "medium"
+                  - option "high" [selected]
+                  - option "xhigh"
+                  - option "max"
+                  - option "ultra"
+              - button "Kết nối tài khoản" [ref=e145] [cursor=pointer]
+            - generic [ref=e146]:
+              - generic [ref=e147]: Kỹ năng agent
+              - combobox "Kỹ năng agent" [ref=e148]:
+                - option "Tạo UI automation" [selected]
+                - option "Tạo test case"
+                - option "Chuyển case thành automation"
+                - option "Rà soát test cases"
+                - option "Chạy bộ test"
+                - option "Tạo API test"
+                - option "Sửa automation bị lỗi"
+                - option "Viết report"
+                - option "Phân tích lỗi"
+                - option "Đọc repository"
+                - option "Phân tích yêu cầu"
+                - option "Lập test plan"
+                - option "Tạo unit test"
+                - option "Phân tích regression"
+                - option "Phân tích hiệu năng"
+                - option "Phân tích bảo mật"
+                - option "Lập phiên exploratory"
+                - option "Thiết kế test data"
+              - paragraph [ref=e149]: Khảo sát luồng thật, tạo test Playwright độc lập và có assertion
+              - generic [ref=e150]:
+                - text: "Skill:"
+                - code [ref=e154]: ui-automation.md
+            - generic [ref=e155]:
+              - generic [ref=e156]: Sau khi tạo automation
+              - combobox "Sau khi tạo automation" [ref=e157]:
+                - option "Xem test trước, chọn chạy sau" [selected]
+                - option "Tạo và chạy ngay"
+              - paragraph [ref=e158]: Agent quan sát và thao tác trên website để xác định locator và kết quả. Lượt chạy xác nhận test được ghi riêng.
+            - generic [ref=e159]: Yêu cầu của bạn
+            - textbox "Yêu cầu của bạn" [ref=e160]:
+              - /placeholder: "Ví dụ: Test luồng đăng nhập, thêm sản phẩm vào giỏ; dùng tài khoản test demo / mật khẩu..."
+            - generic [ref=e161]:
+              - generic [ref=e162]: Lên kịch bản → quan sát → tạo test → chọn chạy. Nguồn bổ sung là tùy chọn.
+              - button "Gửi cho agent" [disabled] [ref=e163]
+        - generic [ref=e166]:
+          - generic [ref=e168]:
+            - heading "Hoạt động gần đây" [level=2] [ref=e169]
+            - paragraph [ref=e170]: Nhấn vào tác vụ để xem kết quả agent
+          - generic [ref=e171]:
+            - 'button "Tạo automation cho đúng hai case đã chọn: đăng nhập thành công standard_user/secret_sauce và bị từ chối khi dùng standard_user/secret_sauc (mật khẩu thiếu ký tự cuối). Khám phá độc lập, dùng reset_browser giữa hai tình huống. Với case đúng kiểm tra URL inventory và Products; với case sai kiểm tra thông báo lỗi quan sát được và vẫn ở trang đăng nhập. Giữ ID, mục tiêu và kỳ vọng của case gốc. Chỉ tạo để review, chưa chạy xác nhận. Chuyển case thành automation · 20:54 1/10/26 Tạo automation để review cho đúng hai case đã chọn, giữ ID, mục tiêu và kỳ vọng gốc. Dựa trên bằng chứng khám phá độc lập có reset_browser giữa hai tình huống; chưa chạy xác nhận automation. Sẵn sàng chạy" [ref=e172] [cursor=pointer]':
+              - generic [ref=e176]:
+                - strong [ref=e177]: "Tạo automation cho đúng hai case đã chọn: đăng nhập thành công standard_user/secret_sauce và bị từ chối khi dùng standard_user/secret_sauc (mật khẩu thiếu ký tự cuối). Khám phá độc lập, dùng reset_browser giữa hai tình huống. Với case đúng kiểm tra URL inventory và Products; với case sai kiểm tra thông báo lỗi quan sát được và vẫn ở trang đăng nhập. Giữ ID, mục tiêu và kỳ vọng của case gốc. Chỉ tạo để review, chưa chạy xác nhận."
+                - generic [ref=e178]: Chuyển case thành automation · 20:54 1/10/26
+                - generic [ref=e179]: Tạo automation để review cho đúng hai case đã chọn, giữ ID, mục tiêu và kỳ vọng gốc. Dựa trên bằng chứng khám phá độc lập có reset_browser giữa hai tình huống; chưa chạy xác nhận automation.
+              - generic [ref=e180]: Sẵn sàng chạy
+            - 'button "Tạo automation cho đúng hai case đã chọn: đăng nhập thành công standard_user/secret_sauce và bị từ chối khi dùng standard_user/secret_sauc (mật khẩu thiếu ký tự cuối). Khám phá độc lập, dùng reset_browser giữa hai tình huống. Với case đúng kiểm tra URL inventory và Products; với case sai kiểm tra thông báo lỗi quan sát được và vẫn ở trang đăng nhập. Giữ ID, mục tiêu và kỳ vọng của case gốc. Chỉ tạo để review, chưa chạy xác nhận. Chuyển case thành automation · 20:49 1/10/26 Đặt lại trình duyệt để khám phá độc lập case mật khẩu thiếu ký tự cuối; sau đó kiểm tra thông báo lỗi thực tế và URL trang đăng nhập. Chưa chạy xác nhận automation. Agent đã hết lượt quan sát trước khi hoàn tất mục tiêu. Hãy thu hẹp kịch bản test. FAILED" [ref=e181] [cursor=pointer]':
+              - generic [ref=e185]:
+                - strong [ref=e186]: "Tạo automation cho đúng hai case đã chọn: đăng nhập thành công standard_user/secret_sauce và bị từ chối khi dùng standard_user/secret_sauc (mật khẩu thiếu ký tự cuối). Khám phá độc lập, dùng reset_browser giữa hai tình huống. Với case đúng kiểm tra URL inventory và Products; với case sai kiểm tra thông báo lỗi quan sát được và vẫn ở trang đăng nhập. Giữ ID, mục tiêu và kỳ vọng của case gốc. Chỉ tạo để review, chưa chạy xác nhận."
+                - generic [ref=e187]: Chuyển case thành automation · 20:49 1/10/26
+                - generic [ref=e188]: Đặt lại trình duyệt để khám phá độc lập case mật khẩu thiếu ký tự cuối; sau đó kiểm tra thông báo lỗi thực tế và URL trang đăng nhập. Chưa chạy xác nhận automation.
+                - generic [ref=e189]: Agent đã hết lượt quan sát trước khi hoàn tất mục tiêu. Hãy thu hẹp kịch bản test.
+              - generic [ref=e190]: FAILED
+            - button "Chuyển case đăng nhập đã chọn thành Playwright automation chạy độc lập. Dùng tài khoản standard_user / secret_sauce công bố trên trang. Quan sát giao diện sau đăng nhập để xác nhận trang Products và URL inventory. Giữ nguyên mục tiêu, tiêu đề và kỳ vọng của case. Tạo automation để xem trước, chưa chạy xác nhận. Chuyển case thành automation · 20:40 1/10/26 Đã tạo automation xem trước cho đúng case đã chọn, giữ nguyên tiêu đề, mục tiêu và kỳ vọng. Dựa trên browser_journey được cung cấp, bổ sung assertion Products và URL inventory sau khi gửi form đăng nhập. Chưa chạy xác nhận automation. Sẵn sàng chạy" [ref=e191] [cursor=pointer]:
+              - generic [ref=e195]:
+                - strong [ref=e196]: Chuyển case đăng nhập đã chọn thành Playwright automation chạy độc lập. Dùng tài khoản standard_user / secret_sauce công bố trên trang. Quan sát giao diện sau đăng nhập để xác nhận trang Products và URL inventory. Giữ nguyên mục tiêu, tiêu đề và kỳ vọng của case. Tạo automation để xem trước, chưa chạy xác nhận.
+                - generic [ref=e197]: Chuyển case thành automation · 20:40 1/10/26
+                - generic [ref=e198]: Đã tạo automation xem trước cho đúng case đã chọn, giữ nguyên tiêu đề, mục tiêu và kỳ vọng. Dựa trên browser_journey được cung cấp, bổ sung assertion Products và URL inventory sau khi gửi form đăng nhập. Chưa chạy xác nhận automation.
+              - generic [ref=e199]: Sẵn sàng chạy
+            - button "Đăng nhập trang web bằng tài khoản demo được công bố trên trang, xác nhận đã vào được trang sản phẩm. Tự quan sát sau khi đăng nhập để chọn locator và assertion. Lên kịch bản và chạy đúng một test automation cho luồng đăng nhập thành công. Tạo UI automation · 19:36 1/10/26 1 PASS · 0 không đạt COMPLETED" [ref=e200] [cursor=pointer]:
+              - generic [ref=e204]:
+                - strong [ref=e205]: Đăng nhập trang web bằng tài khoản demo được công bố trên trang, xác nhận đã vào được trang sản phẩm. Tự quan sát sau khi đăng nhập để chọn locator và assertion. Lên kịch bản và chạy đúng một test automation cho luồng đăng nhập thành công.
+                - generic [ref=e206]: Tạo UI automation · 19:36 1/10/26
+                - generic [ref=e207]: 1 PASS · 0 không đạt
+              - generic [ref=e208]: COMPLETED
+            - button "Đăng nhập tài khoản, mật khẩu và vào trang web Tạo UI automation · 19:11 1/10/26 COMPLETED" [ref=e209] [cursor=pointer]:
+              - generic [ref=e213]:
+                - strong [ref=e214]: Đăng nhập tài khoản, mật khẩu và vào trang web
+                - generic [ref=e215]: Tạo UI automation · 19:11 1/10/26
+              - generic [ref=e216]: COMPLETED
+            - button "Thực hiện việc đăng nhập trang web Tạo UI automation · 19:08 1/10/26 COMPLETED" [ref=e217] [cursor=pointer]:
+              - generic [ref=e221]:
+                - strong [ref=e222]: Thực hiện việc đăng nhập trang web
+                - generic [ref=e223]: Tạo UI automation · 19:08 1/10/26
+              - generic [ref=e224]: COMPLETED
+            - button "Test chức năng đăng nhập Tạo test case · 19:06 1/10/26 COMPLETED" [ref=e225] [cursor=pointer]:
+              - generic [ref=e229]:
+                - strong [ref=e230]: Test chức năng đăng nhập
+                - generic [ref=e231]: Tạo test case · 19:06 1/10/26
+              - generic [ref=e232]: COMPLETED
+      - generic [ref=e233]:
+        - generic [ref=e234]:
+          - generic [ref=e235]:
+            - heading "Test cases mới" [level=2] [ref=e236]
+            - paragraph [ref=e237]: Kiểm tra các trường hợp vừa được tạo
+          - button "Xem tất cả" [ref=e238] [cursor=pointer]
+        - table [ref=e242]:
+          - rowgroup [ref=e243]:
+            - row [ref=e244]:
+              - columnheader "Test case" [ref=e245]
+              - columnheader "Loại" [ref=e246]
+              - columnheader "Ưu tiên" [ref=e247]
+              - columnheader "Thực thi" [ref=e248]
+              - columnheader [ref=e249]
+          - rowgroup [ref=e250]:
+            - row [ref=e251]:
+              - cell "Đăng nhập thành công bằng tài khoản demo và xác nhận trang sản phẩm 6611a75d · UI" [ref=e252]:
+                - button "Đăng nhập thành công bằng tài khoản demo và xác nhận trang sản phẩm" [ref=e253] [cursor=pointer]
+                - generic [ref=e254]: 6611a75d · UI
+              - cell "positive" [ref=e255]
+              - cell "high" [ref=e256]
+              - cell "Browser" [ref=e258]
+              - cell [ref=e259]:
+                - button "Xem Đăng nhập thành công bằng tài khoản demo và xác nhận trang sản phẩm" [ref=e260] [cursor=pointer]
+            - row [ref=e263]:
+              - cell "Hiển thị các điều khiển đăng nhập 4ad531af · UI" [ref=e264]:
+                - button "Hiển thị các điều khiển đăng nhập" [ref=e265] [cursor=pointer]
+                - generic [ref=e266]: 4ad531af · UI
+              - cell "positive" [ref=e267]
+              - cell "medium" [ref=e268]
+              - cell "Browser" [ref=e270]
+              - cell [ref=e271]:
+                - button "Xem Hiển thị các điều khiển đăng nhập" [ref=e272] [cursor=pointer]
+            - row [ref=e275]:
+              - cell "Đăng nhập bằng tài khoản được công bố trên trang 52c70f49 · UI" [ref=e276]:
+                - button "Đăng nhập bằng tài khoản được công bố trên trang" [ref=e277] [cursor=pointer]
+                - generic [ref=e278]: 52c70f49 · UI
+              - cell "positive" [ref=e279]
+              - cell "high" [ref=e280]
+              - cell "Browser" [ref=e282]
+              - cell [ref=e283]:
+                - button "Xem Đăng nhập bằng tài khoản được công bố trên trang" [ref=e284] [cursor=pointer]
+            - row [ref=e287]:
+              - cell "Đăng nhập bằng tài khoản standard_user 5f763b04 · UI" [ref=e288]:
+                - button "Đăng nhập bằng tài khoản standard_user" [ref=e289] [cursor=pointer]
+                - generic [ref=e290]: 5f763b04 · UI
+              - cell "positive" [ref=e291]
+              - cell "high" [ref=e292]
+              - cell "Browser" [ref=e294]
+              - cell [ref=e295]:
+                - button "Xem Đăng nhập bằng tài khoản standard_user" [ref=e296] [cursor=pointer]
+            - row [ref=e299]:
+              - cell "Kiểm tra các điều khiển trên trang đăng nhập 1b1b9d14 · UI" [ref=e300]:
+                - button "Kiểm tra các điều khiển trên trang đăng nhập" [ref=e301] [cursor=pointer]
+                - generic [ref=e302]: 1b1b9d14 · UI
+              - cell "positive" [ref=e303]
+              - cell "medium" [ref=e304]
+              - cell "Browser" [ref=e306]
+              - cell [ref=e307]:
+                - button "Xem Kiểm tra các điều khiển trên trang đăng nhập" [ref=e308] [cursor=pointer]
