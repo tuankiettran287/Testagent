@@ -76,7 +76,7 @@ def load_catalog():
 
 
 def write_summary(path, report):
-    lines = ['## Agent functional test cases', '',
+    lines = ['## Agent test cases', '',
              f"**{report['outcome']}**: {report['executed']}/{report['selected']} executed; "
              f"{report.get('passed', 0)} passed; {report.get('failures', 0)} failures; "
              f"{report.get('flaky', 0)} flaky; {report.get('errors', 0)} errors; {report.get('skipped', 0)} skipped.", '',

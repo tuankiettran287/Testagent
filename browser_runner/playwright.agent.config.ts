@@ -4,13 +4,16 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 
 const root = path.resolve(import.meta.dirname, '..');
-const output = path.resolve(process.env.AGENT_REPORT_DIR || path.join(root, 'output/playwright/agent-cases'));
+const suite = process.env.AGENT_TEST_SUITE || 'functional';
+if (suite !== 'functional' && suite !== 'status-demo') throw new Error(`Unknown agent test suite: ${suite}`);
+const output = path.resolve(process.env.AGENT_REPORT_DIR || path.join(root,
+  'output/playwright', suite === 'functional' ? 'agent-cases' : 'status-demo'));
 const baseURL = `http://127.0.0.1:${process.env.AGENT_CI_PORT || '8766'}`;
 const data = path.join(tmpdir(), `testagent-playwright-${randomUUID()}`);
 
 export default defineConfig({
   testDir: './tests',
-  testMatch: ['**/agent/*.spec.ts', '**/status-demo/*.spec.ts'],
+  testMatch: suite === 'functional' ? '**/agent/*.spec.ts' : '**/status-demo/*.spec.ts',
   fullyParallel: false,
   workers: 1,
   retries: 0,
@@ -26,8 +29,7 @@ export default defineConfig({
     ['json', { outputFile: path.join(output, 'results.json') }],
     ['junit', { outputFile: path.join(output, 'junit.xml') }],
   ],
-  metadata: { dataOrigin: 'generated-fixtures-only', modelMode: 'fixture', workspaceDataImported: false,
-    statusDemo: 'Includes deliberate FAIL, controlled FLAKY and declared SKIP cases' },
+  metadata: { suite, dataOrigin: 'generated-fixtures-only', modelMode: 'fixture', workspaceDataImported: false },
   use: {
     baseURL, browserName: 'chromium', headless: true,
     trace: 'retain-on-failure', screenshot: 'only-on-failure', video: 'retain-on-failure',

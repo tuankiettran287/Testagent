@@ -24,6 +24,22 @@ def native_specs(data: dict) -> list[dict]:
     return specs
 
 
+def select_cases(catalog: dict, suite: str) -> list[dict]:
+    if suite not in {'functional', 'status-demo'}:
+        raise ValueError(f'Unknown agent test suite: {suite}')
+    return [case for case in catalog['cases'] if bool(case.get('report_demo')) == (suite == 'status-demo')]
+
+
+def suite_results(data: dict, definitions: list[dict], suite: str) -> list[dict]:
+    specs = native_specs(data)
+    known = {case['id'] for case in definitions}
+    if any(spec['title'].split(' ', 1)[0] not in known for spec in specs):
+        raise ValueError('Unexpected case outside the selected suite')
+    if suite == 'functional':
+        return case_results(data, definitions)
+    return demo_results(specs, definitions)
+
+
 def demo_results(specs: list[dict], definitions: list[dict]) -> list[dict]:
     known = {case['id']: case for case in definitions}
     found = {}
@@ -50,15 +66,7 @@ def demo_results(specs: list[dict], definitions: list[dict]) -> list[dict]:
 
 
 def case_results(data: dict, definitions: list[dict]) -> list[dict]:
-    specs = []
-
-    def visit(suite):
-        specs.extend(suite.get('specs', []))
-        for child in suite.get('suites', []):
-            visit(child)
-
-    for suite in data.get('suites', []):
-        visit(suite)
+    specs = native_specs(data)
     known = {item['id'] for item in definitions}
     found = {}
     for spec in specs:
@@ -87,40 +95,38 @@ def case_results(data: dict, definitions: list[dict]) -> list[dict]:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--output', type=Path, default=Path('output/playwright/agent-cases'))
+    parser.add_argument('--suite', choices=('functional', 'status-demo'), default='functional')
+    parser.add_argument('--output', type=Path)
     args = parser.parse_args()
+    args.output = args.output or Path('output/playwright') / ('agent-cases' if args.suite == 'functional' else 'status-demo')
     args.output.mkdir(parents=True, exist_ok=True)
     report = {'outcome': 'BLOCKED', 'selected': 0, 'executed': 0, 'cases': [],
+              'suite': args.suite, 'run_id': os.getenv('GITHUB_RUN_ID', 'local'),
+              'attempt_id': os.getenv('GITHUB_RUN_ATTEMPT', '1'),
               'runner': 'Playwright Test', 'data_origin': 'generated-fixtures-only',
               'workspace_data_imported': False, 'model_mode': 'fixture', 'actual_provider_calls': 0}
     try:
         catalog = load_catalog()
-        report['selected'] = len(catalog['cases'])
+        definitions = select_cases(catalog, args.suite)
+        report['selected'] = len(definitions)
+        report['selected_case_ids'] = [case['id'] for case in definitions]
         report['code_revision'] = git_output('rev-parse', 'HEAD')
         report['working_tree_dirty'] = bool(git_output('status', '--porcelain'))
         report['catalog_sha256'] = hashlib.sha256(CATALOG.read_bytes()).hexdigest()
-        (args.output / 'catalog.json').write_text(json.dumps(catalog, indent=2), encoding='utf-8')
+        (args.output / 'catalog.json').write_text(json.dumps({**catalog, 'suite': args.suite, 'cases': definitions}, indent=2), encoding='utf-8')
         data = json.loads((args.output / 'results.json').read_text(encoding='utf-8'))
-        core = [case for case in catalog['cases'] if not case.get('report_demo')]
-        demos = [case for case in catalog['cases'] if case.get('report_demo')]
-        core_ids = {case['id'] for case in core}
-        demo_ids = {case['id'] for case in demos}
-        specs = native_specs(data)
-        if any(spec['title'].split(' ', 1)[0] not in core_ids | demo_ids for spec in specs):
-            raise ValueError('Unexpected case outside the reviewed catalog')
-        core_rows = case_results({'suites': [{'specs': [spec for spec in specs if spec['title'].split(' ', 1)[0] in core_ids]}]}, core)
-        demo_rows = demo_results([spec for spec in specs if spec['title'].split(' ', 1)[0] in demo_ids], demos)
-        rows = core_rows + demo_rows
-        functional_passed = all(row['status'] == 'PASS' for row in core_rows)
-        demos_match = all(row['matches_expected_demo'] for row in demo_rows)
+        rows = suite_results(data, definitions, args.suite)
+        suite_matched = bool(rows) and all(
+            row['status'] == 'PASS' if args.suite == 'functional' else row['matches_expected_demo'] for row in rows)
         report.update(cases=rows, passed=sum(row['status'] == 'PASS' for row in rows),
                       failures=sum(row['status'] == 'FAIL' for row in rows),
                       flaky=sum(row['status'] == 'FLAKY' for row in rows),
                       errors=sum(row['status'] == 'ERROR' for row in rows),
                       skipped=sum(row['status'] == 'SKIPPED' for row in rows),
                       executed=sum(row['status'] in {'PASS', 'FAIL', 'FLAKY', 'ERROR'} for row in rows),
-                      functional_outcome='RUN-PASSED' if functional_passed else 'RUN-FAILED',
-                      demo_outcomes_match=demos_match, validation='MATCHED' if functional_passed and demos_match and not data.get('errors') else 'NOT_MATCHED',
+                      functional_outcome=('RUN-PASSED' if suite_matched else 'RUN-FAILED') if args.suite == 'functional' else 'NOT_SELECTED',
+                      demo_outcomes_match=suite_matched if args.suite == 'status-demo' else None,
+                      validation='MATCHED' if suite_matched and not data.get('errors') else 'NOT_MATCHED',
                       playwright_stats=data.get('stats', {}), global_errors=data.get('errors', []))
         report['outcome'] = 'RUN-PASSED' if all(row['status'] == 'PASS' for row in rows) and not data.get('errors') else 'RUN-FAILED'
         cleanup = json.loads((args.output / 'fixture-finalization.json').read_text(encoding='utf-8'))
@@ -136,11 +142,13 @@ def main():
         report['error'] = traceback.format_exc()
     (args.output / 'manifest.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
     write_summary(args.output / 'summary.md', report)
-    note = ('\nThe same report includes the 30 functional cases and 7 report-status demos. '
-            'The two deliberately incorrect demo assertions keep this CI run red. '
-            'Only the two controlled flaky demo cases allow one retry; SKIP is not PASS.\n'
+    scope_note = ('This job selects only the 30 functional cases. Every case must PASS without retries or skips.'
+                  if args.suite == 'functional' else
+                  'This job selects only the 7 report-status demos. The two deliberately incorrect assertions keep this job red. '
+                  'Only the two controlled flaky demos allow one retry; SKIP is not PASS.')
+    note = (f'\n{scope_note}\n'
             '\nPlaywright HTML report: download artifact '
-            f"`playwright-report-{os.getenv('GITHUB_RUN_ID', 'local')}-{os.getenv('GITHUB_RUN_ATTEMPT', '1')}` "
+            f"`playwright-{args.suite}-report-{report['run_id']}-{report['attempt_id']}` "
             'and extract it, then run `npx playwright show-report <extracted-folder>/html`. '
             'Use the Passed/Failed filters or open a case to inspect steps, errors and attachments.\n')
     with (args.output / 'summary.md').open('a', encoding='utf-8') as stream:

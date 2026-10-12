@@ -1,7 +1,15 @@
 import copy
+import io
+import json
+import os
+import tempfile
 import unittest
+from contextlib import redirect_stdout
+from pathlib import Path
+from unittest.mock import patch
 
-from scripts.verify_playwright_report import case_results, demo_results
+from scripts.ci_agent_cases import load_catalog
+from scripts.verify_playwright_report import case_results, demo_results, main, select_cases, suite_results
 
 
 class PlaywrightReportTests(unittest.TestCase):
@@ -70,3 +78,52 @@ class DemoReportTests(unittest.TestCase):
         row = demo_results([self.spec], [self.definition])[0]
         self.assertEqual(row['status'], 'ERROR')
         self.assertFalse(row['matches_expected_demo'])
+
+
+class SuiteReportTests(unittest.TestCase):
+    def test_suites_cover_all_reviewed_ids_without_overlap(self):
+        catalog = load_catalog()
+        functional = {case['id'] for case in select_cases(catalog, 'functional')}
+        demos = {case['id'] for case in select_cases(catalog, 'status-demo')}
+        self.assertEqual(len(functional), 30)
+        self.assertEqual(len(demos), 7)
+        self.assertFalse(functional & demos)
+        self.assertEqual(functional | demos, {case['id'] for case in catalog['cases']})
+
+    def test_results_from_the_other_job_are_rejected(self):
+        catalog = load_catalog()
+        for suite, foreign_id in [('functional', 'DEMO-PASS01'), ('status-demo', 'AGENT-F01')]:
+            with self.subTest(suite=suite), self.assertRaisesRegex(ValueError, 'outside the selected suite'):
+                suite_results({'suites': [{'specs': [{'title': f'{foreign_id} Foreign case'}]}]},
+                              select_cases(catalog, suite), suite)
+
+    def test_each_job_validates_its_own_report_without_requiring_the_other_cases(self):
+        catalog = load_catalog()
+        native_status = {'PASS': 'expected', 'FAIL': 'unexpected', 'FLAKY': 'flaky', 'SKIPPED': 'skipped'}
+        for suite, total, outcome in [('functional', 30, 'RUN-PASSED'), ('status-demo', 7, 'RUN-FAILED')]:
+            with self.subTest(suite=suite), tempfile.TemporaryDirectory() as directory:
+                output = Path(directory)
+                definitions = select_cases(catalog, suite)
+                specs = []
+                for definition in definitions:
+                    expected = definition.get('expected_report_status', 'PASS')
+                    specs.append({'title': f"{definition['id']} {definition['title']}", 'tests': [{
+                        'status': native_status[expected], 'expectedStatus': 'skipped' if expected == 'SKIPPED' else 'passed',
+                        'results': [{'status': status} for status in definition.get('expected_attempts', ['passed'])]}]})
+                (output / 'results.json').write_text(json.dumps({'suites': [{'specs': specs}], 'errors': []}), encoding='utf-8')
+                (output / 'fixture-finalization.json').write_text(json.dumps({'cleanup': 'OWNED_FIXTURE_TEARDOWN_COMPLETED'}), encoding='utf-8')
+                (output / 'html').mkdir()
+                (output / 'html/index.html').touch()
+                (output / 'junit.xml').touch()
+                with patch('sys.argv', ['verify_playwright_report', '--suite', suite, '--output', directory]), \
+                     patch('scripts.verify_playwright_report.git_output', return_value=''), \
+                     patch('scripts.verify_playwright_report.validate_browser_evidence', return_value={'complete': True}), \
+                     patch.dict(os.environ, {'GITHUB_STEP_SUMMARY': ''}), redirect_stdout(io.StringIO()):
+                    self.assertEqual(main(), 0)
+                manifest = json.loads((output / 'manifest.json').read_text(encoding='utf-8'))
+                self.assertEqual(manifest['selected'], total)
+                self.assertEqual(manifest['outcome'], outcome)
+                self.assertEqual(manifest['validation'], 'MATCHED')
+                self.assertEqual(set(manifest['selected_case_ids']), {case['id'] for case in definitions})
+                self.assertEqual(len(json.loads((output / 'catalog.json').read_text(encoding='utf-8'))['cases']), total)
+                self.assertNotIn('NOT_RUN', {case['status'] for case in manifest['cases']})
