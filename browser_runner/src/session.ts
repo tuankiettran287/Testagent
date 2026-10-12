@@ -2,7 +2,7 @@
 import { createInterface } from 'node:readline';
 import { chromium } from '@playwright/test';
 import { parseAutomation, parseCommand } from './protocol.js';
-import { checkedUrl, performAction } from './runtime.js';
+import { ActionExecutionError, checkedUrl, performAction } from './runtime.js';
 import { captureSnapshot } from './snapshot.js';
 
 const output = (value: unknown) => process.stdout.write(JSON.stringify(value) + '\n');
@@ -52,16 +52,26 @@ try {
       const automation = parseAutomation(command.automation);
       const performed = [];
       let error: string | undefined;
+      let mutationOutcome: string | undefined;
+      let failedAction: unknown;
       for (const action of automation.actions) {
         try {
           await performAction(page, request.baseUrl, action);
           performed.push(action);
-        } catch (failure) { error = String(failure).slice(0, 1800); break; }
+        } catch (failure) {
+          error = String(failure).slice(0, 1800);
+          failedAction = action;
+          // A group that already dispatched a write cannot be safely repeated.
+          mutationOutcome = performed.some(item => ['fill', 'click', 'check', 'select'].includes(item.action))
+            ? 'unknown' : failure instanceof ActionExecutionError ? failure.mutationOutcome : 'unknown';
+          break;
+        }
       }
       await page.waitForLoadState('domcontentloaded', { timeout: 10_000 }).catch(() => undefined);
       // DOM may update asynchronously without document navigation.
       await page.screenshot({ timeout: 5000 }).catch(() => undefined);
-      output({ performed, error, snapshot: await captureSnapshot(page) });
+      output({ performed, error, failed_action: failedAction, mutation_outcome: mutationOutcome,
+               snapshot: await captureSnapshot(page) });
     } catch (error) { output({ error: String(error).slice(0, 2000) }); }
   }
 } catch (error) { output({ error: String(error).slice(0, 2000) }); }

@@ -203,7 +203,7 @@ class UiWorkflowTests(unittest.TestCase):
 
     def test_failed_browser_action_is_supplied_to_next_decision(self):
         self.session.request.side_effect = [
-            {'snapshot': self.start, 'performed': [], 'error': 'Locator matched two controls'},
+            {'snapshot': self.start, 'performed': [], 'error': 'Locator matched two controls', 'mutation_outcome': 'not_started'},
             {'snapshot': self.destination, 'performed': self.login_actions},
         ]
         self.responses.insert(1, {'summary': 'Use the unique data-test locator.', 'actions': self.login_actions})
@@ -233,6 +233,60 @@ class UiWorkflowTests(unittest.TestCase):
         self.assertEqual(len(next_turn['current_session_actions']), 1)
         self.assertGreater(len(next_turn['performed_actions']), 1)
         self.assertIn('reset', next_turn['activity'][-1]['message'])
+
+    def test_unknown_write_stops_before_replanning_reset_or_final_run(self):
+        self.session.request.return_value = {
+            'snapshot': self.start, 'performed': self.login_actions[:2],
+            'error': 'Submit response timed out', 'mutation_outcome': 'unknown',
+        }
+        task = self.submit()
+        self.assertEqual(task['status'], 'NEEDS_INPUT')
+        self.assertIn('reconcile owned', json.loads(task['summary'])['blocked_reason'])
+        self.assertEqual(len(self.requests), 1)
+        self.session.request.assert_called_once()
+        self.assertEqual(db.many('SELECT * FROM runs'), [])
+        self.assertEqual(db.many('SELECT * FROM test_cases'), [])
+
+    def test_missing_mutation_metadata_is_unknown_not_permission_to_retry(self):
+        self.session.request.return_value = {'snapshot': self.start, 'performed': [], 'error': 'Connection lost'}
+        task = self.submit()
+        self.assertEqual(task['status'], 'NEEDS_INPUT')
+        self.assertEqual(len(self.requests), 1)
+
+    def test_transport_timeout_during_write_requires_reconciliation(self):
+        self.session.request.side_effect = TimeoutError('Browser session did not respond')
+        task = self.submit()
+        self.assertEqual(task['status'], 'NEEDS_INPUT')
+        self.assertIn('reconcile owned', json.loads(task['summary'])['blocked_reason'])
+        self.assertEqual(len(self.requests), 1)
+
+    def test_read_recovery_is_bounded_even_when_model_keeps_retrying(self):
+        self.session.request.return_value = {'snapshot': self.start, 'performed': [],
+                                            'error': 'Ambiguous control', 'mutation_outcome': 'not_started'}
+        self.responses = [self.responses[0], self.responses[0], self.responses[0]]
+        task = self.submit()
+        self.assertEqual(task['status'], 'FAILED')
+        self.assertIn('recovery budget exhausted', task['error'])
+        self.assertEqual(self.session.request.call_count, 2)
+
+    def test_budget_expiring_during_model_call_prevents_browser_dispatch(self):
+        with patch.object(ui_agent, 'monotonic', side_effect=[0, 0, 1201]):
+            task = self.submit()
+        self.assertEqual(task['status'], 'FAILED')
+        self.assertIn('wall-time budget exhausted', task['error'])
+        self.session.request.assert_not_called()
+
+    def test_context_manifest_matches_task_sources_role_and_exact_prompt(self):
+        from testagent.context import content_hash
+        import hashlib
+        task = self.submit(execution_mode='generate')
+        manifest = self.requests[0]['context_manifest']
+        self.assertEqual(manifest['task_id'], task['id'])
+        self.assertEqual(manifest['role'], 'ui_automation')
+        self.assertEqual(manifest['usage_status'], 'UNKNOWN')
+        self.assertEqual(manifest['observation_sha256'], content_hash(self.requests[0]['observation']))
+        self.assertEqual(manifest['prompt_sha256'], hashlib.sha256(self.instructions[0].encode('utf-8')).hexdigest())
+        self.assertEqual(json.loads(task['summary'])['context_manifest']['task_id'], task['id'])
 
     def test_production_policy_applies_before_any_live_browser_action(self):
         self.client.patch('/api/projects/' + self.project, json={'base_url': self.start['url'], 'environment': 'production'})
@@ -325,6 +379,19 @@ class TypeScriptBrowserTests(unittest.TestCase):
             result = session.request({'command': 'act', 'automation': {'actions': [{'action': 'click', 'target': {'role': 'button', 'name': 'Continue'}}]}}, timeout=30)
             self.assertIn('Received: 2', result['error'])
             self.assertEqual(result['performed'], [])
+            self.assertEqual(result['mutation_outcome'], 'not_started')
+            self.assertEqual(result['failed_action']['action'], 'click')
+
+    def test_group_failure_after_mutation_cannot_be_replayed_as_not_started(self):
+        with BrowserSession(self.url, self.url) as session:
+            result = session.request({'command': 'act', 'automation': {'actions': [
+                {'action': 'fill', 'target': {'placeholder': 'Username'}, 'value': 'demo'},
+                {'action': 'assert_visible', 'target': {'id': 'missing-oracle'}},
+            ]}}, timeout=30)
+            self.assertTrue(result.get('error'))
+            self.assertEqual(result['mutation_outcome'], 'unknown')
+            self.assertEqual(result['failed_action']['action'], 'assert_visible')
+            self.assertEqual(len(result['performed']), 1)
 
 
 if __name__ == '__main__':

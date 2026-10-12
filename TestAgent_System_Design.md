@@ -215,7 +215,7 @@ BrowserSession mở Node session process và Chromium context ở start URL đã
 
 LLM trả BrowserDecision. Validator bắt buộc decision phải act, reset, done hoặc nêu blocker; không trộn actions với done/block/reset.
 
-Giới hạn: tối đa 8 decisions, 6 actions/decision; 3 failed action groups tổng cộng dừng. Done khi last_error chưa giải quyết bị lỗi. Reset tạo phiên sạch về start; không xóa dữ liệu backend. Guard tránh reset lặp sau khi đã reset thành công.
+Giới hạn: tối đa 8 decisions, 6 actions/decision; một recovery khi lỗi read/pre-action đã xác nhận chưa ghi. Runner trả failed_action và mutation_outcome; controller dừng với NEEDS_INPUT nếu outcome unknown hoặc mất transport trong nhóm mutation. UI_TIMEOUT_SECONDS giới hạn admission (mặc định/tối đa 1200 giây): không phát lệnh sau deadline; lời gọi đang chạy chịu timeout riêng. Done khi last_error chưa giải quyết bị lỗi. Reset tạo phiên sạch về start; không xóa dữ liệu backend. Guard tránh reset lặp sau khi đã reset thành công.
 
 Node trả observation sau actions để model chọn màn hình tiếp theo. Không tự đoán locator từ trang chưa thấy. Completion của discovery là evidence cho generation, chưa phải PASS.
 

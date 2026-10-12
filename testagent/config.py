@@ -17,6 +17,7 @@ class Settings:
     claude_binary: str = os.getenv("CLAUDE_BINARY", "claude")
     antigravity_binary: str = os.getenv("ANTIGRAVITY_BINARY", "agy")
     ai_timeout: int = int(os.getenv("AI_TIMEOUT_SECONDS", "300"))
+    ui_timeout: int = max(1, min(1200, int(os.getenv('UI_TIMEOUT_SECONDS', '1200'))))
     subagent_workers: int = max(1, min(3, int(os.getenv("SUBAGENT_WORKERS", "3"))))
     repository_hosts: tuple[str, ...] = tuple(
         part.strip().lower()

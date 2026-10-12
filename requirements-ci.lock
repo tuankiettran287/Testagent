@@ -1,0 +1,29 @@
+# CI snapshot of the locally validated Python 3.13 environment.
+# Base uvicorn only: development reload/event-loop extras are unnecessary in CI.
+# Refresh deliberately with regression validation; application ranges remain in requirements.txt.
+annotated-doc==0.0.4
+annotated-types==0.7.0
+anyio==4.12.0
+certifi==2025.11.12
+click==8.3.3
+colorama==0.4.6
+et-xmlfile==2.0.0
+fastapi==0.136.3
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.11
+lxml==6.1.1
+openpyxl==3.1.5
+pydantic==2.12.3
+pydantic-core==2.41.4
+pypdf==5.9.0
+python-docx==1.2.0
+python-dotenv==1.0.1
+python-multipart==0.0.32
+pywinpty==3.0.3; sys_platform == "win32"
+pyyaml==6.0.3
+starlette==0.52.1
+typing-extensions==4.15.0
+typing-inspection==0.4.2
+uvicorn==0.47.0

@@ -325,6 +325,21 @@ Run và task cha được nhận bằng cập nhật SQLite có điều kiện t
 
 Khi sửa browser_runner/src cần build lại runner. Build frontend không build runner và không khởi động server.
 
+## Agent Optimization và GitHub Actions
+
+Thay đổi theo hai tài liệu AOCE được mô tả trong [docs/agent-optimization.md](./docs/agent-optimization.md). Context browser bỏ thuộc tính rỗng và locator expression có thể dựng lại, giữ nguyên text/ARIA, scope và oracle. Prompt/context có version/hash; unknown write dừng để reconcile, chỉ một recovery cho lỗi read/pre-action.
+
+GitHub Actions chạy khi push `master`/`aoce/**`, pull request hoặc workflow dispatch. CI cài dependency đã khóa, build runner/frontend và chạy toàn bộ unittest với Chromium/HTTP thật trên app fixture cục bộ. Model responses là fixture; CI không cần phiên đăng nhập AI. Không có test, thiếu browser, test fail hoặc skip đều làm CI thất bại. Evidence artifact giữ 7 ngày, gồm manifest/revision, JUnit, log, benchmark và trace/video của status portal synthetic.
+
+Chạy cùng verification ở máy local sau khi build runner/cài Chromium:
+
+```powershell
+python -m scripts.ci_verify
+python -m scripts.benchmark_context
+```
+
+Kết quả nằm trong `output/aoce/` (không commit). Benchmark đo bytes trên ba snapshot synthetic mỗi cấu hình; không suy billed tokens/chi phí hoặc chất lượng model thật. Chưa bật scheduled/live-model CI; phiên đăng nhập AI local không tự có trên GitHub runner.
+
 ## Docker
 
 Docker/Compose là lựa chọn thêm, không bắt buộc. docker compose up --build mở API 8000 và web dev server 5173 theo cấu hình hiện có. Playwright image/runner và SQLite volume đã được cấu hình.

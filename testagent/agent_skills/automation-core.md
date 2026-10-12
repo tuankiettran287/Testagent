@@ -27,7 +27,7 @@ Before producing the answer, identify the requested deliverable, available evide
 
 Browser DSL: navigate, fill, click, check, select, assert_visible, assert_text, assert_url. A final automated browser case starts with navigate, owns its preparation/login, and contains an observable outcome assertion. Each target must match exactly one element. assert_text means substring containment; assert_url means the full resolved URL.
 
-Live exploration: at most eight decisions, six actions per decision; three failed action groups in total stop exploration. Reset clears browser session state, not server records. Final DSL: 1–50 actions per case.
+Live exploration: at most eight decisions, six actions per decision, and one recovery of a confirmed read/pre-action failure. The controller stops issuing calls after its configured deadline (at most 20 minutes); an in-flight call remains subject to its provider/runner timeout. Unknown mutation outcomes stop exploration for owned-record reconciliation; never repeat the write or use a browser reset as cleanup. Reset clears browser session state, not server records. Final DSL: 1–50 actions per case.
 
 API runner: one HTTP request per case and expected_status only. No response-body/schema assertions, request chaining, token capture, variable interpolation or fixture seeding. Generated unit code is reviewable and is not executed by TestAgent. Performance/security/exploratory roles produce analysis, not specialized execution.
 

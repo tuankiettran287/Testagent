@@ -9,6 +9,8 @@ from __future__ import annotations
 import argparse
 import ast
 import json
+import os
+import shutil
 import sys
 import tempfile
 import threading
@@ -72,6 +74,22 @@ class AgentChecks:
             self.stack.enter_context(patch.object(db, 'settings', config))
             self.stack.enter_context(patch.object(runner, 'settings', config))
             self.stack.enter_context(patch.object(planner, 'complete_json', side_effect=self.complete))
+            if os.getenv('TESTAGENT_EVIDENCE_DIR'):
+                def export_evidence():
+                    # Only this synthetic, credential-free status portal is exported.
+                    if not hasattr(self, 'project_id'):
+                        return
+                    destination = Path(os.environ['TESTAGENT_EVIDENCE_DIR']) / self.project_id
+                    destination.mkdir(parents=True, exist_ok=True)
+                    artifacts = config.data_dir / 'artifacts'
+                    if artifacts.is_dir():
+                        shutil.copytree(artifacts, destination / 'artifacts', dirs_exist_ok=True)
+                    report = {'project_id': self.project_id, 'synthetic_target': True,
+                              'cases': db.many('SELECT id, level, automation IS NOT NULL AS browser_case FROM test_cases WHERE project_id=?', (self.project_id,)),
+                              'runs': db.many('SELECT * FROM runs WHERE project_id=?', (self.project_id,)),
+                              'results': db.many('SELECT rr.* FROM run_results rr JOIN runs r ON r.id=rr.run_id WHERE r.project_id=?', (self.project_id,))}
+                    (destination / 'runs.json').write_text(json.dumps(report, indent=2), encoding='utf-8')
+                self.stack.callback(export_evidence)
             self.server = ThreadingHTTPServer(('127.0.0.1', 0), FixturePage)
             self.server.daemon_threads = True
             thread = threading.Thread(target=self.server.serve_forever, daemon=True)
