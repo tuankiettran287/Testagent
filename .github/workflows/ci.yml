@@ -73,6 +73,7 @@ jobs:
               }, indent=2))
           PY
       - name: Upload run evidence on success or failure
+        id: regression_evidence
         if: ${{ always() }}
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -80,6 +81,28 @@ jobs:
           path: output/aoce/ci/
           if-no-files-found: error
           retention-days: 7
+      - name: Add regression artifact download to job summary
+        if: ${{ always() }}
+        env:
+          REGRESSION_ARTIFACT_URL: ${{ steps.regression_evidence.outputs.artifact-url }}
+          REGRESSION_ARTIFACT_NAME: aoce-ci-${{ github.run_id }}-${{ github.run_attempt }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+          url = os.getenv('REGRESSION_ARTIFACT_URL', '')
+          name = os.environ['REGRESSION_ARTIFACT_NAME']
+          message = '\n### Regression report artifact\n\n'
+          if url:
+              message += f'[Download regression report: `{name}`]({url})\n\n'
+              message += ('Contains per-test results in `manifest.json`, JUnit (`junit.xml`), '
+                          '`unittest.log`, context benchmark and browser specs/traces/screenshots/videos.\n')
+          else:
+              message += 'Artifact upload did not complete. Inspect the **Upload run evidence on success or failure** step.\n'
+          with Path(os.environ['GITHUB_STEP_SUMMARY']).open('a', encoding='utf-8') as summary:
+              summary.write(message)
+          print(message)
+          PY
 
   agent_cases:
     name: Playwright - 30 functional cases
