@@ -49,6 +49,8 @@ Workflow `.github/workflows/ci.yml` chạy khi push `master`/`aoce/**`, PR và d
 
 Evidence artifact `aoce-ci-<run>-<attempt>` gồm code revision, trigger, timestamps, versions/instruction hashes, per-test results/durations, benchmark, và status-portal runs/results nối tới generated spec, screenshot, trace/video trước khi temporary fixture được xóa. Đây là dữ liệu synthetic không có live auth. Cleanup status theo fixture teardown; lỗi teardown cần review. Force cancellation/runner loss vẫn có thể mất evidence; always() không bảo đảm trong mọi sự cố.
 
+Trong **Build and regression checks summary**, link **Download regression report** nằm dưới kết quả unittest. Workflow lấy URL trực tiếp từ output `artifact-url` của bước upload sau khi upload hoàn tất; nếu upload không thành công, summary ghi rõ để kiểm tra bước upload. Artifact cũng hiển thị trong mục **Artifacts** của lượt CI, kể cả khi test fail. `manifest.json` liệt kê ID, trạng thái, thời gian và lỗi của từng test; `junit.xml` và `unittest.log` giữ kết quả chi tiết.
+
 Chưa bật schedule. Theo [GitHub workflow events](https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows), dispatch/schedule cần workflow trên default branch; push feature branch dùng để kiểm chứng CI ngay. Manual/push run không chứng minh scheduled trigger đã chạy. [GitHub artifacts](https://docs.github.com/en/actions/tutorials/store-and-share-data) là nguồn đối chiếu upload/retention. [Playwright retries](https://playwright.dev/docs/test-retries) là nguồn phân biệt first-pass/flaky; workflow không có automatic retry để che failure.
 
 ## Review, rủi ro và rollback
